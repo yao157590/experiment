@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Taste & Beverages — Culinary Web Awards</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght=0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
   <style>
     /* Inline adjustments to support the layout sections using your design language */
@@ -31,7 +31,7 @@
       left: 0;
     }
 
-    /* Custom Nominee Thumbnail Mappings */
+    /* Latest Nominees Thumbnail Styles */
     .thumb-bite {
       background-image: url('bites.jpeg');
       background-size: cover;
@@ -43,7 +43,7 @@
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
-      background-color: #ffffff; /* Clean backdrop for the logo badge */
+      background-color: #ffffff;
       width: 100%; height: 100%;
     }
     .thumb-bean {
@@ -54,6 +54,32 @@
     }
     .thumb-vine {
       background-image: url('wine.webp');
+      background-size: cover;
+      background-position: center;
+      width: 100%; height: 100%;
+    }
+
+    /* Recent Winners Thumbnail Styles */
+    .thumb-zest {
+      background-image: url('cocktail.webp');
+      background-size: cover;
+      background-position: center;
+      width: 100%; height: 100%;
+    }
+    .thumb-amber {
+      background-image: url('Amber.jpeg');
+      background-size: cover;
+      background-position: center;
+      width: 100%; height: 100%;
+    }
+    .thumb-ferm {
+      background-image: url('flow.jpeg');
+      background-size: cover;
+      background-position: center;
+      width: 100%; height: 100%;
+    }
+    .thumb-moss {
+      background-image: url('moss.gif');
       background-size: cover;
       background-position: center;
       width: 100%; height: 100%;
@@ -189,8 +215,13 @@
     <a href="top-restaurants.html" class="section-link">View Winners →</a>
   </div>
   <div class="nominees-grid">
+    
     <a href="cyan.html" class="card reveal" style="text-decoration: none; color: inherit; display: block;">
-      <div class="card-thumb"><div class="card-thumb-inner thumb-5"><div class="thumb-pattern">ZEST</div></div></div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner">
+          <div class="thumb-zest"></div>
+        </div>
+      </div>
       <div class="card-body">
         <div class="card-category">App · Mixology</div>
         <div class="card-title">Cyan Cocktails Platform</div>
@@ -200,7 +231,11 @@
     </a>
     
     <div class="card reveal">
-      <div class="card-thumb"><div class="card-thumb-inner thumb-6"><div class="thumb-pattern">AMBAR</div></div></div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner">
+          <div class="thumb-amber"></div>
+        </div>
+      </div>
       <div class="card-body">
         <div class="card-category">Grill · Experience</div>
         <div class="card-title">Ambar — Fire & Flavour</div>
@@ -208,8 +243,13 @@
       </div>
       <div class="card-footer"><div class="card-score">9.12</div><div class="card-tags"><span class="tag">SOTD</span></div></div>
     </div>
+    
     <div class="card reveal">
-      <div class="card-thumb"><div class="card-thumb-inner thumb-7"><div class="thumb-pattern">FERM</div></div></div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner">
+          <div class="thumb-ferm"></div>
+        </div>
+      </div>
       <div class="card-body">
         <div class="card-category">Beverage · Experimental</div>
         <div class="card-title">Flowstate — Kombucha Lab</div>
@@ -217,10 +257,11 @@
       </div>
       <div class="card-footer"><div class="card-score">8.67</div><div class="card-tags"><span class="tag">SOTD</span></div></div>
     </div>
+    
     <a href="mossfield.html" class="card reveal" style="text-decoration: none; color: inherit; display: block;">
       <div class="card-thumb">
-        <div class="card-thumb-inner thumb-8">
-          <div class="thumb-pattern">MOSS</div>
+        <div class="card-thumb-inner">
+          <div class="thumb-moss"></div>
         </div>
       </div>
       <div class="card-body">
