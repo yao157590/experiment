@@ -1,12 +1,991 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>My Website</title>
-  </head>
-  <body>
-    <h1>Hello, World!</h1>
-    <p>Welcome to my website.</p>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DesignVault — Web Design Awards</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --surface2: #181818;
+      --border: #222222;
+      --accent: #e8ff47;
+      --accent2: #ff4747;
+      --text: #f0f0f0;
+      --muted: #666666;
+      --muted2: #444444;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      cursor: none;
+      overflow-x: hidden;
+    }
+
+    /* Custom cursor */
+    #cursor {
+      width: 12px; height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, background 0.2s;
+      mix-blend-mode: difference;
+    }
+    #cursor.expand {
+      width: 48px; height: 48px;
+      background: var(--accent);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2rem;
+      height: 56px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.1em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-right {
+      display: flex; gap: 1rem; align-items: center;
+    }
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 0.4rem 1rem;
+      border-radius: 2px;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    .btn-solid {
+      background: var(--accent);
+      color: #000;
+      padding: 0.4rem 1.1rem;
+      border-radius: 2px;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+    .btn-solid:hover { opacity: 0.85; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      padding-top: 56px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 4rem 3rem 4rem 2rem;
+      border-right: 1px solid var(--border);
+      position: relative;
+    }
+
+    .sotd-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .sotd-label::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: inline-block;
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 8vw, 9rem);
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+    .hero-title .line {
+      display: block;
+      transform: translateY(110%);
+      animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .hero-title .line:nth-child(2) { animation-delay: 0.1s; }
+    .hero-title .line:nth-child(3) { animation-delay: 0.2s; color: var(--accent); }
+    @keyframes slideUp {
+      to { transform: translateY(0); }
+    }
+
+    .hero-meta {
+      display: flex; gap: 2rem; align-items: center;
+    }
+    .score-badge {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 0.6rem 1rem;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .score-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .score-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .hero-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 280px;
+    }
+
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-image {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(20%);
+      transition: transform 6s ease, filter 0.4s;
+    }
+    .hero-right:hover .hero-image { transform: scale(1.04); filter: grayscale(0%); }
+
+    .hero-image-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.7) 0%, transparent 50%);
+      pointer-events: none;
+    }
+    .hero-image-label {
+      position: absolute; bottom: 2rem; left: 2rem; right: 2rem;
+      display: flex; align-items: flex-end; justify-content: space-between;
+    }
+    .site-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.05em;
+    }
+    .visit-btn {
+      background: var(--accent);
+      color: #000;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.6rem 1.2rem;
+      text-decoration: none;
+      font-weight: 500;
+      border-radius: 1px;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .visit-btn:hover { transform: translateY(-2px); opacity: 0.9; }
+
+    /* Fake hero image using CSS */
+    .hero-fake-img {
+      width: 100%; height: 100%; min-height: 60vh;
+      background:
+        linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 70%, #533483 100%);
+      position: relative;
+      overflow: hidden;
+      transition: filter 0.4s;
+    }
+    .hero-right:hover .hero-fake-img { filter: brightness(1.1); }
+    .hero-fake-img::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 30%, rgba(232,255,71,0.15) 0%, transparent 60%);
+    }
+    .hero-fake-img-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .hero-fake-img-text {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 5rem;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.08);
+      white-space: nowrap;
+      user-select: none;
+    }
+    .hero-fake-img-circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(232,255,71,0.2);
+    }
+    .c1 { width: 300px; height: 300px; top: 10%; right: 10%; animation: rotate 20s linear infinite; }
+    .c2 { width: 180px; height: 180px; bottom: 20%; left: 20%; animation: rotate 15s linear infinite reverse; }
+    .c3 { width: 80px; height: 80px; top: 30%; left: 30%; background: rgba(232,255,71,0.1); animation: rotate 10s linear infinite; }
+    @keyframes rotate { to { transform: rotate(360deg); } }
+
+    /* ── TICKER ── */
+    .ticker {
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+      height: 38px;
+      display: flex; align-items: center;
+      background: var(--surface);
+    }
+    .ticker-inner {
+      display: flex;
+      white-space: nowrap;
+      animation: ticker 30s linear infinite;
+    }
+    .ticker-item {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0 2.5rem;
+      display: flex; align-items: center; gap: 0.8rem;
+    }
+    .ticker-item span { color: var(--accent); }
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header {
+      display: flex; align-items: baseline; justify-content: space-between;
+      padding: 2.5rem 2rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      letter-spacing: 0.04em;
+    }
+    .section-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .section-link:hover { color: var(--accent); }
+
+    /* ── GRID ── */
+    .nominees-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card {
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      position: relative;
+      cursor: none;
+    }
+    .card:nth-child(4n) { border-right: none; }
+
+    .card-thumb {
+      width: 100%; aspect-ratio: 4/3;
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-thumb-inner {
+      width: 100%; height: 100%;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .card:hover .card-thumb-inner { transform: scale(1.06); }
+
+    /* Colored placeholder thumbnails */
+    .thumb-1 { background: linear-gradient(135deg, #1a0533, #6b21a8); }
+    .thumb-2 { background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); }
+    .thumb-3 { background: linear-gradient(135deg, #1a1a0a, #4a4a00); }
+    .thumb-4 { background: linear-gradient(135deg, #1a0000, #6b0000); }
+    .thumb-5 { background: linear-gradient(135deg, #001a1a, #006b6b); }
+    .thumb-6 { background: linear-gradient(135deg, #1a0a00, #6b3300); }
+    .thumb-7 { background: linear-gradient(135deg, #000d1a, #00336b); }
+    .thumb-8 { background: linear-gradient(135deg, #0d1a00, #336b00); }
+
+    .thumb-pattern {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      color: rgba(255,255,255,0.07);
+      letter-spacing: 0.15em;
+    }
+
+    .card-body {
+      padding: 1rem 1.2rem 1.2rem;
+    }
+    .card-category {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+    .card-title {
+      font-weight: 500;
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+      line-height: 1.3;
+    }
+    .card-author {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .card-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.6rem 1.2rem;
+      border-top: 1px solid var(--border);
+    }
+    .card-score {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      color: var(--accent);
+    }
+    .card-tags {
+      display: flex; gap: 0.4rem;
+    }
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      padding: 0.15rem 0.5rem;
+      color: var(--muted2);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .card:hover .tag { border-color: var(--muted2); color: var(--muted); }
+
+    .card-hover-overlay {
+      position: absolute; inset: 0;
+      background: rgba(232,255,71,0.03);
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+    .card:hover .card-hover-overlay { opacity: 1; }
+
+    /* ── STATS ROW ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 1px solid var(--border);
+    }
+    .stat-cell {
+      padding: 2.5rem 2rem;
+      border-right: 1px solid var(--border);
+    }
+    .stat-cell:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem;
+      line-height: 1;
+      color: var(--text);
+      display: flex; align-items: baseline; gap: 0.3rem;
+    }
+    .stat-num sup { font-size: 1.5rem; color: var(--accent); font-family: 'DM Mono', monospace; }
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+
+    /* ── FEATURED ROW ── */
+    .featured-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+    .featured-main {
+      border-right: 1px solid var(--border);
+      overflow: hidden;
+      position: relative;
+    }
+    .featured-thumb {
+      width: 100%; aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #0a0a1a 0%, #1a0a3a 50%, #3a0a5a 100%);
+      position: relative;
+      overflow: hidden;
+      transition: filter 0.4s;
+    }
+    .featured-main:hover .featured-thumb { filter: brightness(1.1); }
+    .featured-thumb-pattern {
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(232,255,71,0.15) 1px, transparent 1px);
+      background-size: 30px 30px;
+    }
+    .featured-info {
+      padding: 1.5rem 2rem;
+      display: flex; align-items: flex-start; justify-content: space-between;
+    }
+    .featured-tag {
+      background: var(--accent);
+      color: #000;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.7rem;
+      font-weight: 500;
+    }
+    .featured-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      margin: 0.6rem 0 0.4rem;
+      letter-spacing: 0.03em;
+    }
+    .featured-meta { font-size: 0.8rem; color: var(--muted); }
+
+    .featured-side {
+      display: flex; flex-direction: column;
+    }
+    .side-card {
+      flex: 1;
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex; gap: 1rem;
+      transition: background 0.2s;
+    }
+    .side-card:last-child { border-bottom: none; }
+    .side-card:hover { background: var(--surface); }
+    .side-thumb {
+      width: 80px; height: 60px;
+      flex-shrink: 0;
+      border-radius: 1px;
+      overflow: hidden;
+    }
+    .side-thumb-inner {
+      width: 100%; height: 100%;
+      transition: transform 0.4s;
+    }
+    .side-card:hover .side-thumb-inner { transform: scale(1.1); }
+    .s1 { background: linear-gradient(135deg, #0f2027, #2c5364); }
+    .s2 { background: linear-gradient(135deg, #4a0000, #8b0000); }
+    .s3 { background: linear-gradient(135deg, #003300, #006600); }
+    .side-info { flex: 1; }
+    .side-category {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.3rem;
+    }
+    .side-title { font-size: 0.9rem; font-weight: 500; line-height: 1.3; }
+    .side-score {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      color: var(--accent);
+      margin-top: 0.4rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 2rem;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+    }
+    .footer-brand {}
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .footer-logo span { color: var(--accent); }
+    .footer-tagline { font-size: 0.85rem; color: var(--muted); line-height: 1.6; max-width: 240px; }
+    .footer-col-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 0.7rem; }
+    .footer-links a {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding: 1.2rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-copy {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    /* ── ANIMATIONS ON SCROLL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .nominees-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .featured-row { grid-template-columns: 1fr; }
+      footer { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 540px) {
+      .nominees-grid { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      footer { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Design<span>Vault</span></a>
+    <ul class="nav-links">
+      <li><a href="#">Explore</a></li>
+      <li><a href="#">Nominees</a></li>
+      <li><a href="#">Collections</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Jobs</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="#" class="btn-outline">Log in</a>
+      <a href="#" class="btn-solid">Submit</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="sotd-label">Site of the Day — June 8, 2026</div>
+      <h1 class="hero-title">
+        <span class="line">SITE</span>
+        <span class="line">OF THE</span>
+        <span class="line">DAY</span>
+      </h1>
+      <div class="hero-meta">
+        <div class="score-badge">
+          <div class="score-num">9.4</div>
+          <div class="score-label">Score</div>
+        </div>
+        <p class="hero-desc">Recognising and promoting the talent and effort of the best developers, designers and web agencies in the world.</p>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-fake-img">
+        <div class="hero-fake-img-grid"></div>
+        <div class="hero-fake-img-text">STUDIO</div>
+        <div class="hero-fake-img-circle c1"></div>
+        <div class="hero-fake-img-circle c2"></div>
+        <div class="hero-fake-img-circle c3"></div>
+      </div>
+      <div class="hero-image-overlay"></div>
+      <div class="hero-image-label">
+        <span class="site-name">Noir Studio</span>
+        <a href="#" class="visit-btn">Visit Site →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-inner">
+      <span class="ticker-item"><span>New</span> 3D Immersive Experience · Luminary Studio</span>
+      <span class="ticker-item"><span>Nominee</span> Kinetic Typography · Waveform</span>
+      <span class="ticker-item"><span>Hon. Mention</span> E-commerce Redesign · Luxe Goods</span>
+      <span class="ticker-item"><span>New</span> WebGL Particle System · Nebula Labs</span>
+      <span class="ticker-item"><span>Nominee</span> Interactive Data Viz · Datastruct</span>
+      <span class="ticker-item"><span>New</span> 3D Immersive Experience · Luminary Studio</span>
+      <span class="ticker-item"><span>Nominee</span> Kinetic Typography · Waveform</span>
+      <span class="ticker-item"><span>Hon. Mention</span> E-commerce Redesign · Luxe Goods</span>
+      <span class="ticker-item"><span>New</span> WebGL Particle System · Nebula Labs</span>
+      <span class="ticker-item"><span>Nominee</span> Interactive Data Viz · Datastruct</span>
+    </div>
+  </div>
+
+  <!-- NOMINEES GRID -->
+  <div class="section-header reveal">
+    <h2 class="section-title">Latest Nominees</h2>
+    <a href="#" class="section-link">View All →</a>
+  </div>
+  <div class="nominees-grid">
+    <!-- Card 1 -->
+    <div class="card reveal">
+      <div class="card-hover-overlay"></div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner thumb-1">
+          <div class="thumb-pattern">VOID</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">Portfolio · 3D</div>
+        <div class="card-title">Void Studio — Creative Lab</div>
+        <div class="card-author">by voidcreative</div>
+      </div>
+      <div class="card-footer">
+        <div class="card-score">8.92</div>
+        <div class="card-tags"><span class="tag">WebGL</span><span class="tag">GSAP</span></div>
+      </div>
+    </div>
+    <!-- Card 2 -->
+    <div class="card reveal">
+      <div class="card-hover-overlay"></div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner thumb-2">
+          <div class="thumb-pattern">DEEP</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">Agency · Branding</div>
+        <div class="card-title">Deepwater Agency — Digital</div>
+        <div class="card-author">by deepwater</div>
+      </div>
+      <div class="card-footer">
+        <div class="card-score">8.74</div>
+        <div class="card-tags"><span class="tag">React</span><span class="tag">Three</span></div>
+      </div>
+    </div>
+    <!-- Card 3 -->
+    <div class="card reveal">
+      <div class="card-hover-overlay"></div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner thumb-3">
+          <div class="thumb-pattern">GILD</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">E-Commerce · Luxury</div>
+        <div class="card-title">Gilded — Bespoke Jewellery</div>
+        <div class="card-author">by gildedco</div>
+      </div>
+      <div class="card-footer">
+        <div class="card-score">9.01</div>
+        <div class="card-tags"><span class="tag">Shopify</span><span class="tag">Motion</span></div>
+      </div>
+    </div>
+    <!-- Card 4 -->
+    <div class="card reveal">
+      <div class="card-hover-overlay"></div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner thumb-4">
+          <div class="thumb-pattern">MARS</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">Architecture · Portfolio</div>
+        <div class="card-title">Mars + Arch — Spatial Design</div>
+        <div class="card-author">by marsarch</div>
+      </div>
+      <div class="card-footer">
+        <div class="card-score">8.55</div>
+        <div class="card-tags"><span class="tag">Next.js</span></div>
+      </div>
+    </div>
+    <!-- Card 5 -->
+    <div class="card reveal">
+      <div class="card-hover-overlay"></div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner thumb-5">
+          <div class="thumb-pattern">CYAN</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">SaaS · UI Design</div>
+        <div class="card-title">Cyan Analytics Platform</div>
+        <div class="card-author">by cyanlab</div>
+      </div>
+      <div class="card-footer">
+        <div class="card-score">8.88</div>
+        <div class="card-tags"><span class="tag">SVG</span><span class="tag">D3</span></div>
+      </div>
+    </div>
+    <!-- Card 6 -->
+    <div class="card reveal">
+      <div class="card-hover-overlay"></div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner thumb-6">
+          <div class="thumb-pattern">AMBAR</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">Restaurant · Experience</div>
+        <div class="card-title">Ambar — Fire & Flavour</div>
+        <div class="card-author">by ambargroup</div>
+      </div>
+      <div class="card-footer">
+        <div class="card-score">9.12</div>
+        <div class="card-tags"><span class="tag">Webflow</span></div>
+      </div>
+    </div>
+    <!-- Card 7 -->
+    <div class="card reveal">
+      <div class="card-hover-overlay"></div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner thumb-7">
+          <div class="thumb-pattern">FLOW</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">Motion · Experimental</div>
+        <div class="card-title">Flowstate — Motion Lab</div>
+        <div class="card-author">by flowstate</div>
+      </div>
+      <div class="card-footer">
+        <div class="card-score">8.67</div>
+        <div class="card-tags"><span class="tag">GSAP</span><span class="tag">CSS</span></div>
+      </div>
+    </div>
+    <!-- Card 8 -->
+    <div class="card reveal">
+      <div class="card-hover-overlay"></div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner thumb-8">
+          <div class="thumb-pattern">MOSS</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">Environment · Non-profit</div>
+        <div class="card-title">Mossfield — Climate Fund</div>
+        <div class="card-author">by mossfield</div>
+      </div>
+      <div class="card-footer">
+        <div class="card-score">8.44</div>
+        <div class="card-tags"><span class="tag">Framer</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-cell reveal">
+      <div class="stat-num">7,200<sup>+</sup></div>
+      <div class="stat-label">Websites awarded</div>
+    </div>
+    <div class="stat-cell reveal">
+      <div class="stat-num">290<sup>+</sup></div>
+      <div class="stat-label">Countries represented</div>
+    </div>
+    <div class="stat-cell reveal">
+      <div class="stat-num">2.4<sup>M</sup></div>
+      <div class="stat-label">Monthly visitors</div>
+    </div>
+    <div class="stat-cell reveal">
+      <div class="stat-num">300<sup>+</sup></div>
+      <div class="stat-label">Jury members</div>
+    </div>
+  </div>
+
+  <!-- FEATURED -->
+  <div class="section-header reveal">
+    <h2 class="section-title">Editor's Picks</h2>
+    <a href="#" class="section-link">See All →</a>
+  </div>
+  <div class="featured-row">
+    <div class="featured-main reveal">
+      <div class="featured-thumb">
+        <div class="featured-thumb-pattern"></div>
+      </div>
+      <div class="featured-info">
+        <div>
+          <span class="featured-tag">Site of the Month</span>
+          <h3 class="featured-title">Luminary — The Future of Digital Craft</h3>
+          <p class="featured-meta">by luminarystudio · WebGL · Immersive</p>
+        </div>
+        <div class="score-badge" style="margin-left:2rem;flex-shrink:0;">
+          <div class="score-num">9.7</div>
+          <div class="score-label">Score</div>
+        </div>
+      </div>
+    </div>
+    <div class="featured-side">
+      <div class="side-card reveal">
+        <div class="side-thumb"><div class="side-thumb-inner s1"></div></div>
+        <div class="side-info">
+          <div class="side-category">Interaction Design</div>
+          <div class="side-title">Waveform — Sound Meets Visual</div>
+          <div class="side-score">9.2</div>
+        </div>
+      </div>
+      <div class="side-card reveal">
+        <div class="side-thumb"><div class="side-thumb-inner s2"></div></div>
+        <div class="side-info">
+          <div class="side-category">Fashion · Editorial</div>
+          <div class="side-title">Rouge Maison — Haute Couture</div>
+          <div class="side-score">9.0</div>
+        </div>
+      </div>
+      <div class="side-card reveal">
+        <div class="side-thumb"><div class="side-thumb-inner s3"></div></div>
+        <div class="side-info">
+          <div class="side-category">Environment · Data</div>
+          <div class="side-title">EcoVis — Climate Data Made Beautiful</div>
+          <div class="side-score">8.8</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">
+      <span class="footer-logo">Design<span>Vault</span></span>
+      <p class="footer-tagline">Recognising and promoting the world's finest creative web work since 2024.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Awards</div>
+      <ul class="footer-links">
+        <li><a href="#">Site of the Day</a></li>
+        <li><a href="#">Nominees</a></li>
+        <li><a href="#">Hon. Mentions</a></li>
+        <li><a href="#">Annual Awards</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Explore</div>
+      <ul class="footer-links">
+        <li><a href="#">Collections</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Jobs</a></li>
+        <li><a href="#">Directory</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Submit a Site</a></li>
+        <li><a href="#">Advertise</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 DesignVault. All rights reserved.</span>
+    <span class="footer-copy">Privacy · Terms · Cookies</span>
+  </div>
+
+  <script>
+    // Custom cursor
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button, .card, .side-card').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 60);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+  </script>
+</body>
 </html>
