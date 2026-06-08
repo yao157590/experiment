@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mossfield Organic Farms — Taste Awards</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* Specific styles for the project detail layout */
+    .project-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 1px solid var(--color-border);
+    }
+    .meta-item {
+      padding: var(--space-xl) var(--space-lg);
+      border-right: 1px solid var(--color-border);
+    }
+    .meta-item:last-child { border-right: none; }
+    .meta-label {
+      font-family: 'DM Mono', monospace;
+      font-size: var(--text-label);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      margin-bottom: var(--space-xs);
+    }
+    .meta-value {
+      font-size: var(--text-body-lg);
+      font-weight: 500;
+      color: var(--color-ink);
+    }
+    .project-description {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: var(--space-2xl) var(--space-lg);
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--color-muted);
+      text-align: center;
+    }
+    
+    @media (max-width: 900px) {
+      .project-meta-grid { grid-template-columns: repeat(2, 1fr); }
+      .meta-item:nth-child(2) { border-right: none; }
+      .meta-item:nth-child(3) { border-bottom: none; }
+    }
+    @media (max-width: 540px) {
+      .project-meta-grid { grid-template-columns: 1fr; }
+      .meta-item { border-right: none !important; border-bottom: 1px solid var(--color-border); }
+      .meta-item:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Taste<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="explore.html">Explore</a></li>
+      <li><a href="#">Winners</a></li>
+      <li><a href="#">Academy</a></li>
+      <li><a href="#">Collections</a></li>
+      <li><a href="#">Directory</a></li>
+      <li><a href="#">Market</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="#" class="btn-outline">Log in</a>
+      <a href="#" class="btn-solid">Submit</a>
+    </div>
+  </nav>
+
+  <section class="hero" style="min-height: 80vh;">
+    <div class="hero-left">
+      <div class="sotd-label">Site of the Day Winner</div>
+      <h1 class="hero-title">
+        <span class="line">MOSSFIELD</span>
+        <span class="line">FARMS</span>
+      </h1>
+      <div class="hero-meta">
+        <div class="score-badge">
+          <div class="score-num">8.44</div>
+          <div class="score-label">Score</div>
+        </div>
+        <p class="hero-desc">A digital journey into sustainable agriculture, showcasing the beauty of organic farming through immersive storytelling and Framer-powered interactions.</p>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-fake-img thumb-8" style="min-height: 100vh;">
+        <div class="thumb-pattern" style="font-size: 8rem; opacity: 0.1;">MOSS</div>
+      </div>
+      <div class="hero-image-overlay"></div>
+      <div class="hero-image-label">
+        <span class="site-name">View Live Site</span>
+        <a href="#" class="visit-btn">Visit →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="project-meta-grid reveal">
+    <div class="meta-item">
+      <div class="meta-label">Agency</div>
+      <div class="meta-value">Studio Mossfield</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Client</div>
+      <div class="meta-value">Mossfield Non-Profit</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Location</div>
+      <div class="meta-value">Portland, OR</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Technologies</div>
+      <div class="meta-value">Framer, React, GSAP</div>
+    </div>
+  </div>
+
+  <div class="project-description reveal">
+    <p style="margin-bottom: 1.5rem;"><strong>Cultivating Digital Roots:</strong> The Mossfield Organic Farms website was designed to bridge the gap between rural agriculture and urban consumers. Studio Mossfield utilized an earthy color palette and fluid, organic scrolling animations to mimic the natural rhythms of the seasons.</p>
+    <p>By leveraging Framer's powerful component system, the team created a seamless, non-profit digital experience that educates users on regenerative farming practices while driving community supported agriculture (CSA) sign-ups.</p>
+  </div>
+
+  <div class="section-header reveal">
+    <h2 class="section-title">Project Highlights</h2>
+  </div>
+  <div class="nominees-grid">
+    <div class="card reveal" style="border: 1px solid var(--color-border); border-top: none;">
+      <div class="card-thumb">
+        <div class="card-thumb-inner" style="background: linear-gradient(135deg, #1a2e1a, #2e4a2e);">
+          <div class="thumb-pattern">SOIL</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">Feature</div>
+        <div class="card-title">Regenerative Soil Diagrams</div>
+        <p style="color: var(--color-muted); font-size: var(--text-body-sm); margin-top: 0.5rem;">Interactive SVG animations explaining the carbon sequestration process.</p>
+      </div>
+    </div>
+    
+    <div class="card reveal" style="border: 1px solid var(--color-border); border-top: none;">
+      <div class="card-thumb">
+        <div class="card-thumb-inner" style="background: linear-gradient(135deg, #2e4a2e, #4a6b4a);">
+          <div class="thumb-pattern">GROW</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">UX/UI</div>
+        <div class="card-title">Seasonal Harvest Calendar</div>
+        <p style="color: var(--color-muted); font-size: var(--text-body-sm); margin-top: 0.5rem;">A dynamic, drag-to-scroll calendar showing crop availability.</p>
+      </div>
+    </div>
+    
+    <div class="card reveal" style="border: 1px solid var(--color-border); border-top: none;">
+      <div class="card-thumb">
+        <div class="card-thumb-inner" style="background: linear-gradient(135deg, #3a5a3a, #5a8a5a);">
+          <div class="thumb-pattern">CSA</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">E-Commerce</div>
+        <div class="card-title">Community Box Sign-up</div>
+        <div style="color: var(--color-muted); font-size: var(--text-body-sm); margin-top: 0.5rem;">Frictionless, multi-step checkout flow for weekly vegetable boxes.</div>
+      </div>
+    </div>
+
+    <div class="card reveal" style="border: 1px solid var(--color-border); border-top: none;">
+      <div class="card-thumb">
+        <div class="card-thumb-inner" style="background: linear-gradient(135deg, #0d1a0d, #1a2e1a);">
+          <div class="thumb-pattern">ROOT</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">Editorial</div>
+        <div class="card-title">The Farmer's Journal</div>
+        <p style="color: var(--color-muted); font-size: var(--text-body-sm); margin-top: 0.5rem;">A rich-text CMS blog featuring stories directly from the farm hands.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-brand">
+      <span class="footer-logo">Taste<span>.</span></span>
+      <p class="footer-tagline">Recognising and promoting the world's finest culinary web experiences since 2024.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Awards</div>
+      <ul class="footer-links">
+        <li><a href="#">Menu of the Day</a></li>
+        <li><a href="#">Nominees</a></li>
+        <li><a href="#">Hon. Mentions</a></li>
+        <li><a href="#">Michelin Digital</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Explore</div>
+      <ul class="footer-links">
+        <li><a href="#">Collections</a></li>
+        <li><a href="#">Academy</a></li>
+        <li><a href="#">Market</a></li>
+        <li><a href="#">Directory</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <ul class="footer-links">
+        <li><a href="#">About</a></li>
+        <li><a href="#">Submit a Menu</a></li>
+        <li><a href="#">Advertise</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Taste & Beverages. All rights reserved.</span>
+    <span class="footer-copy">Privacy · Terms · Cookies</span>
+  </div>
+
+  <script>
+    // Custom cursor logic
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button, .card').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+    });
+
+    // Scroll reveal logic
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 60);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+  </script>
+</body>
+</html>
