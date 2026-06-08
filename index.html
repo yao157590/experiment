@@ -9,15 +9,15 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0a0a0a;
-      --surface: #111111;
-      --surface2: #181818;
-      --border: #222222;
-      --accent: #e8ff47;
+      --bg: #ffffff;
+      --surface: #f5f5f5;
+      --surface2: #eeeeee;
+      --border: #dddddd;
+      --accent: #111111;
       --accent2: #ff4747;
-      --text: #f0f0f0;
-      --muted: #666666;
-      --muted2: #444444;
+      --text: #111111;
+      --muted: #888888;
+      --muted2: #aaaaaa;
     }
 
     html { scroll-behavior: smooth; }
@@ -34,9 +34,7 @@
     /* Custom cursor */
     #cursor {
       width: 12px; height: 12px;
-      background: var(--accent);
-      border-radius: 50%;
-      position: fixed;
+      background: #111111;
       pointer-events: none;
       z-index: 9999;
       transform: translate(-50%, -50%);
@@ -45,13 +43,13 @@
     }
     #cursor.expand {
       width: 48px; height: 48px;
-      background: var(--accent);
+      background: #111111;
     }
 
     /* Scrollbar */
     ::-webkit-scrollbar { width: 3px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--accent); }
+    ::-webkit-scrollbar-thumb { background: #e8333a; }
 
     /* ── NAV ── */
     nav {
@@ -61,7 +59,7 @@
       padding: 0 2rem;
       height: 56px;
       border-bottom: 1px solid var(--border);
-      background: rgba(10,10,10,0.92);
+      background: rgba(255,255,255,0.92);
       backdrop-filter: blur(12px);
     }
 
@@ -102,11 +100,11 @@
       text-decoration: none;
       transition: border-color 0.2s, color 0.2s;
     }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-outline:hover { border-color: #111; color: #111; }
 
     .btn-solid {
-      background: var(--accent);
-      color: #000;
+      background: #111111;
+      color: #ffffff;
       padding: 0.4rem 1.1rem;
       border-radius: 2px;
       font-size: 0.75rem;
@@ -147,10 +145,7 @@
     .sotd-label::before {
       content: '';
       width: 6px; height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-      display: inline-block;
-      animation: pulse 1.8s infinite;
+      background: #e8333a;
     }
     @keyframes pulse {
       0%,100% { opacity: 1; transform: scale(1); }
@@ -171,7 +166,6 @@
       animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
     .hero-title .line:nth-child(2) { animation-delay: 0.1s; }
-    .hero-title .line:nth-child(3) { animation-delay: 0.2s; color: var(--accent); }
     @keyframes slideUp {
       to { transform: translateY(0); }
     }
@@ -188,10 +182,7 @@
     .score-num {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 1.8rem;
-      color: var(--accent);
-      line-height: 1;
-    }
-    .score-label {
+      color: #e8333a;
       font-family: 'DM Mono', monospace;
       font-size: 0.6rem;
       letter-spacing: 0.1em;
@@ -233,8 +224,8 @@
       letter-spacing: 0.05em;
     }
     .visit-btn {
-      background: var(--accent);
-      color: #000;
+      background: #111111;
+      color: #ffffff;
       font-family: 'DM Mono', monospace;
       font-size: 0.7rem;
       letter-spacing: 0.1em;
@@ -337,7 +328,7 @@
       text-decoration: none;
       transition: color 0.2s;
     }
-    .section-link:hover { color: var(--accent); }
+    .section-link:hover { color: #e8333a; }
 
     /* ── GRID ── */
     .nominees-grid {
@@ -415,7 +406,7 @@
     .card-score {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 1.1rem;
-      color: var(--accent);
+      color: #e8333a;
     }
     .card-tags {
       display: flex; gap: 0.4rem;
@@ -459,7 +450,7 @@
       color: var(--text);
       display: flex; align-items: baseline; gap: 0.3rem;
     }
-    .stat-num sup { font-size: 1.5rem; color: var(--accent); font-family: 'DM Mono', monospace; }
+    .stat-num sup { font-size: 1.5rem; color: #e8333a; font-family: 'DM Mono', monospace; }
     .stat-label {
       font-family: 'DM Mono', monospace;
       font-size: 0.68rem;
@@ -498,8 +489,8 @@
       display: flex; align-items: flex-start; justify-content: space-between;
     }
     .featured-tag {
-      background: var(--accent);
-      color: #000;
+      background: #111111;
+      color: #ffffff;
       font-family: 'DM Mono', monospace;
       font-size: 0.62rem;
       letter-spacing: 0.1em;
@@ -554,7 +545,7 @@
     .side-score {
       font-family: 'Bebas Neue', sans-serif;
       font-size: 1rem;
-      color: var(--accent);
+      color: #e8333a;
       margin-top: 0.4rem;
     }
 
@@ -574,7 +565,7 @@
       margin-bottom: 1rem;
       display: block;
     }
-    .footer-logo span { color: var(--accent); }
+    .footer-logo span { color: #e8333a; }
     .footer-tagline { font-size: 0.85rem; color: var(--muted); line-height: 1.6; max-width: 240px; }
     .footer-col-title {
       font-family: 'DM Mono', monospace;
