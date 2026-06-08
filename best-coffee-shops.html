@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Global Coffee Vanguard — Editorial Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght=0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* Minimalist Editorial Text-Only Layout */
+    body {
+      background-color: var(--color-bg, #ffffff);
+      color: var(--color-ink, #111111);
+      padding: 0;
+      margin: 0;
+    }
+    .editorial-container {
+      max-width: 750px;
+      margin: 0 auto;
+      padding: var(--space-2xl) var(--space-lg);
+    }
+    .meta-prefix {
+      font-family: 'DM Mono', monospace;
+      font-size: var(--text-label);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-muted);
+      margin-bottom: var(--space-xs);
+    }
+    .main-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4.5rem;
+      line-height: 0.95;
+      letter-spacing: 0.01em;
+      margin: 0 0 var(--space-md) 0;
+    }
+    .intro-paragraph {
+      font-size: var(--text-body-lg);
+      line-height: 1.6;
+      color: var(--color-muted);
+      margin-bottom: var(--space-2xl);
+    }
+    .shop-section {
+      margin-bottom: var(--space-2xl);
+    }
+    .shop-header {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--text-title);
+      letter-spacing: 0.02em;
+      margin-top: 0;
+      margin-bottom: 4px;
+    }
+    .shop-location {
+      font-family: 'DM Mono', monospace;
+      font-size: var(--text-body-xs);
+      color: var(--color-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: var(--space-sm);
+    }
+    .shop-description {
+      font-size: var(--text-body-md);
+      line-height: 1.8;
+      color: var(--color-ink);
+      text-align: justify;
+      margin: 0;
+    }
+    .divider-line {
+      height: 1px;
+      background-color: var(--color-border);
+      margin: var(--space-xl) 0;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <main class="editorial-container">
+    
+    <header class="reveal">
+      <div class="meta-prefix">Global Compendium</div>
+      <h1 class="main-title">ARCHITECTS OF COFFEE CULTURE</h1>
+      <p class="intro-paragraph">
+        An investigation into the foundational institutions redefining sourcing transparency, technical extraction accuracy, and community cultivation across the international coffee landscape.
+      </p>
+    </header>
+
+    <hr class="divider-line" />
+
+    <section class="shop-section reveal">
+      <h2 class="shop-header">Fuglen</h2>
+      <div class="shop-location">Oslo, Norway · Tokyo, Japan</div>
+      <p class="shop-description">
+        Operating as an elite boutique roaster by day and an avant-garde cocktail lounge by night, Fuglen preserves the delicate light-roast profile distinct to traditional Scandinavian sourcing methods. Their processing matrix highlights the intense, intrinsic fruit acidity and transparent floral notes of single-origin heirloom coffees, treating raw lots with a level of purity akin to fine wine production.
+      </p>
+    </section>
+
+    <section class="shop-section reveal">
+      <h2 class="shop-header">Monmouth Coffee Company</h2>
+      <div class="shop-location">London, United Kingdom</div>
+      <p class="shop-description">
+        A monumental pillar in Europe's specialty movement, Monmouth has been sourcing sustainable green coffees directly from cooperative mills and independent farmers since 1978. Their brick-and-mortar operations emphasize relationship-based supply models and unparalleled quality consistency, defining the gold standard for neighborhood retail integration and roasting heritage.
+      </p>
+    </section>
+
+    <section class="shop-section reveal">
+      <h2 class="shop-header">Sey Coffee</h2>
+      <div class="shop-location">Brooklyn, United States</div>
+      <p class="shop-description">
+        Sey approaches raw green micro-lots with an unyielding commitment to molecular precision and absolute material honesty. Known for a hyper-light roasting ethos that intentionally leaves zero smoky profile markers, their extractions result in transparent, dynamic cups that reflect the explicit soil chemistry, varietal structure, and environmental terroir of origin farms.
+      </p>
+    </section>
+
+    <section class="shop-section reveal">
+      <h2 class="shop-header">The Coffee Academics</h2>
+      <div class="shop-location">Hong Kong, China</div>
+      <p class="shop-description">
+        Blending complex data-driven sensory analysis with highly sophisticated urban design concepts, this Asian institution functions as an educational culinary collective. By utilizing customizable water-filtration arrays, precise gas-flushed packaging systems, and proprietary technical brewing parameters, they deliver an elevated, globally recognized modern tasting experience.
+      </p>
+    </section>
+
+    <section class="shop-section reveal">
+      <h2 class="shop-header">Market Lane Coffee</h2>
+      <div class="shop-location">Melbourne, Australia</div>
+      <p class="shop-description">
+        Deeply embedded within Australia's famously discerning, forward-thinking espresso culture, Market Lane prioritizes local community connection alongside exceptional global sourcing. They only source, roast, and serve coffees when they are at their optimal peak freshness according to harvest calendars, rejecting mass-production structures to maintain exceptional micro-seasonal integrity.
+      </p>
+    </section>
+
+  </main>
+
+  <script>
+    // Scroll reveal logic for smooth entry transitions
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 60);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+  </script>
+</body>
+</html>
