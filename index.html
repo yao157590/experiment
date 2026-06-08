@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Taste & Beverages — Culinary Web Awards</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght=0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
   <style>
     /* Inline adjustments to support the layout sections using your design language */
@@ -80,6 +80,32 @@
     }
     .thumb-moss {
       background-image: url('moss.gif');
+      background-size: cover;
+      background-position: center;
+      width: 100%; height: 100%;
+    }
+
+    /* Collections Thumbnail Styles */
+    .thumb-cafe {
+      background-image: url('shop.png');
+      background-size: cover;
+      background-position: center;
+      width: 100%; height: 100%;
+    }
+    .thumb-wine-coll {
+      background-image: url('map.webp');
+      background-size: cover;
+      background-position: center;
+      width: 100%; height: 100%;
+    }
+    .thumb-fine {
+      background-image: url('dining.jpg');
+      background-size: cover;
+      background-position: center;
+      width: 100%; height: 100%;
+    }
+    .thumb-spice {
+      background-image: url('dark.jpg');
       background-size: cover;
       background-position: center;
       width: 100%; height: 100%;
@@ -316,32 +342,52 @@
     <a href="#" class="section-link">Explore Collections →</a>
   </div>
   <div class="nominees-grid">
+    
     <div class="card reveal">
-      <div class="card-thumb"><div class="card-thumb-inner thumb-2"><div class="thumb-pattern">CAFE</div></div></div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner">
+          <div class="thumb-cafe"></div>
+        </div>
+      </div>
       <div class="card-body">
         <div class="card-category">Inspiration</div>
         <div class="card-title">Best Coffee Shop Web Interfaces</div>
         <div class="card-author">+142 curated sites</div>
       </div>
     </div>
+    
     <div class="card reveal">
-      <div class="card-thumb"><div class="card-thumb-inner thumb-4"><div class="thumb-pattern">WINE</div></div></div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner">
+          <div class="thumb-wine-coll"></div>
+        </div>
+      </div>
       <div class="card-body">
         <div class="card-category">Layouts</div>
         <div class="card-title">Interactive Wine Maps & Estates</div>
         <div class="card-author">+89 curated sites</div>
       </div>
     </div>
+    
     <div class="card reveal">
-      <div class="card-thumb"><div class="card-thumb-inner thumb-1"><div class="thumb-pattern">FINE</div></div></div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner">
+          <div class="thumb-fine"></div>
+        </div>
+      </div>
       <div class="card-body">
         <div class="card-category">Interactions</div>
         <div class="card-title">Immersive Fine Dining Experiences</div>
         <div class="card-author">+104 curated sites</div>
       </div>
     </div>
+    
     <div class="card reveal">
-      <div class="card-thumb"><div class="card-thumb-inner thumb-6"><div class="thumb-pattern">SPICE</div></div></div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner">
+          <div class="thumb-spice"></div>
+        </div>
+      </div>
       <div class="card-body">
         <div class="card-category">Photography</div>
         <div class="card-title">Dark Mode Culinary Portfolios</div>
