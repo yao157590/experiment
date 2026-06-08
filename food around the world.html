@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Global Gastronomy — Taste Awards</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* Specific styles for the World Foods directory */
+    .explore-banner {
+      border-bottom: 1px solid var(--color-border);
+      background: linear-gradient(180deg, rgba(244, 244, 244, 0) 0%, rgba(230, 230, 230, 0.3) 100%);
+      padding: var(--space-2xl) var(--space-lg);
+      text-align: center;
+    }
+    .main-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4.5rem;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      margin-bottom: var(--space-md);
+      color: var(--color-ink);
+    }
+    .sub-headline {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: var(--text-body-lg);
+      color: var(--color-muted);
+      line-height: 1.6;
+    }
+    .region-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: var(--text-label);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-muted);
+      margin-bottom: var(--space-xs);
+    }
+    .food-meta {
+      font-family: 'DM Mono', monospace;
+      font-size: var(--text-body-xs);
+      color: var(--color-muted);
+      margin-top: var(--space-xs);
+      border-top: 1px dashed var(--color-border);
+      padding-top: var(--space-xs);
+    }
+    .food-meta span {
+      color: var(--color-ink);
+      font-weight: 500;
+    }
+    
+    @media (max-width: 768px) {
+      .main-headline { font-size: 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Taste<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="explore.html">Explore</a></li>
+      <li><a href="#">Winners</a></li>
+      <li><a href="#">Academy</a></li>
+      <li><a href="#">Collections</a></li>
+      <li><a href="#">Directory</a></li>
+      <li><a href="#">Market</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="index.html" class="btn-outline">Home</a>
+      <a href="#" class="btn-solid">Submit</a>
+    </div>
+  </nav>
+
+  <section class="explore-banner reveal">
+    <div class="region-tag">Curated Collections</div>
+    <h1 class="main-headline">FOODS REOPENING THE WORLD</h1>
+    <p class="sub-headline">An architectural look into foundational culinary heritages, celebrating flavor profiles, texture techniques, and cultural staples across geographic borders.</p>
+  </section>
+
+  <div class="section-header reveal">
+    <h2 class="section-title">Culinary Regions & Traditions</h2>
+  </div>
+  
+  <div class="nominees-grid">
+    
+    <div class="card reveal">
+      <div class="card-thumb">
+        <div class="card-thumb-inner" style="background: linear-gradient(135deg, #4a1525, #8a2846);">
+          <div class="thumb-pattern">UMAMI</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">East Asia · Balance & Technique</div>
+        <div class="card-title">The Art of Wok Hei & Precision</div>
+        <p style="color: var(--color-muted); font-size: var(--text-body-sm); margin-top: 0.5rem; line-height: 1.5;">Rooted heavily in the harmony of five core flavors. Key emphasis rests on temperature control, seasonal components, and intricate fermentation methods like aged soy and misos.</p>
+        <div class="food-meta">
+          Staples: <span>Ramen, Dim Sum, Kimchi, Sushi</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card reveal">
+      <div class="card-thumb">
+        <div class="card-thumb-inner" style="background: linear-gradient(135deg, #d8a47f, #b56576);">
+          <div class="thumb-pattern">OLIVE</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">Mediterranean · Simplicity & Freshness</div>
+        <div class="card-title">Coastal Sun & Botanical Oils</div>
+        <p style="color: var(--color-muted); font-size: var(--text-body-sm); margin-top: 0.5rem; line-height: 1.5;">Celebrating simple base structures elevated by pristine ingredients. Olive oils, wild citrus, stone-baked grain doughs, and fresh sea proteins form the pillars of this coastal diet.</p>
+        <div class="food-meta">
+          Staples: <span>Neapolitan Pizza, Mezze, Paella, Gelato</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card reveal">
+      <div class="card-thumb">
+        <div class="card-thumb-inner" style="background: linear-gradient(135deg, #e07a5f, #f4a261);">
+          <div class="thumb-pattern">SPICE</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">South Asia · Complexity & Infusion</div>
+        <div class="card-title">The Chemistry of Masala Grids</div>
+        <p style="color: var(--color-muted); font-size: var(--text-body-sm); margin-top: 0.5rem; line-height: 1.5;">A masterclass in layering aromatics. Utilizing dry-roasting techniques to release essential oils from cardamom, turmeric, and cumin, producing deep, rich sauce reductions.</p>
+        <div class="food-meta">
+          Staples: <span>Biryani, Tandoori, Tarka Dal, Naan</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-thumb">
+        <div class="card-thumb-inner" style="background: linear-gradient(135deg, #264653, #2a9d8f);">
+          <div class="thumb-pattern">MAIZE</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">Mesoamerica · Earth & Nixtamalization</div>
+        <div class="card-title">Volcanic Terroir & Ancestral Corn</div>
+        <p style="color: var(--color-muted); font-size: var(--text-body-sm); margin-top: 0.5rem; line-height: 1.5;">Built upon an ancient trinity of corn, beans, and squash. The complex scientific process of nixtamalization transforms raw grains into supple doughs paired with smoky chili variations.</p>
+        <div class="food-meta">
+          Staples: <span>Tacos al Pastor, Mole Poblano, Tamales</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-header reveal" style="margin-top: var(--space-xl);">
+    <h2 class="section-title">Global Food Design Metrics</h2>
+  </div>
+  <div class="stats-row">
+    <div class="stat-cell reveal">
+      <div class="stat-num">195</div>
+      <div class="stat-label">Countries Documented</div>
+    </div>
+    <div class="stat-cell reveal">
+      <div class="stat-num">4.2k</div>
+      <div class="stat-label">Authentic Recipes Archived</div>
+    </div>
+    <div class="stat-cell reveal">
+      <div class="stat-num">84</div>
+      <div class="stat-label">Masterclasses Available</div>
+    </div>
+    <div class="stat-cell reveal">
+      <div class="stat-num">09</div>
+      <div class="stat-label">Taste Grand Prix Categories</div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-brand">
+      <span class="footer-logo">Taste<span>.</span></span>
+      <p class="footer-tagline">Recognising and promoting the world's finest culinary web experiences since 2024.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Explore Regions</div>
+      <ul class="footer-links">
+        <li><a href="#">Pan-Asian Cuisine</a></li>
+        <li><a href="#">Euro-Alpine Kitchens</a></li>
+        <li><a href="#">Latin Americas</a></li>
+        <li><a href="#">Afro-Caribbean Plates</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Taste & Beverages. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <script>
+    // Custom cursor logic
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button, .card').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+    });
+
+    // Scroll reveal logic
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 60);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+  </script>
+</body>
+</html>
