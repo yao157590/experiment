@@ -32,11 +32,11 @@
     }
 
     /* Latest Nominees Thumbnail Styles */
-    .thumb-bite {
-      background-image: url('bites.jpeg');
-      background-size: cover;
-      background-position: center;
-      width: 100%; height: 100%;
+    .card-thumb-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
     .thumb-brew {
       background-image: url('deep.png');
@@ -179,7 +179,9 @@
       <div class="card-hover-overlay"></div>
       <div class="card-thumb">
         <div class="card-thumb-inner">
-          <div class="thumb-bite"></div>
+          <video class="card-thumb-video" autoplay loop muted playsinline>
+            <source src="RECIPE.mp4" type="video/mp4">
+          </video>
         </div>
       </div>
       <div class="card-body">
