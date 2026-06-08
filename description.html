@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cyan Cocktails — Menu & Descriptions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    body {
+      background-color: #0a192f;
+      color: #f4f4f4;
+    }
+    .menu-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--space-2xl) var(--space-lg);
+    }
+    .page-header {
+      text-align: center;
+      margin-bottom: var(--space-3xl);
+      border-bottom: 1px solid rgba(0, 242, 254, 0.2);
+      padding-bottom: var(--space-xl);
+    }
+    .page-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4rem;
+      letter-spacing: 0.05em;
+      color: #00f2fe;
+      margin-bottom: 0.5rem;
+    }
+    .page-subtitle {
+      font-family: 'DM Mono', monospace;
+      font-size: var(--text-label);
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--color-muted);
+    }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-2xl);
+    }
+    .menu-item {
+      border: 1px solid rgba(0, 242, 254, 0.1);
+      background: rgba(17, 34, 64, 0.5);
+      border-radius: 4px;
+      padding: var(--space-xl);
+      transition: all 0.3s ease;
+    }
+    .menu-item:hover {
+      border-color: #00f2fe;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0, 242, 254, 0.05);
+    }
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+      padding-bottom: var(--space-xs);
+      margin-bottom: var(--space-sm);
+    }
+    .item-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--text-title-sm);
+      color: #ffffff;
+      letter-spacing: 0.05em;
+    }
+    .item-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: var(--text-body-xs);
+      color: #00f2fe;
+      background: rgba(0, 242, 254, 0.1);
+      padding: 2px 8px;
+      border-radius: 2px;
+    }
+    .item-description {
+      font-size: var(--text-body-sm);
+      line-height: 1.6;
+      color: #a8b2d1;
+      margin-bottom: var(--space-md);
+    }
+    .profile-box {
+      background: rgba(10, 25, 47, 0.8);
+      padding: var(--space-sm);
+      border-radius: 4px;
+    }
+    .profile-line {
+      font-size: var(--text-body-xs);
+      font-family: 'DM Mono', monospace;
+      color: var(--color-muted);
+      margin-bottom: 4px;
+    }
+    .profile-line:last-child { margin-bottom: 0; }
+    .profile-line strong { color: #00f2fe; }
+
+    @media (max-width: 768px) {
+      .menu-grid { grid-template-columns: 1fr; }
+      .page-title { font-size: 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Taste<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="explore.html">Explore</a></li>
+      <li><a href="#">Winners</a></li>
+      <li><a href="#">Academy</a></li>
+      <li><a href="#">Collections</a></li>
+      <li><a href="#">Directory</a></li>
+      <li><a href="#">Market</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="cyan.html" class="btn-outline">← Back to Project</a>
+    </div>
+  </nav>
+
+  <div class="menu-container">
+    <div class="page-header reveal">
+      <h1 class="page-title">CYAN SIGNATURES</h1>
+      <p class="page-subtitle">Interactive Flavor Profiles & Menu Design</p>
+    </div>
+
+    <div class="menu-grid">
+      
+      <div class="menu-item reveal">
+        <div class="item-header">
+          <h2 class="item-name">Cyan Nebula</h2>
+          <span class="item-tag">Vibrant & Crisp</span>
+        </div>
+        <p class="item-description">A breathtaking digital signature drink featuring a layered blend of blue raspberry infusion, sparkling botanical tonic, and a sharp hit of fresh lime citrus. Served over hand-crushed glowing ice matrices to capture light reflections perfectly in WebGL engines.</p>
+        <div class="profile-box">
+          <div class="profile-line"><strong>Palette:</strong> Sweet Tart, Neon Berry, Citrus Zing</div>
+          <div class="profile-line"><strong>Visual Density:</strong> Gradient Shift (Deep Indigo to Cyan)</div>
+          <div class="profile-line"><strong>Key Notes:</strong> Blue Raspberry, Botanical Tonic, Lime Core</div>
+        </div>
+      </div>
+
+      <div class="menu-item reveal">
+        <div class="item-header">
+          <h2 class="item-name">Electric Velvet</h2>
+          <span class="item-tag">Smooth & Creamy</span>
+        </div>
+        <p class="item-description">A rich, smooth liquid simulation designed to showcase dense fluid weights. This drink layers cold-pressed mountain blueberry nectar with clear white cranberry extract, finished with a floated layer of aerated sweet vanilla cream that holds its structure dynamically.</p>
+        <div class="profile-box">
+          <div class="profile-line"><strong>Palette:</strong> Creamy Vanilla, Velvet Berry, Subtle Sweet</div>
+          <div class="profile-line"><strong>Visual Density:</strong> High Contrast Opaque Layering</div>
+          <div class="profile-line"><strong>Key Notes:</strong> Wild Blueberry, White Cranberry, Vanilla Foam</div>
+        </div>
+      </div>
+
+      <div class="menu-item reveal">
+        <div class="item-header">
+          <h2 class="item-name">The Glitch</h2>
+          <span class="item-tag">Sour & Textured</span>
+        </div>
+        <p class="item-description">An experimental blend engineered for maximum sensory contrast. A base of electric green apple acid drops combined with bright cyan citrus syrup, topped off with crackling sugar crystals that dance across the glass surface using specialized micro-particle physics.</p>
+        <div class="profile-box">
+          <div class="profile-line"><strong>Palette:</strong> Extreme Sour, Green Apple, Popping Sugar</div>
+          <div class="profile-line"><strong>Visual Density:</strong> Particle-Heavy Translucent Green</div>
+          <div class="profile-line"><strong>Key Notes:</strong> Green Apple Tart, Blue Citrus, Fizz Crystals</div>
+        </div>
+      </div>
+
+      <div class="menu-item reveal">
+        <div class="item-header">
+          <h2 class="item-name">Solar Flare Mocktail</h2>
+          <span class="item-tag">Warm & Effervescent</span>
+        </div>
+        <p class="item-description">A warm counterpoint to the cool cyan palette. This recipe features zero-proof fiery ginger root extract, blood orange juice, and sparkling mineral water. The app simulates real-time temperature heatmaps using a glowing orange-to-pink visual gradient glow.</p>
+        <div class="profile-box">
+          <div class="profile-line"><strong>Palette:</strong> Ginger Spice, Citrus Blood Orange, Crisp Carbonation</div>
+          <div class="profile-line"><strong>Visual Density:</strong> Effervescent, Active Bubbles</div>
+          <div class="profile-line"><strong>Key Notes:</strong> Fiery Ginger, Blood Orange, Sparkling Mineral</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-brand">
+      <span class="footer-logo">Taste<span>.</span></span>
+      <p class="footer-tagline">Recognising and promoting the world's finest culinary web experiences since 2024.</p>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Taste & Beverages. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <script>
+    // Custom cursor logic
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button, .menu-item').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+    });
+
+    // Scroll reveal logic
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 60);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+  </script>
+</body>
+</html>
