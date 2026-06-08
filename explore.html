@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Explore Chinese Cuisine — Experiment</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* Inline styles specifically for the reading experience on this page */
+    .article-body { 
+      max-width: 800px; 
+      margin: 0 auto; 
+      padding: var(--space-2xl) var(--space-lg); 
+      font-size: 1.1rem; 
+      line-height: 1.8;
+    }
+    .article-body p { 
+      margin-bottom: 1.5rem; 
+      color: var(--color-muted); 
+    }
+    .flavor-grid { 
+      display: grid; 
+      grid-template-columns: repeat(2, 1fr); 
+      gap: var(--space-lg); 
+      padding: 0 var(--space-lg) var(--space-2xl); 
+    }
+    
+    @media (max-width: 900px) {
+      .flavor-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Experiment<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#" style="color: var(--color-ink);">Explore</a></li>
+      <li><a href="#">Nominees</a></li>
+      <li><a href="#">Collections</a></li>
+      <li><a href="#">Blog</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="#" class="btn-outline">Log in</a>
+    </div>
+  </nav>
+
+  <section class="hero" style="min-height: 50vh; grid-template-columns: 1fr; display: flex; align-items: center; justify-content: center; text-align: center; border-right: none;">
+    <div class="hero-left" style="border-right: none; padding-top: 100px;">
+      <div class="sotd-label" style="justify-content: center;">Collection — Culinary Arts</div>
+      <h1 class="hero-title">
+        <span class="line">CHINESE</span>
+        <span class="line">CUISINE</span>
+      </h1>
+      <p class="hero-desc" style="max-width: 500px; margin: 0 auto;">A 5,000-year exploration of harmony, intricate technique, and diverse regional flavor profiles.</p>
+    </div>
+  </section>
+
+  <div class="section-header reveal">
+    <h2 class="section-title">The History</h2>
+  </div>
+  <article class="article-body reveal">
+    <p><strong>A Legacy of Fire and Harmony:</strong> The history of Chinese gastronomy is intimately tied to the philosophy of balance—often represented by Yin and Yang. Dating back over 5,000 years to ancient dynastic periods, cooking was considered both a necessary art and a medical practice. Ingredients were strictly categorized as "heating" or "cooling" to the human body.</p>
+    <p>During the Zhou Dynasty, the foundation of Chinese culinary arts was laid with the introduction of sophisticated farming and soy fermentation. Later, the Tang and Song dynasties saw an explosion of innovation, leading to the refinement of <em>stir-frying</em>. This iconic technique was actually born out of necessity: chopping food into small, uniform pieces allowed it to cook rapidly over high heat, conserving scarce cooking fuel.</p>
+  </article>
+
+  <div class="section-header reveal">
+    <h2 class="section-title">Regional Flavor Profiles</h2>
+  </div>
+  
+  <div class="flavor-grid">
+    <div class="card reveal" style="border: 1px solid var(--color-border);">
+      <div class="card-body">
+        <div class="card-category">Chuan (Sichuan)</div>
+        <div class="card-title">Bold, Pungent, and Spicy</div>
+        <p style="color: var(--color-muted); font-size: var(--text-body-sm); margin-top: 0.5rem;">Famous for its "málà" (numbing and spicy) flavor profile. It relies heavily on Sichuan peppercorns, garlic, chili peppers, and ginger to create deeply complex, fiery dishes.</p>
+      </div>
+    </div>
+    
+    <div class="card reveal" style="border: 1px solid var(--color-border);">
+      <div class="card-body">
+        <div class="card-category">Yue (Cantonese)</div>
+        <div class="card-title">Fresh, Sweet, and Mild</div>
+        <p style="color: var(--color-muted); font-size: var(--text-body-sm); margin-top: 0.5rem;">Designed to highlight the natural flavors of the ingredients. Steaming and stir-frying are prominent, with flavors enhanced by soy sauce, ginger, and subtle sweetness. Dim Sum is its most famous export.</p>
+      </div>
+    </div>
+    
+    <div class="card reveal" style="border: 1px solid var(--color-border);">
+      <div class="card-body">
+        <div class="card-category">Lu (Shandong)</div>
+        <div class="card-title">Salty, Savory, and Crisp</div>
+        <p style="color: var(--color-muted); font-size: var(--text-body-sm); margin-top: 0.5rem;">Considered the foundation of imperial cuisine. Known for its quick-frying techniques, heavy emphasis on seafood, and rich, savory broths crafted from slowly simmered meats.</p>
+      </div>
+    </div>
+    
+    <div class="card reveal" style="border: 1px solid var(--color-border);">
+      <div class="card-body">
+        <div class="card-category">Su (Jiangsu)</div>
+        <div class="card-title">Sweet, Soft, and Precise</div>
+        <p style="color: var(--color-muted); font-size: var(--text-body-sm); margin-top: 0.5rem;">Renowned for highly delicate presentation and incredibly precise knife work. The flavors are soft, slightly sweet, and rely heavily on fresh seasonal ingredients and slow braising.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Custom cursor logic
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button, .card').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+    });
+
+    // Scroll reveal logic
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 60);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+  </script>
+</body>
+</html>
