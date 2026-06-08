@@ -18,6 +18,15 @@
     }
     .cta-half:last-child { border-right: none; }
     .cta-title { font-family: 'Bebas Neue', sans-serif; font-size: var(--text-title); margin-bottom: 1rem; }
+    
+    /* Specific styling override to cleanly display the steak image */
+    .steak-thumb {
+      background-image: url('Grilled-T-Bone.jpg');
+      background-size: cover;
+      background-position: center;
+      width: 100%;
+      height: 100%;
+    }
   </style>
 </head>
 <body>
@@ -78,11 +87,6 @@
       <span class="ticker-item"><span>Hon. Mention</span> E-commerce Redesign · Luxe Teas</span>
       <span class="ticker-item"><span>New</span> Interactive Wine Map · Nebula Cellars</span>
       <span class="ticker-item"><span>Nominee</span> Recipe Data Viz · FoodStruct</span>
-      <span class="ticker-item"><span>New</span> 3D Dining Experience · Luminary Kitchen</span>
-      <span class="ticker-item"><span>Nominee</span> Craft Brewery Tour · HopForm</span>
-      <span class="ticker-item"><span>Hon. Mention</span> E-commerce Redesign · Luxe Teas</span>
-      <span class="ticker-item"><span>New</span> Interactive Wine Map · Nebula Cellars</span>
-      <span class="ticker-item"><span>Nominee</span> Recipe Data Viz · FoodStruct</span>
     </div>
   </div>
 
@@ -93,7 +97,11 @@
   <div class="nominees-grid">
     <div class="card reveal">
       <div class="card-hover-overlay"></div>
-      <div class="card-thumb"><div class="card-thumb-inner thumb-1"><div class="thumb-pattern">BITE</div></div></div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner">
+          <div class="steak-thumb"></div>
+        </div>
+      </div>
       <div class="card-body">
         <div class="card-category">Restaurant · 3D Menu</div>
         <div class="card-title">Bite Studio — Gastronomy</div>
@@ -101,6 +109,7 @@
       </div>
       <div class="card-footer"><div class="card-score">Vote Now</div><div class="card-tags"><span class="tag">WebGL</span></div></div>
     </div>
+
     <div class="card reveal">
       <div class="card-hover-overlay"></div>
       <div class="card-thumb"><div class="card-thumb-inner thumb-2"><div class="thumb-pattern">BREW</div></div></div>
@@ -219,158 +228,6 @@
     </div>
   </div>
 
-  <div class="section-header reveal">
-    <h2 class="section-title">Collections</h2>
-    <a href="#" class="section-link">Explore Collections →</a>
-  </div>
-  <div class="nominees-grid">
-    <div class="card reveal">
-      <div class="card-thumb"><div class="card-thumb-inner thumb-2"><div class="thumb-pattern">CAFE</div></div></div>
-      <div class="card-body">
-        <div class="card-category">Inspiration</div>
-        <div class="card-title">Best Coffee Shop Web Interfaces</div>
-        <div class="card-author">+142 curated sites</div>
-      </div>
-    </div>
-    <div class="card reveal">
-      <div class="card-thumb"><div class="card-thumb-inner thumb-4"><div class="thumb-pattern">WINE</div></div></div>
-      <div class="card-body">
-        <div class="card-category">Layouts</div>
-        <div class="card-title">Interactive Wine Maps & Estates</div>
-        <div class="card-author">+89 curated sites</div>
-      </div>
-    </div>
-    <div class="card reveal">
-      <div class="card-thumb"><div class="card-thumb-inner thumb-1"><div class="thumb-pattern">FINE</div></div></div>
-      <div class="card-body">
-        <div class="card-category">Interactions</div>
-        <div class="card-title">Immersive Fine Dining Experiences</div>
-        <div class="card-author">+104 curated sites</div>
-      </div>
-    </div>
-    <div class="card reveal">
-      <div class="card-thumb"><div class="card-thumb-inner thumb-6"><div class="thumb-pattern">SPICE</div></div></div>
-      <div class="card-body">
-        <div class="card-category">Photography</div>
-        <div class="card-title">Dark Mode Culinary Portfolios</div>
-        <div class="card-author">+67 curated sites</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section-header reveal">
-    <h2 class="section-title">w.creators Directory</h2>
-    <a href="#" class="section-link">Search Agencies & Professionals →</a>
-  </div>
-  <div class="stats-row">
-    <div class="stat-cell reveal">
-      <div class="stat-num">51</div>
-      <div class="stat-label">Awards • Gourmet Digital</div>
-    </div>
-    <div class="stat-cell reveal">
-      <div class="stat-num">14</div>
-      <div class="stat-label">Awards • Plate UI Studio</div>
-    </div>
-    <div class="stat-cell reveal">
-      <div class="stat-num">32</div>
-      <div class="stat-label">Awards • Pour & Pixel</div>
-    </div>
-    <div class="stat-cell reveal">
-      <div class="stat-num">08</div>
-      <div class="stat-label">Awards • Mastro Agency</div>
-    </div>
-  </div>
-
-  <div class="section-header reveal">
-    <h2 class="section-title">Gastronomy Blog</h2>
-    <a href="#" class="section-link">View Blog →</a>
-  </div>
-  <div class="featured-row">
-    <div class="featured-main reveal">
-      <div class="featured-thumb">
-        <div class="featured-thumb-pattern"></div>
-      </div>
-      <div class="featured-info">
-        <div>
-          <span class="featured-tag">Article</span>
-          <h3 class="featured-title">Digital Taste: The Rise of 3D WebGL in Fine Dining</h3>
-          <p class="featured-meta">By Culinary Trends · 4 min read</p>
-        </div>
-      </div>
-    </div>
-    <div class="featured-side">
-      <div class="side-card reveal">
-        <div class="side-thumb"><div class="side-thumb-inner s1"></div></div>
-        <div class="side-info">
-          <div class="side-category">E-Commerce</div>
-          <div class="side-title">Shopify vs Custom Solutions for Artisan Bakeries</div>
-        </div>
-      </div>
-      <div class="side-card reveal">
-        <div class="side-thumb"><div class="side-thumb-inner s2"></div></div>
-        <div class="side-info">
-          <div class="side-category">Typography</div>
-          <div class="side-title">Top 10 Elegant Serif Fonts for Wine Labels in 2026</div>
-        </div>
-      </div>
-      <div class="side-card reveal">
-        <div class="side-thumb"><div class="side-thumb-inner s3"></div></div>
-        <div class="side-info">
-          <div class="side-category">Design Theory</div>
-          <div class="side-title">Color Psychology: Crafting Appetizing Interfaces</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section-header reveal">
-    <h2 class="section-title">Market</h2>
-    <a href="#" class="section-link">View Market Products →</a>
-  </div>
-  <div class="nominees-grid">
-    <div class="card reveal">
-      <div class="card-body">
-        <div class="card-category">Framer Template</div>
-        <div class="card-title">Maison — Fine Dining Restaurant</div>
-        <div class="card-author">from $129 USD</div>
-      </div>
-    </div>
-    <div class="card reveal">
-      <div class="card-body">
-        <div class="card-category">Figma Kit</div>
-        <div class="card-title">Barista — Cafe & Roastery UI Set</div>
-        <div class="card-author">from $49 USD</div>
-      </div>
-    </div>
-    <div class="card reveal">
-      <div class="card-body">
-        <div class="card-category">Webflow Template</div>
-        <div class="card-title">Vino — Premium Winery & Shop</div>
-        <div class="card-author">from $149 USD</div>
-      </div>
-    </div>
-    <div class="card reveal">
-      <div class="card-body">
-        <div class="card-category">Assets</div>
-        <div class="card-title">3D Food Vectors & Iconography</div>
-        <div class="card-author">from $29 USD</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="cta-banner">
-    <div class="cta-half reveal">
-      <h3 class="cta-title">Share your work</h3>
-      <p style="color: var(--color-muted); font-size: var(--text-body-sm); margin-bottom: 1rem;">Submit your website for visibility and recognition</p>
-      <a href="#" class="btn-solid">Submit Website</a>
-    </div>
-    <div class="cta-half reveal">
-      <h3 class="cta-title">Be a member</h3>
-      <p style="color: var(--color-muted); font-size: var(--text-body-sm); margin-bottom: 1rem;">Get access to special pro features and directory listings</p>
-      <a href="#" class="btn-signal">Be Pro</a>
-    </div>
-  </div>
-
   <footer>
     <div class="footer-brand">
       <span class="footer-logo">Taste<span>.</span></span>
@@ -416,7 +273,7 @@
       cursor.style.left = e.clientX + 'px';
       cursor.style.top  = e.clientY + 'px';
     });
-    document.querySelectorAll('a, button, .card, .side-card').forEach(el => {
+    document.querySelectorAll('a, button, .card').forEach(el => {
       el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
       el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
     });
