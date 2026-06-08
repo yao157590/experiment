@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Top 5 Global Restaurants — Taste Awards</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* Custom styling for the Top Restaurants directory */
+    .ranking-banner {
+      border-bottom: 1px solid var(--color-border);
+      background: linear-gradient(180deg, rgba(244, 244, 244, 0) 0%, rgba(200, 200, 200, 0.1) 100%);
+      padding: var(--space-2xl) var(--space-lg);
+      text-align: center;
+    }
+    .main-headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4.5rem;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      margin-bottom: var(--space-md);
+      color: var(--color-ink);
+    }
+    .sub-headline {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: var(--text-body-lg);
+      color: var(--color-muted);
+      line-height: 1.6;
+    }
+    .rank-badge {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: var(--text-title);
+      color: var(--color-ink);
+      opacity: 0.15;
+      position: absolute;
+      top: var(--space-sm);
+      right: var(--space-md);
+    }
+    .restaurant-meta {
+      font-family: 'DM Mono', monospace;
+      font-size: var(--text-body-xs);
+      color: var(--color-muted);
+      margin-top: var(--space-sm);
+      border-top: 1px dashed var(--color-border);
+      padding-top: var(--space-xs);
+    }
+    .restaurant-meta span {
+      color: var(--color-ink);
+      font-weight: 500;
+    }
+    
+    @media (max-width: 768px) {
+      .main-headline { font-size: 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cursor"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Taste<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="explore.html">Explore</a></li>
+      <li><a href="#">Winners</a></li>
+      <li><a href="#">Academy</a></li>
+      <li><a href="#">Collections</a></li>
+      <li><a href="#">Directory</a></li>
+      <li><a href="#">Market</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="index.html" class="btn-outline">Home</a>
+      <a href="#" class="btn-solid">Submit</a>
+    </div>
+  </nav>
+
+  <section class="ranking-banner reveal">
+    <div class="restaurant-meta" style="border: none; padding: 0; margin-bottom: var(--space-xs); text-transform: uppercase; letter-spacing: 0.15em;">
+      Global Culinary Vanguard
+    </div>
+    <h1 class="main-headline">THE PINNACLE OF GASTRONOMY</h1>
+    <p class="sub-headline">An evaluation of the top five establishments reshaping contemporary culinary craft, avant-garde menu conceptualization, and immersive hospitality frameworks globally.</p>
+  </section>
+
+  <div class="section-header reveal">
+    <h2 class="section-title">The Ranked Institutions</h2>
+  </div>
+  
+  <div class="nominees-grid">
+    
+    <div class="card reveal" style="position: relative;">
+      <div class="rank-badge">01</div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner" style="background: linear-gradient(135deg, #1e272e, #485460);">
+          <div class="thumb-pattern">LIMA</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">Lima, Peru · Biodiversity</div>
+        <div class="card-title">Central</div>
+        <p style="color: var(--color-muted); font-size: var(--text-body-sm); margin-top: 0.5rem; line-height: 1.5;">An exploration through Peruvian ecosystems sorted by altitude. Every dish showcases pristine materials harvested from varying maritime depths up to the high Andes peaks.</p>
+        <div class="restaurant-meta">
+          Focus: <span>Altitudinal Ecosystem Dynamics</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card reveal" style="position: relative;">
+      <div class="rank-badge">02</div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner" style="background: linear-gradient(135deg, #2c3e50, #bdc3c7);">
+          <div class="thumb-pattern">COPENHAGEN</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">Copenhagen, Denmark · New Nordic</div>
+        <div class="card-title">Alchemist</div>
+        <p style="color: var(--color-muted); font-size: var(--text-body-sm); margin-top: 0.5rem; line-height: 1.5;">A transformative multi-sensory journey blending theater, visual art installations, and molecular gastronomy to spark conversations about global and socio-political matters.</p>
+        <div class="restaurant-meta">
+          Focus: <span>Holistic Gastronomy & Performance</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card reveal" style="position: relative;">
+      <div class="rank-badge">03</div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner" style="background: linear-gradient(135deg, #574b90, #303a52);">
+          <div class="thumb-pattern">BARCELONA</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">Barcelona, Spain · Avant-Garde</div>
+        <div class="card-title">Disfrutar</div>
+        <p style="color: var(--color-muted); font-size: var(--text-body-sm); margin-top: 0.5rem; line-height: 1.5;">Rooted closely in deep culinary research, this establishment presents playful textures, surprising conceptual presentations, and highly advanced technical execution.</p>
+        <div class="restaurant-meta">
+          Focus: <span>Techno-Emotional Mediterranean Matrix</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" style="position: relative;">
+      <div class="rank-badge">04</div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner" style="background: linear-gradient(135deg, #2d3436, #dfe6e9);">
+          <div class="thumb-pattern">MADRID</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">Madrid, Spain · Progressive</div>
+        <div class="card-title">DiverXO</div>
+        <p style="color: var(--color-muted); font-size: var(--text-body-sm); margin-top: 0.5rem; line-height: 1.5;">A vivid, rule-breaking approach from Chef Dabiz Muñoz. Traditional flavor templates are broken down completely and reassembled as edible art canvases.</p>
+        <div class="restaurant-meta">
+          Focus: <span>Hedonistic & Surrealist Art Plates</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card reveal" style="position: relative;">
+      <div class="rank-badge">05</div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner" style="background: linear-gradient(135deg, #833471, #112233);">
+          <div class="thumb-pattern">PARIS</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-category">Paris, France · Neo-Classic</div>
+        <div class="card-title">Table by Bruno Verjus</div>
+        <p style="color: var(--color-muted); font-size: var(--text-body-sm); margin-top: 0.5rem; line-height: 1.5;">Driven by absolute respect for ingredient integrity. Menus shift on a daily basis depending exactly on what independent local foragers, line-fishers, and farmers supply.</p>
+        <div class="restaurant-meta">
+          Focus: <span>Hyper-Sourced Micro-Seasonal Integrity</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-brand">
+      <span class="footer-logo">Taste<span>.</span></span>
+      <p class="footer-tagline">Recognising and promoting the world's finest culinary web experiences since 2024.</p>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 Taste & Beverages. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <script>
+    // Custom cursor logic
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button, .card').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+    });
+
+    // Scroll reveal logic
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 60);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+  </script>
+</body>
+</html>
