@@ -19,13 +19,16 @@
     .cta-half:last-child { border-right: none; }
     .cta-title { font-family: 'Bebas Neue', sans-serif; font-size: var(--text-title); margin-bottom: 1rem; }
     
-    /* Specific styling override to cleanly display the steak image */
-    .steak-thumb {
+    /* Hero Image Container Update */
+    .hero-steak-bg {
       background-image: url('Grilled-T-Bone.jpg');
       background-size: cover;
       background-position: center;
       width: 100%;
       height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   </style>
 </head>
@@ -65,15 +68,11 @@
       </div>
     </div>
     <div class="hero-right">
-      <div class="hero-fake-img">
-        <div class="hero-fake-img-grid"></div>
-        <div class="hero-fake-img-text">UMAMI</div>
-        <div class="hero-fake-img-circle c1"></div>
-        <div class="hero-fake-img-circle c2"></div>
-        <div class="hero-fake-img-circle c3"></div>
+      <div class="hero-fake-img" style="position: relative; overflow: hidden; padding: 0;">
+        <div class="hero-steak-bg"></div>
       </div>
-      <div class="hero-image-overlay"></div>
-      <div class="hero-image-label">
+      <div class="hero-image-overlay" style="z-index: 1;"></div>
+      <div class="hero-image-label" style="z-index: 2;">
         <span class="site-name">Global Gastronomy</span>
         <a href="food%20around%20the%20world.html" class="visit-btn">View Site →</a>
       </div>
@@ -97,11 +96,7 @@
   <div class="nominees-grid">
     <div class="card reveal">
       <div class="card-hover-overlay"></div>
-      <div class="card-thumb">
-        <div class="card-thumb-inner">
-          <div class="steak-thumb"></div>
-        </div>
-      </div>
+      <div class="card-thumb"><div class="card-thumb-inner thumb-1"><div class="thumb-pattern">BITE</div></div></div>
       <div class="card-body">
         <div class="card-category">Restaurant · 3D Menu</div>
         <div class="card-title">Bite Studio — Gastronomy</div>
@@ -109,7 +104,6 @@
       </div>
       <div class="card-footer"><div class="card-score">Vote Now</div><div class="card-tags"><span class="tag">WebGL</span></div></div>
     </div>
-
     <div class="card reveal">
       <div class="card-hover-overlay"></div>
       <div class="card-thumb"><div class="card-thumb-inner thumb-2"><div class="thumb-pattern">BREW</div></div></div>
