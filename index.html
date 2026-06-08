@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Taste & Beverages — Culinary Web Awards</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght=0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
   <style>
     /* Inline adjustments to support the layout sections using your design language */
@@ -19,7 +19,7 @@
     .cta-half:last-child { border-right: none; }
     .cta-title { font-family: 'Bebas Neue', sans-serif; font-size: var(--text-title); margin-bottom: 1rem; }
     
-    /* Hero Image Container Update */
+    /* Hero Image Container */
     .hero-steak-bg {
       background-image: url('Grilled-T-Bone.jpg');
       background-size: cover;
@@ -29,6 +29,34 @@
       position: absolute;
       top: 0;
       left: 0;
+    }
+
+    /* Custom Nominee Thumbnail Mappings */
+    .thumb-bite {
+      background-image: url('bites.jpeg');
+      background-size: cover;
+      background-position: center;
+      width: 100%; height: 100%;
+    }
+    .thumb-brew {
+      background-image: url('deep.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: #ffffff; /* Clean backdrop for the logo badge */
+      width: 100%; height: 100%;
+    }
+    .thumb-bean {
+      background-image: url('coffee.jpg');
+      background-size: cover;
+      background-position: center;
+      width: 100%; height: 100%;
+    }
+    .thumb-vine {
+      background-image: url('wine.webp');
+      background-size: cover;
+      background-position: center;
+      width: 100%; height: 100%;
     }
   </style>
 </head>
@@ -94,9 +122,14 @@
     <a href="#" class="section-link">View All Nominees →</a>
   </div>
   <div class="nominees-grid">
+    
     <div class="card reveal">
       <div class="card-hover-overlay"></div>
-      <div class="card-thumb"><div class="card-thumb-inner thumb-1"><div class="thumb-pattern">BITE</div></div></div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner">
+          <div class="thumb-bite"></div>
+        </div>
+      </div>
       <div class="card-body">
         <div class="card-category">Restaurant · 3D Menu</div>
         <div class="card-title">Bite Studio — Gastronomy</div>
@@ -104,9 +137,14 @@
       </div>
       <div class="card-footer"><div class="card-score">Vote Now</div><div class="card-tags"><span class="tag">WebGL</span></div></div>
     </div>
+
     <div class="card reveal">
       <div class="card-hover-overlay"></div>
-      <div class="card-thumb"><div class="card-thumb-inner thumb-2"><div class="thumb-pattern">BREW</div></div></div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner">
+          <div class="thumb-brew"></div>
+        </div>
+      </div>
       <div class="card-body">
         <div class="card-category">Brewery · Branding</div>
         <div class="card-title">Deepwater Ales — Digital</div>
@@ -114,9 +152,14 @@
       </div>
       <div class="card-footer"><div class="card-score">Vote Now</div><div class="card-tags"><span class="tag">React</span></div></div>
     </div>
+
     <div class="card reveal">
       <div class="card-hover-overlay"></div>
-      <div class="card-thumb"><div class="card-thumb-inner thumb-3"><div class="thumb-pattern">BEAN</div></div></div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner">
+          <div class="thumb-bean"></div>
+        </div>
+      </div>
       <div class="card-body">
         <div class="card-category">E-Commerce · Roastery</div>
         <div class="card-title">Gilded — Bespoke Coffee</div>
@@ -124,9 +167,14 @@
       </div>
       <div class="card-footer"><div class="card-score">Vote Now</div><div class="card-tags"><span class="tag">Shopify</span></div></div>
     </div>
+
     <div class="card reveal">
       <div class="card-hover-overlay"></div>
-      <div class="card-thumb"><div class="card-thumb-inner thumb-4"><div class="thumb-pattern">VINE</div></div></div>
+      <div class="card-thumb">
+        <div class="card-thumb-inner">
+          <div class="thumb-vine"></div>
+        </div>
+      </div>
       <div class="card-body">
         <div class="card-category">Winery · Portfolio</div>
         <div class="card-title">Mars + Vine — Tasting</div>
