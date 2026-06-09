@@ -106,7 +106,7 @@
     }
 
     .restaurant-item h3 {
-      margin: 0 0 0.4rem 0;
+      margin: 0 0 0.25rem 0;
       font-size: 1.05rem;
       font-weight: 500;
       color: #ffffff;
@@ -117,6 +117,15 @@
       font-size: 0.75rem;
       color: #ff4d4d;
       margin-bottom: 0.25rem;
+    }
+
+    .restaurant-michelin-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: #d4af37; /* Clean gold coloring for michelin status */
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     .restaurant-address {
@@ -155,6 +164,7 @@
     }
     .popup-title { font-weight: 500; font-size: 0.95rem; margin: 0 0 0.2rem 0; }
     .popup-meta { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: #ff4d4d; }
+    .popup-michelin { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: #d4af37; margin-top: 2px; }
 
     /* Custom Sidebar Scrollbar */
     .restaurant-sidebar::-webkit-scrollbar { width: 4px; }
@@ -282,21 +292,23 @@
     reveals.forEach(r => observer.observe(r));
 
     /* ==========================================================================
-       MAP ENGINE IMPLEMENTATION DATABASE & LOGIC (ALL ACROSS SINGAPORE)
+       MAP ENGINE IMPLEMENTATION DATABASE & LOGIC (WITH MICHELIN RATINGS)
        ========================================================================== */
     const locations = [
       {
-        id: "jin-ting-wan",
-        name: "Jin Ting Wan",
-        rating: "★ 4.8 (Rooftop Fine Dining)",
-        cuisine: "Cantonese Classics",
-        address: "Level 55, Marina Bay Sands",
-        coords: [1.2840, 103.8596]
+        id: "shisen",
+        name: "Shisen Hanten by Chen Kentaro",
+        rating: "★ 4.7",
+        michelin: "2 Michelin Stars",
+        cuisine: "Sichuan / Cantonese",
+        address: "Level 35, Hilton Singapore Orchard",
+        coords: [1.3025, 103.8358]
       },
       {
         id: "summer-pavilion",
         name: "Summer Pavilion",
-        rating: "★ 4.8 (1 Michelin Star)",
+        rating: "★ 4.8",
+        michelin: "1 Michelin Star",
         cuisine: "Cantonese Fine Dining",
         address: "The Ritz-Carlton, Millenia (Downtown Core)",
         coords: [1.2910, 103.8603]
@@ -304,7 +316,8 @@
       {
         id: "man-fu-yuan",
         name: "Man Fu Yuan",
-        rating: "★ 4.7 (Award-Winning)",
+        rating: "★ 4.7",
+        michelin: "Michelin Selected",
         cuisine: "Refined Cantonese & Dim Sum",
         address: "InterContinental Singapore, Bugis",
         coords: [1.3002, 103.8553]
@@ -312,7 +325,8 @@
       {
         id: "min-jiang-dempsey",
         name: "Min Jiang at Dempsey",
-        rating: "★ 4.6 (Lush Heritage)",
+        rating: "★ 4.6",
+        michelin: "Michelin Selected",
         cuisine: "Sichuan & Beijing Roasted Duck",
         address: "7A Dempsey Road, Tanglin/Dempsey",
         coords: [1.3045, 103.8052]
@@ -320,14 +334,15 @@
       {
         id: "wah-lok",
         name: "Wah Lok Cantonese Restaurant",
-        rating: "★ 4.6 (Local Icon)",
+        rating: "★ 4.6",
+        michelin: "Michelin Selected",
         cuisine: "Authentic Cantonese / Dim Sum",
         address: "Carlton Hotel, City Hall",
         coords: [1.2971, 103.8525]
       }
     ];
 
-    // Initialize map centering parameters (Slightly adjusted zoom to show wider Singapore region)
+    // Initialize map centering parameters
     const map = L.map('map', {
       center: [1.2945, 103.8380],
       zoom: 13,
@@ -353,6 +368,7 @@
       item.innerHTML = `
         <div class="restaurant-meta">${res.rating} · ${res.cuisine}</div>
         <h3>${res.name}</h3>
+        <div class="restaurant-michelin-tag">🏅 ${res.michelin}</div>
         <p class="restaurant-address">${res.address}</p>
       `;
       listContainer.appendChild(item);
@@ -361,8 +377,9 @@
       const marker = L.marker(res.coords).addTo(map);
       const popupContent = `
         <div class="popup-title">${res.name}</div>
-        <div class="popup-meta">${res.rating}</div>
-        <div style="font-size:0.75rem; color:#aaa; margin-top:3px;">${res.address}</div>
+        <div class="popup-meta">${res.rating} · ${res.cuisine}</div>
+        <div class="popup-michelin">🏅 ${res.michelin}</div>
+        <div style="font-size:0.75rem; color:#aaa; margin-top:5px;">${res.address}</div>
       `;
       marker.bindPopup(popupContent);
       
