@@ -25,7 +25,6 @@
       width: 100%; height: 100%; position: absolute; top: 0; left: 0;
     }
 
-    /* Standardizes video layer positioning inside the thumbnail container */
     .card-thumb-inner {
       position: relative;
       width: 100%;
@@ -33,6 +32,7 @@
       overflow: hidden;
     }
 
+    /* CRITICAL FIX: Higher z-index forces the video on top of the background images */
     .card-preview-video {
       position: absolute;
       top: 0;
@@ -40,23 +40,23 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      z-index: 2;
-      pointer-events: none; /* Allows clicks to pass through to the card if needed */
+      z-index: 5; 
+      pointer-events: none;
     }
 
     /* Fallback Cover Images */
-    .thumb-bite { background-image: url('bites.jpeg'); background-size: cover; background-position: center; width: 100%; height: 100%; }
-    .thumb-brew { background-image: url('deep.png'); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: #ffffff; width: 100%; height: 100%; }
-    .thumb-bean { background-image: url('coffee.jpg'); background-size: cover; background-position: center; width: 100%; height: 100%; }
-    .thumb-vine { background-image: url('wine.webp'); background-size: cover; background-position: center; width: 100%; height: 100%; }
-    .thumb-ambar { background-image: url('Amber.jpeg'); background-size: cover; background-position: center; width: 100%; height: 100%; }
-    .thumb-zest { background-image: url('cocktail.webp'); background-size: cover; background-position: center; width: 100%; height: 100%; }
-    .thumb-ferm { background-image: url('flow.jpeg'); background-size: cover; background-position: center; width: 100%; height: 100%; }
-    .thumb-moss { background-image: url('moss.gif'); background-size: cover; background-position: center; width: 100%; height: 100%; }
-    .thumb-cafe { background-image: url('shop.png'); background-size: cover; background-position: center; width: 100%; height: 100%; }
-    .thumb-wine-coll { background-image: url('map.webp'); background-size: cover; background-position: center; width: 100%; height: 100%; }
-    .thumb-fine { background-image: url('dining.jpg'); background-size: cover; background-position: center; width: 100%; height: 100%; }
-    .thumb-spice { background-image: url('dark.jpg'); background-size: cover; background-position: center; width: 100%; height: 100%; }
+    .thumb-bite { width: 100%; height: 100%; background-image: url('bites.jpeg'); background-size: cover; background-position: center; }
+    .thumb-brew { width: 100%; height: 100%; background-image: url('deep.png'); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: #ffffff; }
+    .thumb-bean { width: 100%; height: 100%; background-image: url('coffee.jpg'); background-size: cover; background-position: center; }
+    .thumb-vine { width: 100%; height: 100%; background-image: url('wine.webp'); background-size: cover; background-position: center; }
+    .thumb-ambar { width: 100%; height: 100%; background-image: url('Amber.jpeg'); background-size: cover; background-position: center; }
+    .thumb-zest { width: 100%; height: 100%; background-image: url('cocktail.webp'); background-size: cover; background-position: center; }
+    .thumb-ferm { width: 100%; height: 100%; background-image: url('flow.jpeg'); background-size: cover; background-position: center; }
+    .thumb-moss { width: 100%; height: 100%; background-image: url('moss.gif'); background-size: cover; background-position: center; }
+    .thumb-cafe { width: 100%; height: 100%; background-image: url('shop.png'); background-size: cover; background-position: center; }
+    .thumb-wine-coll { width: 100%; height: 100%; background-image: url('map.webp'); background-size: cover; background-position: center; }
+    .thumb-fine { width: 100%; height: 100%; background-image: url('dining.jpg'); background-size: cover; background-position: center; }
+    .thumb-spice { width: 100%; height: 100%; background-image: url('dark.jpg'); background-size: cover; background-position: center; }
   </style>
 </head>
 <body>
@@ -128,7 +128,7 @@
         <div class="card-thumb-inner">
           <div class="thumb-bite"></div>
           <video class="card-preview-video inline-media-loop" autoplay loop muted playsinline>
-            <source src="World’s%20Best%20Fried%20Chicken%20RECIPE%20-%20Nick%20Kratka%20(720p).mp4" type="video/mp4">
+            <source src="World’s Best Fried Chicken RECIPE - Nick Kratka (720p).mp4" type="video/mp4">
           </video>
         </div>
       </div>
@@ -211,7 +211,7 @@
         <div class="card-thumb-inner">
           <div class="thumb-ambar"></div>
           <video class="card-preview-video inline-media-loop" autoplay loop muted playsinline>
-            <source src="📍%20@ambar_restaurants%20If%20you%20are%20looking%20for%20a%20good%20food%20+%20good%20vibes%20and%20beautiful%20ambiance%20thi.mp4" type="video/mp4">
+            <source src="ambars.mp4" type="video/mp4">
           </video>
         </div>
       </div>
@@ -295,7 +295,6 @@
     <a href="#" class="section-link">Explore Collections →</a>
   </div>
   <div class="nominees-grid">
-    
     <a href="best-coffee-shops.html" class="card reveal" style="text-decoration: none; color: inherit; display: block;">
       <div class="card-thumb">
         <div class="card-thumb-inner">
@@ -308,7 +307,6 @@
         <div class="card-author">+142 curated sites</div>
       </div>
     </a>
-    
     <div class="card reveal">
       <div class="card-thumb">
         <div class="card-thumb-inner">
@@ -321,7 +319,6 @@
         <div class="card-author">+89 curated sites</div>
       </div>
     </div>
-    
     <div class="card reveal">
       <div class="card-thumb">
         <div class="card-thumb-inner">
@@ -334,7 +331,6 @@
         <div class="card-author">+104 curated sites</div>
       </div>
     </div>
-    
     <div class="card reveal">
       <div class="card-thumb">
         <div class="card-thumb-inner">
@@ -422,7 +418,6 @@
     }, { threshold: 0.1 });
     reveals.forEach(r => observer.observe(r));
 
-    // Force playback engine loop setup across modern desktop layout setups
     document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.inline-media-loop').forEach(track => {
         track.play().catch((err) => {
