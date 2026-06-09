@@ -122,7 +122,7 @@
     .restaurant-michelin-tag {
       font-family: 'DM Mono', monospace;
       font-size: 0.75rem;
-      color: #d4af37; /* Clean gold coloring for michelin status */
+      color: #d4af37;
       margin-bottom: 0.4rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -131,7 +131,19 @@
     .restaurant-address {
       font-size: 0.8rem;
       color: var(--color-muted, #888888);
-      margin: 0;
+      margin: 0 0 0.75rem 0;
+    }
+
+    .restaurant-link {
+      display: inline-block;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: #ffffff;
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+    .restaurant-link:hover {
+      color: #ff4d4d;
     }
 
     /* Map Interface Viewport */
@@ -165,6 +177,7 @@
     .popup-title { font-weight: 500; font-size: 0.95rem; margin: 0 0 0.2rem 0; }
     .popup-meta { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: #ff4d4d; }
     .popup-michelin { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: #d4af37; margin-top: 2px; }
+    .popup-link-box { margin-top: 8px; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 6px; }
 
     /* Custom Sidebar Scrollbar */
     .restaurant-sidebar::-webkit-scrollbar { width: 4px; }
@@ -292,7 +305,7 @@
     reveals.forEach(r => observer.observe(r));
 
     /* ==========================================================================
-       MAP ENGINE IMPLEMENTATION DATABASE & LOGIC (WITH MICHELIN RATINGS)
+       MAP ENGINE IMPLEMENTATION DATABASE & LOGIC (WITH WEBSITE HOMEPAGES)
        ========================================================================== */
     const locations = [
       {
@@ -302,6 +315,7 @@
         michelin: "2 Michelin Stars",
         cuisine: "Sichuan / Cantonese",
         address: "Level 35, Hilton Singapore Orchard",
+        url: "https://www.shisenhanten.com.sg/",
         coords: [1.3025, 103.8358]
       },
       {
@@ -311,6 +325,7 @@
         michelin: "1 Michelin Star",
         cuisine: "Cantonese Fine Dining",
         address: "The Ritz-Carlton, Millenia (Downtown Core)",
+        url: "https://www.ritzcarlton.com/en/hotels/singapore/dining/summer-pavilion",
         coords: [1.2910, 103.8603]
       },
       {
@@ -320,6 +335,7 @@
         michelin: "Michelin Selected",
         cuisine: "Refined Cantonese & Dim Sum",
         address: "InterContinental Singapore, Bugis",
+        url: "https://singapore.intercontinental.com/dine-drink/man-fu-yuan",
         coords: [1.3002, 103.8553]
       },
       {
@@ -329,6 +345,7 @@
         michelin: "Michelin Selected",
         cuisine: "Sichuan & Beijing Roasted Duck",
         address: "7A Dempsey Road, Tanglin/Dempsey",
+        url: "https://www.goodwoodparkhotel.com/dining/min-jiang-at-dempsey",
         coords: [1.3045, 103.8052]
       },
       {
@@ -338,6 +355,7 @@
         michelin: "Michelin Selected",
         cuisine: "Authentic Cantonese / Dim Sum",
         address: "Carlton Hotel, City Hall",
+        url: "https://www.carltonhotel.sg/dining/wah-lok-cantonese-restaurant",
         coords: [1.2971, 103.8525]
       }
     ];
@@ -370,6 +388,7 @@
         <h3>${res.name}</h3>
         <div class="restaurant-michelin-tag">🏅 ${res.michelin}</div>
         <p class="restaurant-address">${res.address}</p>
+        <a href="${res.url}" target="_blank" class="restaurant-link" onclick="event.stopPropagation();">Visit Homepage ↗</a>
       `;
       listContainer.appendChild(item);
 
@@ -380,6 +399,9 @@
         <div class="popup-meta">${res.rating} · ${res.cuisine}</div>
         <div class="popup-michelin">🏅 ${res.michelin}</div>
         <div style="font-size:0.75rem; color:#aaa; margin-top:5px;">${res.address}</div>
+        <div class="popup-link-box">
+          <a href="${res.url}" target="_blank" style="color: #ff4d4d; font-family: 'DM Mono', monospace; font-size: 0.75rem; text-decoration: underline;">Open Website ↗</a>
+        </div>
       `;
       marker.bindPopup(popupContent);
       
