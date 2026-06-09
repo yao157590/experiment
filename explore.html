@@ -4,8 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Explore Chinese Cuisine — Experiment</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght=0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
   <style>
     /* Inline styles specifically for the reading experience on this page */
     .article-body { 
@@ -29,6 +32,134 @@
     @media (max-width: 900px) {
       .flavor-grid { grid-template-columns: 1fr; }
     }
+
+    /* MAP WIDGET SPECIFIC LAYOUT STYLES */
+    .map-section-wrapper {
+      padding: 0 var(--space-lg) var(--space-2xl);
+      max-width: 1200px;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    .map-widget-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 600px;
+      background-color: #121212;
+      border: 1px solid var(--color-border, rgba(255, 255, 255, 0.08));
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+      .map-widget-container {
+        flex-direction: row;
+      }
+    }
+
+    /* Sidebar List Elements */
+    .restaurant-sidebar {
+      flex: 1;
+      max-height: 220px;
+      overflow-y: auto;
+      border-bottom: 1px solid var(--color-border, rgba(255, 255, 255, 0.08));
+      padding: 1.5rem;
+      box-sizing: border-box;
+    }
+
+    @media (min-width: 768px) {
+      .restaurant-sidebar {
+        max-width: 350px;
+        max-height: 100%;
+        border-bottom: none;
+        border-right: 1px solid var(--color-border, rgba(255, 255, 255, 0.08));
+      }
+    }
+
+    .sidebar-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 1px;
+      margin: 0 0 0.25rem 0;
+    }
+
+    .sidebar-subtitle {
+      color: var(--color-muted, #888888);
+      font-size: 0.85rem;
+      margin: 0 0 1.5rem 0;
+    }
+
+    .restaurant-item {
+      padding: 1rem;
+      border: 1px solid var(--color-border, rgba(255, 255, 255, 0.06));
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background-color: rgba(255, 255, 255, 0.01);
+    }
+
+    .restaurant-item:hover, .restaurant-item.active {
+      border-color: rgba(255, 255, 255, 0.25);
+      background-color: rgba(255, 255, 255, 0.04);
+    }
+
+    .restaurant-item h3 {
+      margin: 0 0 0.4rem 0;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: #ffffff;
+    }
+
+    .restaurant-meta {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: #ff4d4d; /* Highlighting element for Chinese culinary theme */
+      margin-bottom: 0.25rem;
+    }
+
+    .restaurant-address {
+      font-size: 0.8rem;
+      color: var(--color-muted, #888888);
+      margin: 0;
+    }
+
+    /* Map Interface Viewport */
+    .map-viewport {
+      flex: 2;
+      height: 100%;
+      position: relative;
+      background-color: #1a1a1a;
+      z-index: 10;
+    }
+
+    /* Adjusting Map Tiles into Minimalist Dark Mode */
+    .leaflet-container {
+      background: #111 !important;
+    }
+    .leaflet-tile-layer {
+      filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+    }
+
+    /* Inside Map Popup Custom Modifications */
+    .leaflet-popup-content-wrapper {
+      background-color: #121212 !important;
+      color: #ffffff !important;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-family: 'DM Sans', sans-serif;
+      border-radius: 6px;
+    }
+    .leaflet-popup-tip {
+      background-color: #121212 !important;
+    }
+    .popup-title { font-weight: 500; font-size: 0.95rem; margin: 0 0 0.2rem 0; }
+    .popup-meta { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: #ff4d4d; }
+
+    /* Custom Sidebar Scrollbar */
+    .restaurant-sidebar::-webkit-scrollbar { width: 4px; }
+    .restaurant-sidebar::-webkit-scrollbar-track { background: #121212; }
+    .restaurant-sidebar::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 2px; }
   </style>
 </head>
 <body>
@@ -105,6 +236,27 @@
     </div>
   </div>
 
+  <div class="section-header reveal">
+    <h2 class="section-title">Culinary Hotspots</h2>
+  </div>
+
+  <div class="map-section-wrapper reveal">
+    <div class="map-widget-container">
+      
+      <div class="restaurant-sidebar">
+        <div class="sidebar-title">Top Rated Chinese</div>
+        <div class="sidebar-subtitle">Elite selections across Singapore</div>
+        <div id="restaurant-list">
+          </div>
+      </div>
+      
+      <div id="map" class="map-viewport"></div>
+
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
   <script>
     // Custom cursor logic
     const cursor = document.getElementById('cursor');
@@ -112,7 +264,8 @@
       cursor.style.left = e.clientX + 'px';
       cursor.style.top  = e.clientY + 'px';
     });
-    document.querySelectorAll('a, button, .card').forEach(el => {
+    // Extended selector to include new map sidebar listing items
+    document.querySelectorAll('a, button, .card, .restaurant-item').forEach(el => {
       el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
       el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
     });
@@ -128,6 +281,126 @@
       });
     }, { threshold: 0.1 });
     reveals.forEach(r => observer.observe(r));
+
+    /* ==========================================================================
+       MAP ENGINE IMPLEMENTATION DATABASE & LOGIC
+       ========================================================================== */
+    const locations = [
+      {
+        id: "shisen",
+        name: "Shisen Hanten by Chen Kentaro",
+        rating: "★ 4.7 (2 Michelin Stars)",
+        cuisine: "Sichuan / Cantonese",
+        address: "Level 35, Hilton Singapore Orchard",
+        coords: [1.3025, 103.8358]
+      },
+      {
+        id: "summer-pavilion",
+        name: "Summer Pavilion",
+        rating: "★ 4.8 (1 Michelin Star)",
+        cuisine: "Cantonese Fine Dining",
+        address: "The Ritz-Carlton, Millenia Singapore",
+        coords: [1.2910, 103.8603]
+      },
+      {
+        id: "imperial-treasure",
+        name: "Imperial Treasure Super Peking Duck",
+        rating: "★ 4.6 (Award-Winning)",
+        cuisine: "Traditional Peking Duck",
+        address: "Paragon, #05-42",
+        coords: [1.3032, 103.8347]
+      },
+      {
+        id: "wah-lok",
+        name: "Wah Lok Cantonese Restaurant",
+        rating: "★ 4.6 (Local Legend)",
+        cuisine: "Classic Dim Sum",
+        address: "Carlton Hotel Singapore",
+        coords: [1.2971, 103.8525]
+      },
+      {
+        id: "crystal-jade",
+        name: "Crystal Jade Golden Palace",
+        rating: "★ 4.5 (Teochew Specialist)",
+        cuisine: "Teochew & Cantonese Cooking",
+        address: "Paragon, #05-22",
+        coords: [1.3035, 103.8351]
+      }
+    ];
+
+    // Initialize map centering parameters
+    const map = L.map('map', {
+      center: [1.2990, 103.8450],
+      zoom: 13,
+      zoomControl: false
+    });
+    L.control.zoom({ position: 'topright' }).addTo(map);
+
+    // Apply geographic tiles frame framework
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    const markerMap = {};
+    const listContainer = document.getElementById('restaurant-list');
+
+    // Generating DOM components and tracking connections
+    locations.forEach((res, index) => {
+      // Create listing card container nodes inside the sidebar
+      const item = document.createElement('div');
+      item.className = `restaurant-item ${index === 0 ? 'active' : ''}`;
+      item.id = `sidebar-${res.id}`;
+      item.innerHTML = `
+        <div class="restaurant-meta">${res.rating} · ${res.cuisine}</div>
+        <h3>${res.name}</h3>
+        <p class="restaurant-address">${res.address}</p>
+      `;
+      listContainer.appendChild(item);
+
+      // Create vector pinpoint overlays
+      const marker = L.marker(res.coords).addTo(map);
+      const popupContent = `
+        <div class="popup-title">${res.name}</div>
+        <div class="popup-meta">${res.rating}</div>
+        <div style="font-size:0.75rem; color:#aaa; margin-top:3px;">${res.address}</div>
+      `;
+      marker.bindPopup(popupContent);
+      
+      markerMap[res.id] = { marker, item };
+
+      // Make new custom list items responsive to tracking pointer mechanics
+      item.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+      item.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+
+      // Click Actions Sync: Marker Select -> Sidebar Highlight UI update
+      marker.on('click', () => {
+        highlightListItem(res.id);
+      });
+
+      // Click Actions Sync: Sidebar Element Select -> Glide camera viewport coordinate positions
+      item.addEventListener('click', () => {
+        highlightListItem(res.id);
+        map.flyTo(res.coords, 14, { duration: 1.2 });
+        marker.openPopup();
+      });
+    });
+
+    function highlightListItem(id) {
+      document.querySelectorAll('.restaurant-item').forEach(el => el.classList.remove('active'));
+      const targets = markerMap[id];
+      if (targets) {
+        targets.item.classList.add('active');
+        targets.item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    // Initialize first map marker popup profile information sequence loop
+    setTimeout(() => {
+      if(locations.length > 0) {
+        markerMap[locations[0].id].marker.openPopup();
+      }
+    }, 400);
   </script>
 </body>
 </html>
