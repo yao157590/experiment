@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Taste & Beverages — Culinary Web Awards</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght=0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
   <style>
     nav { position: relative; z-index: 1000; }
@@ -204,8 +204,7 @@
       <li><a href="#">Academy</a></li>
       <li><a href="#">Collections</a></li>
       <li><a href="#">Directory</a></li>
-      <li><a href="#">Market</a></li>
-    </ul>
+      <li><a href="#">Others</a></li> </ul>
     <div class="nav-search-container">
       <input type="text" class="nav-search-input" id="searchInput" placeholder="Search nominees, recipes, cities..." autocomplete="off">
       <div class="nav-search-icon"></div>
@@ -469,8 +468,7 @@
       <ul class="footer-links">
         <li><a href="explore.html">Collections</a></li>
         <li><a href="#">Academy</a></li>
-        <li><a href="#">Market</a></li>
-        <li><a href="#">Directory</a></li>
+        <li><a href="#">Others</a></li> <li><a href="#">Directory</a></li>
       </ul>
     </div>
     <div>
@@ -490,35 +488,24 @@
 
   <script>
     // ── SEARCH DATABASE ──────────────────────────────────────────
-    // Add new entries here whenever you create new pages or cards
     const searchData = [
-
-      // RECIPES (from recipes.html)
       { title: "Pan-Seared Scallops on Cauliflower Purée", meta: "20 mins · Medium", type: "recipe", badge: "Signature", icon: "🐚", url: "recipes.html#scallops", keywords: "scallop cauliflower purée sear butter capers" },
       { title: "Roasted Salmon Steak with Carrot Ginger Juice", meta: "35 mins · Easy", type: "recipe", badge: "2 Michelin Stars", icon: "🐟", url: "recipes.html#salmon", keywords: "salmon steak carrot ginger roast fish" },
       { title: "Wild Garlic & Broad Bean Risotto", meta: "40 mins · Hard", type: "recipe", badge: "Michelin Star", icon: "🌿", url: "recipes.html#risotto", keywords: "risotto garlic broad bean arborio rice vegetarian" },
       { title: "Smoked Salmon, Dill & Caviar Crostini", meta: "15 mins · Easy", type: "recipe", badge: "Appetizer", icon: "🥖", url: "recipes.html#crostini", keywords: "salmon crostini caviar dill smoked appetizer starter" },
       { title: "Mini Chocolate Tarts with Fresh Berries", meta: "50 mins · Medium", type: "recipe", badge: "Patisserie", icon: "🍫", url: "recipes.html#tarts", keywords: "chocolate tart berry dessert ganache pastry sweet" },
-
-      // NOMINEES
       { title: "Bite Studio — Gastronomy", meta: "Restaurant · 3D Menu", type: "nominee", badge: "Live Track", icon: "🍽️", url: "#", keywords: "bite studio restaurant 3d menu webgl gastronomy" },
       { title: "Deepwater Ales — Digital", meta: "Brewery · Branding", type: "nominee", badge: "Vote Now", icon: "🍺", url: "#", keywords: "deepwater ales brewery branding react beer" },
       { title: "Gilded — Bespoke Coffee", meta: "E-Commerce · Roastery", type: "nominee", badge: "Vote Now", icon: "☕", url: "#", keywords: "gilded coffee roastery shopify ecommerce bespoke" },
       { title: "Mars + Vine — Tasting", meta: "Winery · Portfolio", type: "nominee", badge: "Vote Now", icon: "🍷", url: "#", keywords: "mars vine winery tasting portfolio wine" },
-
-      // WINNERS
       { title: "Cyan Cocktails Platform", meta: "App · Mixology", type: "winner", badge: "8.88 SOTD", icon: "🍸", url: "cyan.html", keywords: "cyan cocktails mixology app drinks bar" },
       { title: "Ambar — Fire & Flavour", meta: "Grill · Experience", type: "winner", badge: "9.12 SOTD", icon: "🔥", url: "#", keywords: "ambar fire flavour grill bbq experience" },
       { title: "Flowstate — Kombucha Lab", meta: "Beverage · Experimental", type: "winner", badge: "8.67 SOTD", icon: "🫧", url: "#", keywords: "flowstate kombucha fermented beverage lab experimental" },
       { title: "Mossfield — Organic Farms", meta: "Agriculture · Non-profit", type: "winner", badge: "8.44 SOTD", icon: "🌱", url: "mossfield.html", keywords: "mossfield organic farm agriculture non-profit sustainable" },
-
-      // ACADEMY
       { title: "Mastering E-Commerce for Roasteries in Shopify", meta: "Instructor: Chef Digital · 4.9/5", type: "course", badge: "Academy", icon: "📚", url: "#", keywords: "ecommerce shopify roastery coffee course academy" },
       { title: "3D WebGL: Rendering Photorealistic Food", meta: "Instructor: Luminary Studio · 5/5", type: "course", badge: "Academy", icon: "🎓", url: "#", keywords: "3d webgl food rendering photorealistic visual academy" },
       { title: "Typography & Branding for Modern Wineries", meta: "Instructor: Hmmm Creative · 4.8/5", type: "course", badge: "Academy", icon: "🖋️", url: "#", keywords: "typography branding winery design academy" },
       { title: "Figma from Scratch: Designing Restaurant Menus", meta: "Instructor: Plate UI · 5/5", type: "course", badge: "Academy", icon: "🎨", url: "#", keywords: "figma design restaurant menu ui ux academy" },
-
-      // COLLECTIONS
       { title: "Best Coffee Shop Web Interfaces", meta: "+142 curated sites", type: "collection", badge: "Inspiration", icon: "☕", url: "best-coffee-shops.html", keywords: "coffee shop web interface inspiration design collection" },
       { title: "Interactive Wine Maps & Estates", meta: "+89 curated sites", type: "collection", badge: "Layouts", icon: "🗺️", url: "#", keywords: "wine map estate interactive layout collection" },
       { title: "Immersive Fine Dining Experiences", meta: "+104 curated sites", type: "collection", badge: "Interactions", icon: "🕯️", url: "#", keywords: "fine dining immersive experience interaction collection" },
@@ -537,7 +524,7 @@
         item.meta.toLowerCase().includes(q) ||
         item.keywords.toLowerCase().includes(q) ||
         item.type.toLowerCase().includes(q)
-      ).slice(0, 6); // max 6 results shown
+      ).slice(0, 6);
 
       if (results.length === 0) {
         dropdown.innerHTML = `<div class="search-no-results">No results for "${query}"</div>`;
@@ -560,7 +547,6 @@
       dropdown.classList.add('open');
     }
 
-    // Highlight matching text in results
     function highlight(text, query) {
       const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
       return text.replace(regex, '<mark style="background:rgba(232,51,58,0.15);color:inherit;border-radius:2px;padding:0 1px;">$1</mark>');
@@ -569,14 +555,12 @@
     input.addEventListener('input', e => search(e.target.value));
     input.addEventListener('focus', e => { if (e.target.value) search(e.target.value); });
 
-    // Close dropdown when clicking outside
     document.addEventListener('click', e => {
       if (!e.target.closest('.nav-search-container')) {
         dropdown.classList.remove('open');
       }
     });
 
-    // Keyboard: Escape closes, Enter visits first result
     input.addEventListener('keydown', e => {
       if (e.key === 'Escape') { dropdown.classList.remove('open'); input.blur(); }
       if (e.key === 'Enter') {
