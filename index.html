@@ -7,16 +7,35 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght=0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
   <style>
+    /* CRITICAL FIX FOR THE CUSTOM CURSOR OVERLAY */
+    #cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none; /* THIS STOPS THE DOT FROM BLOCKING CLICKS AND TYPING */
+      z-index: 9999;
+      mix-blend-mode: difference;
+      transition: width 0.2s, height 0.2s;
+    }
+    #cursor.expand {
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
     /* Layout styling for the search bar container */
     .nav-search-container {
       display: flex;
       align-items: center;
       margin-left: var(--space-md, 1.5rem);
-      margin-right: auto; /* Pushes the nav-right links to the far right */
+      margin-right: auto; 
       position: relative;
       max-width: 300px;
       width: 100%;
-      z-index: 10; /* Ensures it sits above other background layouts */
+      z-index: 10; 
     }
 
     .nav-search-input {
@@ -29,7 +48,6 @@
       font-family: 'DM Sans', sans-serif;
       font-size: 0.9rem;
       transition: all 0.3s ease;
-      pointer-events: auto !important; /* CRITICAL FIX: Forces browser to allow text input and clicking */
     }
 
     .nav-search-input:focus {
@@ -470,8 +488,7 @@
       cursor.style.top  = e.clientY + 'px';
     });
     
-    // Explicitly excluded the input from custom overlay capture mechanics
-    document.querySelectorAll('a, button, .card').forEach(el => {
+    document.querySelectorAll('a, button, .card, .nav-search-input').forEach(el => {
       el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
       el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
     });
