@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signature Recipes — Taste</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght=0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* Prevent custom cursor from blocking carousel interactions */
+    #cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #ffffff;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none !important;
+      z-index: 99999 !important;
+      mix-blend-mode: difference;
+      transition: width 0.2s, height 0.2s;
+    }
+    #cursor.expand {
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    body {
+      background-color: #0b0b0b;
+      color: #ffffff;
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+      margin: 0;
+    }
+
+    nav {
+      position: relative;
+      z-index: 1000 !important;
+    }
+
+    /* RECIPES HERO SECTION */
+    .recipes-hero {
+      padding: var(--space-2xl, 4rem) var(--space-lg, 2rem) 2rem var(--space-lg, 2rem);
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .recipes-hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 8vw, 5rem);
+      line-height: 0.9;
+      margin-bottom: 1rem;
+      letter-spacing: 1px;
+    }
+
+    .recipes-hero p {
+      color: #888888;
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* CAROUSEL CONTAINER STRUCTURING */
+    .carousel-viewframe {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      margin: 2rem auto var(--space-2xl, 5rem) auto;
+      padding: 0 4rem;
+      box-sizing: border-box;
+    }
+
+    .carousel-window {
+      overflow: hidden;
+      width: 100%;
+      border-radius: 12px;
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+      width: 100%;
+    }
+
+    /* INDIVIDUAL RECIPE CARDS */
+    .recipe-slide {
+      flex: 0 0 100%; /* Shows one main recipe card per view frame */
+      min-width: 100%;
+      box-sizing: border-box;
+      padding: 0 1rem;
+    }
+
+    @media (min-width: 768px) {
+      .recipe-slide {
+        flex: 0 0 50%; /* Slides show side-by-side on wider viewport frames */
+        min-width: 50%;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .recipe-slide {
+        flex: 0 0 33.333%; /* Displays 3 elegant recipe listings simultaneously */
+        min-width: 33.333%;
+      }
+    }
+
+    .recipe-card-inner {
+      background-color: #121212;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .recipe-card-inner:hover {
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-4px);
+    }
+
+    .recipe-img-box {
+      width: 100%;
+      height: 280px;
+      position: relative;
+      background-color: #1a1a1a;
+      overflow: hidden;
+    }
+
+    /* Placeholder gradient art matching visual aesthetics */
+    .recipe-img-box::before {
+      content: '';
+      position: absolute;
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%);
+      opacity: 0.15;
+    }
+
+    /* Fallback dynamic graphics representing master culinary art files */
+    .img-steak { background: url('Grilled-T-Bone.jpg') center/cover no-repeat; }
+    .img-chicken { background: url('bites.jpeg') center/cover no-repeat; }
+    .img-cocktail { background: url('cocktail.webp') center/cover no-repeat; }
+    .img-coffee { background: url('coffee.jpg') center/cover no-repeat; }
+    .img-dessert { background: url('dark.jpg') center/cover no-repeat; }
+
+    .recipe-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background-color: #ffffff;
+      color: #000000;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.3rem 0.6rem;
+      border-radius: 3px;
+      text-transform: uppercase;
+    }
+
+    .recipe-card-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .recipe-meta-strip {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      color: #888888;
+      margin-bottom: 0.5rem;
+    }
+
+    .recipe-card-title {
+      font-size: 1.35rem;
+      font-weight: 500;
+      margin: 0 0 0.75rem 0;
+      line-height: 1.2;
+    }
+
+    .recipe-summary {
+      color: #aaaaaa;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin: 0 0 1.5rem 0;
+    }
+
+    .recipe-action-btn {
+      margin-top: auto;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #ffffff;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: color 0.2s ease;
+    }
+
+    .recipe-action-btn:hover {
+      color: #888888;
+    }
+
+    /* CAROUSEL INTERACTIVE CONTROLS */
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      background-color: #121212;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: #ffffff;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 10;
+      user-select: none;
+    }
+
+    .carousel-arrow:hover {
+      background-color: #ffffff;
+      color: #000000;
+      border-color: #ffffff;
+    }
+
+    .arrow-prev { left: 0; }
+    .arrow-next { right: 0; }
+  </style>
+</head>
+<body>
+
+  <div id="cursor"></div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Taste<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="explore.html">Explore</a></li>
+      <li><a href="top-restaurants.html">Winners</a></li>
+      <li><a href="#">Academy</a></li>
+      <li><a href="#">Collections</a></li>
+      <li><a href="#">Directory</a></li>
+      <li><a href="#">Market</a></li>
+    </ul>
+
+    <div class="nav-search-container">
+      <input type="text" class="nav-search-input" placeholder="Search nominees, recipes, cities...">
+      <div class="nav-search-icon"></div>
+    </div>
+
+    <div class="nav-right">
+      <a href="#" class="btn-outline">Log in</a>
+      <a href="#" class="btn-solid">Submit</a>
+    </div>
+  </nav>
+
+  <header class="recipes-hero">
+    <div class="sotd-label" style="margin-bottom: 1rem;">Culinary Masterclasses</div>
+    <h1>Signature Recipes</h1>
+    <p>Recreate standard-defining plates and mixed drink profiles formulated by our award-winning partner chefs and global culinary visionaries.</p>
+  </header>
+
+  <main class="carousel-viewframe">
+    <button class="carousel-arrow arrow-prev" id="prevBtn" aria-label="Previous Slide">←</button>
+    
+    <div class="carousel-window">
+      <div class="carousel-track" id="carouselTrack">
+        
+        <div class="recipe-slide">
+          <div class="recipe-card-inner">
+            <div class="recipe-img-box img-steak">
+              <span class="recipe-badge">Masterclass</span>
+            </div>
+            <div class="recipe-card-body">
+              <div class="recipe-meta-strip">45 MINS · EASY</div>
+              <h3 class="recipe-card-title">Grilled T-Bone with Garlic Herb Butter</h3>
+              <p class="recipe-summary">A beautifully seared, thick-cut T-bone steak basted generously with melted garlic and fresh rosemary sprigs.</p>
+              <a href="#" class="recipe-action-btn">View Recipe →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="recipe-slide">
+          <div class="recipe-card-inner">
+            <div class="recipe-img-box img-chicken">
+              <span class="recipe-badge">Trending</span>
+            </div>
+            <div class="recipe-card-body">
+              <div class="recipe-meta-strip">30 MINS · MEDIUM</div>
+              <h3 class="recipe-card-title">World's Best Crispy Fried Chicken</h3>
+              <p class="recipe-summary">Golden, crunchy buttermilk-soaked chicken thighs featuring a signature blend of eleven curated herbs and aromatic spices.</p>
+              <a href="#" class="recipe-action-btn">View Recipe →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="recipe-slide">
+          <div class="recipe-card-inner">
+            <div class="recipe-img-box img-cocktail">
+              <span class="recipe-badge">Mixology</span>
+            </div>
+            <div class="recipe-card-body">
+              <div class="recipe-meta-strip">10 MINS · EXPERT</div>
+              <h3 class="recipe-card-title">Cyan Lab Citrus Botanical infusion</h3>
+              <p class="recipe-summary">A clean, avant-garde cocktail marrying blue curacao elements with freshly muddled blood orange juices and artisan gin base notes.</p>
+              <a href="#" class="recipe-action-btn">View Recipe →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="recipe-slide">
+          <div class="recipe-card-inner">
+            <div class="recipe-img-box img-coffee">
+              <span class="recipe-badge">Brewing</span>
+            </div>
+            <div class="recipe-card-body">
+              <div class="recipe-meta-strip">15 MINS · EASY</div>
+              <h3 class="recipe-card-title">Bespoke Cold Brew Extraction</h3>
+              <p class="recipe-summary">Gilded Roastery’s signature slow drip formulation yielding ultra-smooth, chocolatey notes without natural high acidity variables.</p>
+              <a href="#" class="recipe-action-btn">View Recipe →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="recipe-slide">
+          <div class="recipe-card-inner">
+            <div class="recipe-img-box img-dessert">
+              <span class="recipe-badge">Patisserie</span>
+            </div>
+            <div class="recipe-card-body">
+              <div class="recipe-meta-strip">60 MINS · HARD</div>
+              <h3 class="recipe-card-title">Dark Espresso Mousse Tart</h3>
+              <p class="recipe-summary">A decadent dessert balancing dark cacao cookie crusts with airy, smooth coffee-infused french cream layers.</p>
+              <a href="#" class="recipe-action-btn">View Recipe →</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <button class="carousel-arrow arrow-next" id="nextBtn" aria-label="Next Slide">→</button>
+  </main>
+
+  <footer>
+    <div class="footer-brand">
+      <span class="footer-logo">Taste<span>.</span></span>
+      <p class="footer-tagline">Recognising and promoting the world's finest culinary web experiences since 2024.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Awards</div>
+      <ul class="footer-links">
+        <li><a href="top-restaurants.html">Menu of the Day</a></li>
+        <li><a href="top-restaurants.html">Nominees</a></li>
+        <li><a href="top-restaurants.html">Hon. Mentions</a></li>
+        <li><a href="top-restaurants.html">Michelin Digital</a></li>
+      </ul>
+    </div>
+  </footer>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Taste & Beverages. All rights reserved.</span>
+  </div>
+
+  <script>
+    // Custom Tracking Cursor Animation Logic
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button, .recipe-card-inner').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+    });
+
+    // Gallery Carousel Calculation Logic
+    const track = document.getElementById('carouselTrack');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slides = Array.from(track.children);
+    
+    let currentIndex = 0;
+
+    function getSlidesPerView() {
+      if (window.innerWidth >= 1024) return 3;
+      if (window.innerWidth >= 768) return 2;
+      return 1;
+    }
+
+    function updateCarouselPosition() {
+      const slidesPerView = getSlidesPerView();
+      const maxIndex = slides.length - slidesPerView;
+      
+      // Limit bounds securely
+      if (currentIndex < 0) currentIndex = 0;
+      if (currentIndex > maxIndex) currentIndex = maxIndex;
+
+      // Move the carousel smoothly
+      const slideWidth = slides[0].getBoundingClientRect().width;
+      track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+    }
+
+    nextBtn.addEventListener('click', () => {
+      const slidesPerView = getSlidesPerView();
+      if (currentIndex < slides.length - slidesPerView) {
+        currentIndex++;
+        updateCarouselPosition();
+      }
+    });
+
+    prevBtn.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateCarouselPosition();
+      }
+    });
+
+    // Handle viewport changes adaptively
+    window.addEventListener('resize', updateCarouselPosition);
+  </script>
+</body>
+</html>
