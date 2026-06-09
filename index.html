@@ -190,7 +190,7 @@
         <div class="card-thumb-inner" style="position: relative;">
           <div class="thumb-bite"></div>
           <video class="card-preview-video inline-media-loop" autoplay loop muted playsinline>
-            <source src="recipe.mp4" type="video/mp4">
+            <source src="World’s Best Fried Chicken RECIPE - Nick Kratka (720p).mp4" type="video/mp4">
           </video>
         </div>
       </div>
@@ -199,7 +199,7 @@
         <div class="card-title">Bite Studio — Gastronomy</div>
         <div class="card-author">by bitecreative</div>
       </div>
-      <div class="card-footer"><div class="card-score">Live Track</div><div class="card-tags"><span class="tag">WebGL</span></div></div>
+      <div class="card-footer"><div class="card-score">Live Preview</div><div class="card-tags"><span class="tag">WebGL</span></div></div>
     </div>
 
     <div class="card reveal">
@@ -273,7 +273,7 @@
         <div class="card-thumb-inner" style="position: relative;">
           <div class="thumb-ambar"></div>
           <video class="card-preview-video inline-media-loop" autoplay loop muted playsinline>
-            <source src="ambar.mp4" type="video/mp4">
+            <source src="📍 @ambar_restaurants If you are looking for a good food + good vibes and beautiful ambiance thi.mp4" type="video/mp4">
           </video>
         </div>
       </div>
@@ -486,11 +486,11 @@
     }, { threshold: 0.1 });
     reveals.forEach(r => observer.observe(r));
 
-    // Force background tracking fallback loops if browsers halt background tracks
+    // Secondary runtime forced play callback for heavy assets
     document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.inline-media-loop').forEach(track => {
         track.play().catch(() => {
-          console.log("Media framework engine waiting for initial click handshake.");
+          console.log("Media framework inline autoplay active.");
         });
       });
     });
