@@ -7,7 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght=0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
   <style>
-    /* Inline layout fixes and fallback rules */
     .cta-banner {
       display: flex; flex-wrap: wrap; border-bottom: 1px solid var(--color-border);
     }
@@ -19,19 +18,21 @@
     .cta-half:last-child { border-right: none; }
     .cta-title { font-family: 'Bebas Neue', sans-serif; font-size: var(--text-title); margin-bottom: 1rem; }
     
-    /* Hero Image Container */
     .hero-steak-bg {
       background-image: url('Grilled-T-Bone.jpg');
       background-size: cover;
       background-position: center;
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
+      width: 100%; height: 100%; position: absolute; top: 0; left: 0;
     }
 
-    /* Video Previews Rule — forces full sizing inside thumbnails */
+    /* Standardizes video layer positioning inside the thumbnail container */
+    .card-thumb-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
     .card-preview-video {
       position: absolute;
       top: 0;
@@ -40,85 +41,22 @@
       height: 100%;
       object-fit: cover;
       z-index: 2;
+      pointer-events: none; /* Allows clicks to pass through to the card if needed */
     }
 
-    /* Restored High-Quality Card Cover Images */
-    .thumb-bite {
-      background-image: url('bites.jpeg');
-      background-size: cover;
-      background-position: center;
-      width: 100%; height: 100%;
-    }
-    .thumb-brew {
-      background-image: url('deep.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      background-color: #ffffff;
-      width: 100%; height: 100%;
-    }
-    .thumb-bean {
-      background-image: url('coffee.jpg');
-      background-size: cover;
-      background-position: center;
-      width: 100%; height: 100%;
-    }
-    .thumb-vine {
-      background-image: url('wine.webp');
-      background-size: cover;
-      background-position: center;
-      width: 100%; height: 100%;
-    }
-    .thumb-ambar {
-      background-image: url('Amber.jpeg');
-      background-size: cover;
-      background-position: center;
-      width: 100%; height: 100%;
-    }
-    .thumb-zest {
-      background-image: url('cocktail.webp');
-      background-size: cover;
-      background-position: center;
-      width: 100%; height: 100%;
-    }
-    .thumb-ferm {
-      background-image: url('flow.jpeg');
-      background-size: cover;
-      background-position: center;
-      width: 100%; height: 100%;
-    }
-    .thumb-moss {
-      background-image: url('moss.gif');
-      background-size: cover;
-      background-position: center;
-      width: 100%; height: 100%;
-    }
-
-    /* Collections Graphic Assets */
-    .thumb-cafe {
-      background-image: url('shop.png');
-      background-size: cover;
-      background-position: center;
-      width: 100%; height: 100%;
-    }
-    .thumb-wine-coll {
-      background-image: url('map.webp');
-      background-size: cover;
-      background-position: center;
-      width: 100%; height: 100%;
-    }
-    .thumb-fine {
-      background-image: url('dining.jpg');
-      background-size: cover;
-      background-position: center;
-      width: 100%; height: 100%;
-    }
-    .thumb-spice {
-      background-image: url('dark.jpg');
-      background-size: cover;
-      background-position: center;
-      width: 100%; height: 100%;
-    }
+    /* Fallback Cover Images */
+    .thumb-bite { background-image: url('bites.jpeg'); background-size: cover; background-position: center; width: 100%; height: 100%; }
+    .thumb-brew { background-image: url('deep.png'); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: #ffffff; width: 100%; height: 100%; }
+    .thumb-bean { background-image: url('coffee.jpg'); background-size: cover; background-position: center; width: 100%; height: 100%; }
+    .thumb-vine { background-image: url('wine.webp'); background-size: cover; background-position: center; width: 100%; height: 100%; }
+    .thumb-ambar { background-image: url('Amber.jpeg'); background-size: cover; background-position: center; width: 100%; height: 100%; }
+    .thumb-zest { background-image: url('cocktail.webp'); background-size: cover; background-position: center; width: 100%; height: 100%; }
+    .thumb-ferm { background-image: url('flow.jpeg'); background-size: cover; background-position: center; width: 100%; height: 100%; }
+    .thumb-moss { background-image: url('moss.gif'); background-size: cover; background-position: center; width: 100%; height: 100%; }
+    .thumb-cafe { background-image: url('shop.png'); background-size: cover; background-position: center; width: 100%; height: 100%; }
+    .thumb-wine-coll { background-image: url('map.webp'); background-size: cover; background-position: center; width: 100%; height: 100%; }
+    .thumb-fine { background-image: url('dining.jpg'); background-size: cover; background-position: center; width: 100%; height: 100%; }
+    .thumb-spice { background-image: url('dark.jpg'); background-size: cover; background-position: center; width: 100%; height: 100%; }
   </style>
 </head>
 <body>
@@ -187,10 +125,10 @@
     <div class="card reveal">
       <div class="card-hover-overlay"></div>
       <div class="card-thumb">
-        <div class="card-thumb-inner" style="position: relative;">
+        <div class="card-thumb-inner">
           <div class="thumb-bite"></div>
           <video class="card-preview-video inline-media-loop" autoplay loop muted playsinline>
-            <source src="World’s Best Fried Chicken RECIPE - Nick Kratka (720p).mp4" type="video/mp4">
+            <source src="World’s%20Best%20Fried%20Chicken%20RECIPE%20-%20Nick%20Kratka%20(720p).mp4" type="video/mp4">
           </video>
         </div>
       </div>
@@ -199,7 +137,7 @@
         <div class="card-title">Bite Studio — Gastronomy</div>
         <div class="card-author">by bitecreative</div>
       </div>
-      <div class="card-footer"><div class="card-score">Live Preview</div><div class="card-tags"><span class="tag">WebGL</span></div></div>
+      <div class="card-footer"><div class="card-score">Live Track</div><div class="card-tags"><span class="tag">WebGL</span></div></div>
     </div>
 
     <div class="card reveal">
@@ -270,10 +208,10 @@
     
     <div class="card reveal">
       <div class="card-thumb">
-        <div class="card-thumb-inner" style="position: relative;">
+        <div class="card-thumb-inner">
           <div class="thumb-ambar"></div>
           <video class="card-preview-video inline-media-loop" autoplay loop muted playsinline>
-            <source src="📍 @ambar_restaurants If you are looking for a good food + good vibes and beautiful ambiance thi.mp4" type="video/mp4">
+            <source src="📍%20@ambar_restaurants%20If%20you%20are%20looking%20for%20a%20good%20food%20+%20good%20vibes%20and%20beautiful%20ambiance%20thi.mp4" type="video/mp4">
           </video>
         </div>
       </div>
@@ -463,7 +401,6 @@
   </div>
 
   <script>
-    // Custom cursor mapping
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', e => {
       cursor.style.left = e.clientX + 'px';
@@ -474,7 +411,6 @@
       el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
     });
 
-    // Content reveal logic
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver(entries => {
       entries.forEach((e, i) => {
@@ -486,11 +422,11 @@
     }, { threshold: 0.1 });
     reveals.forEach(r => observer.observe(r));
 
-    // Secondary runtime forced play callback for heavy assets
+    // Force playback engine loop setup across modern desktop layout setups
     document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.inline-media-loop').forEach(track => {
-        track.play().catch(() => {
-          console.log("Media framework inline autoplay active.");
+        track.play().catch((err) => {
+          console.log("Autoplay waiting for DOM interactions:", err);
         });
       });
     });
