@@ -12,10 +12,11 @@
       display: flex;
       align-items: center;
       margin-left: var(--space-md, 1.5rem);
-      margin-right: auto; /* Pushes the nav-right links (Log in/Submit) to the far right */
+      margin-right: auto; /* Pushes the nav-right links to the far right */
       position: relative;
       max-width: 300px;
       width: 100%;
+      z-index: 10; /* Ensures it sits above other background layouts */
     }
 
     .nav-search-input {
@@ -28,6 +29,7 @@
       font-family: 'DM Sans', sans-serif;
       font-size: 0.9rem;
       transition: all 0.3s ease;
+      pointer-events: auto !important; /* CRITICAL FIX: Forces browser to allow text input and clicking */
     }
 
     .nav-search-input:focus {
@@ -36,7 +38,7 @@
       border-color: #ffffff;
     }
 
-    /* Minimalist magnifying glass icon using CSS graphics */
+    /* Minimalist magnifying glass icon */
     .nav-search-icon {
       position: absolute;
       left: 1rem;
@@ -467,7 +469,9 @@
       cursor.style.left = e.clientX + 'px';
       cursor.style.top  = e.clientY + 'px';
     });
-    document.querySelectorAll('a, button, .card, .nav-search-input').forEach(el => {
+    
+    // Explicitly excluded the input from custom overlay capture mechanics
+    document.querySelectorAll('a, button, .card').forEach(el => {
       el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
       el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
     });
