@@ -115,7 +115,7 @@
     .restaurant-meta {
       font-family: 'DM Mono', monospace;
       font-size: 0.75rem;
-      color: #ff4d4d; /* Highlighting element for Chinese culinary theme */
+      color: #ff4d4d;
       margin-bottom: 0.25rem;
     }
 
@@ -264,7 +264,6 @@
       cursor.style.left = e.clientX + 'px';
       cursor.style.top  = e.clientY + 'px';
     });
-    // Extended selector to include new map sidebar listing items
     document.querySelectorAll('a, button, .card, .restaurant-item').forEach(el => {
       el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
       el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
@@ -283,54 +282,54 @@
     reveals.forEach(r => observer.observe(r));
 
     /* ==========================================================================
-       MAP ENGINE IMPLEMENTATION DATABASE & LOGIC
+       MAP ENGINE IMPLEMENTATION DATABASE & LOGIC (ALL ACROSS SINGAPORE)
        ========================================================================== */
     const locations = [
       {
-        id: "shisen",
-        name: "Shisen Hanten by Chen Kentaro",
-        rating: "★ 4.7 (2 Michelin Stars)",
-        cuisine: "Sichuan / Cantonese",
-        address: "Level 35, Hilton Singapore Orchard",
-        coords: [1.3025, 103.8358]
+        id: "jin-ting-wan",
+        name: "Jin Ting Wan",
+        rating: "★ 4.8 (Rooftop Fine Dining)",
+        cuisine: "Cantonese Classics",
+        address: "Level 55, Marina Bay Sands",
+        coords: [1.2840, 103.8596]
       },
       {
         id: "summer-pavilion",
         name: "Summer Pavilion",
         rating: "★ 4.8 (1 Michelin Star)",
         cuisine: "Cantonese Fine Dining",
-        address: "The Ritz-Carlton, Millenia Singapore",
+        address: "The Ritz-Carlton, Millenia (Downtown Core)",
         coords: [1.2910, 103.8603]
       },
       {
-        id: "imperial-treasure",
-        name: "Imperial Treasure Super Peking Duck",
-        rating: "★ 4.6 (Award-Winning)",
-        cuisine: "Traditional Peking Duck",
-        address: "Paragon, #05-42",
-        coords: [1.3032, 103.8347]
+        id: "man-fu-yuan",
+        name: "Man Fu Yuan",
+        rating: "★ 4.7 (Award-Winning)",
+        cuisine: "Refined Cantonese & Dim Sum",
+        address: "InterContinental Singapore, Bugis",
+        coords: [1.3002, 103.8553]
+      },
+      {
+        id: "min-jiang-dempsey",
+        name: "Min Jiang at Dempsey",
+        rating: "★ 4.6 (Lush Heritage)",
+        cuisine: "Sichuan & Beijing Roasted Duck",
+        address: "7A Dempsey Road, Tanglin/Dempsey",
+        coords: [1.3045, 103.8052]
       },
       {
         id: "wah-lok",
         name: "Wah Lok Cantonese Restaurant",
-        rating: "★ 4.6 (Local Legend)",
-        cuisine: "Classic Dim Sum",
-        address: "Carlton Hotel Singapore",
+        rating: "★ 4.6 (Local Icon)",
+        cuisine: "Authentic Cantonese / Dim Sum",
+        address: "Carlton Hotel, City Hall",
         coords: [1.2971, 103.8525]
-      },
-      {
-        id: "crystal-jade",
-        name: "Crystal Jade Golden Palace",
-        rating: "★ 4.5 (Teochew Specialist)",
-        cuisine: "Teochew & Cantonese Cooking",
-        address: "Paragon, #05-22",
-        coords: [1.3035, 103.8351]
       }
     ];
 
-    // Initialize map centering parameters
+    // Initialize map centering parameters (Slightly adjusted zoom to show wider Singapore region)
     const map = L.map('map', {
-      center: [1.2990, 103.8450],
+      center: [1.2945, 103.8380],
       zoom: 13,
       zoomControl: false
     });
