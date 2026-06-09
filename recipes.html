@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Signature Recipes — Taste</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght=0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="style.css"/>
   <style>
     /* Prevent custom cursor from blocking carousel interactions */
     #cursor {
@@ -34,103 +33,91 @@
       margin: 0;
     }
 
-    nav {
-      position: relative;
-      z-index: 1000 !important;
+    nav { 
+      position: relative; 
+      z-index: 1000 !important; 
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      background-color: #0b0b0b;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+    .nav-logo span { color: #888; }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #fff; }
+    .btn-solid {
+      background-color: #fff;
+      color: #000;
+      padding: 0.6rem 1.2rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
     }
 
-    /* RECIPES HERO SECTION */
+    /* HERO SECTION */
     .recipes-hero {
-      padding: var(--space-2xl, 4rem) var(--space-lg, 2rem) 2rem var(--space-lg, 2rem);
+      padding: 4rem 2rem 2rem 2rem;
       text-align: center;
       max-width: 800px;
       margin: 0 auto;
     }
-
     .recipes-hero h1 {
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(3rem, 8vw, 5rem);
       line-height: 0.9;
       margin-bottom: 1rem;
-      letter-spacing: 1px;
     }
+    .recipes-hero p { color: #888888; font-size: 1.1rem; }
 
-    .recipes-hero p {
-      color: #888888;
-      font-size: 1.1rem;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    /* CAROUSEL CONTAINER STRUCTURING */
+    /* CAROUSEL */
     .carousel-viewframe {
       position: relative;
       width: 100%;
       max-width: 1200px;
-      margin: 2rem auto var(--space-2xl, 5rem) auto;
+      margin: 2rem auto 5rem auto;
       padding: 0 4rem;
       box-sizing: border-box;
     }
-
-    .carousel-window {
-      overflow: hidden;
-      width: 100%;
-      border-radius: 12px;
-    }
-
-    .carousel-track {
-      display: flex;
-      transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-      width: 100%;
-    }
-
-    /* INDIVIDUAL RECIPE CARDS */
-    .recipe-slide {
-      flex: 0 0 100%;
-      min-width: 100%;
-      box-sizing: border-box;
-      padding: 0 1rem;
-    }
-
-    @media (min-width: 768px) {
-      .recipe-slide {
-        flex: 0 0 50%;
-        min-width: 50%;
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .recipe-slide {
-        flex: 0 0 33.333%;
-        min-width: 33.333%;
-      }
-    }
+    .carousel-window { overflow: hidden; width: 100%; border-radius: 12px; }
+    .carousel-track { display: flex; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); width: 100%; }
+    .recipe-slide { flex: 0 0 100%; min-width: 100%; box-sizing: border-box; padding: 0 1rem; }
+    @media (min-width: 768px) { .recipe-slide { flex: 0 0 50%; min-width: 50%; } }
+    @media (min-width: 1024px) { .recipe-slide { flex: 0 0 33.333%; min-width: 33.333%; } }
 
     .recipe-card-inner {
       background-color: #121212;
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 8px;
       overflow: hidden;
-      transition: border-color 0.3s ease, transform 0.3s ease;
+      transition: all 0.3s ease;
       height: 100%;
       display: flex;
       flex-direction: column;
     }
+    .recipe-card-inner:hover { border-color: rgba(255, 255, 255, 0.25); transform: translateY(-4px); }
 
-    .recipe-card-inner:hover {
-      border-color: rgba(255, 255, 255, 0.25);
-      transform: translateY(-4px);
-    }
-
-    .recipe-img-box {
-      width: 100%;
-      height: 280px;
-      position: relative;
-      background-color: #1a1a1a;
-      overflow: hidden;
-    }
-
-    /* Local File Background Declarations */
+    .recipe-img-box { width: 100%; height: 280px; position: relative; background-color: #1a1a1a; overflow: hidden; }
     .img-scallops { background: url('scallop.png') center/cover no-repeat; }
     .img-salmon { background: url('steak.png') center/cover no-repeat; }
     .img-risotto { background: url('risotto.png') center/cover no-repeat; }
@@ -138,216 +125,59 @@
     .img-tarts { background: url('mini.png') center/cover no-repeat; }
 
     .recipe-badge {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      background-color: #ffffff;
-      color: #000000;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
-      font-weight: 500;
-      padding: 0.3rem 0.6rem;
-      border-radius: 3px;
-      text-transform: uppercase;
+      position: absolute; top: 1rem; left: 1rem;
+      background-color: #ffffff; color: #000000;
+      font-family: 'DM Mono', monospace; font-size: 0.75rem;
+      padding: 0.3rem 0.6rem; border-radius: 3px; text-transform: uppercase;
     }
-
-    .recipe-card-body {
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
-
-    .recipe-meta-strip {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.8rem;
-      color: #888888;
-      margin-bottom: 0.5rem;
-    }
-
-    .recipe-card-title {
-      font-size: 1.35rem;
-      font-weight: 500;
-      margin: 0 0 0.75rem 0;
-      line-height: 1.2;
-    }
-
-    .recipe-summary {
-      color: #aaaaaa;
-      font-size: 0.9rem;
-      line-height: 1.5;
-      margin: 0 0 1.5rem 0;
-    }
-
+    .recipe-card-body { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
+    .recipe-meta-strip { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: #888888; margin-bottom: 0.5rem; }
+    .recipe-card-title { font-size: 1.35rem; font-weight: 500; margin: 0 0 0.75rem 0; line-height: 1.2; }
+    .recipe-summary { color: #aaaaaa; font-size: 0.9rem; line-height: 1.5; margin-bottom: 1.5rem; }
     .recipe-action-btn {
-      margin-top: auto;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: #ffffff;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      cursor: pointer;
-      border: none;
-      background: none;
-      padding: 0;
-      transition: color 0.2s ease;
+      margin-top: auto; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+      color: #ffffff; text-decoration: none; border: none; background: none; padding: 0; cursor: pointer;
     }
 
-    .recipe-action-btn:hover {
-      color: #888888;
-    }
-
-    /* CAROUSEL CONTROLS */
     .carousel-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 50px;
-      height: 50px;
-      background-color: #121212;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-      color: #ffffff;
-      font-size: 1.2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      z-index: 10;
-      user-select: none;
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 50px; height: 50px; background-color: #121212;
+      border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50%;
+      color: #ffffff; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 10;
     }
+    .carousel-arrow:hover { background-color: #ffffff; color: #000; }
+    .arrow-prev { left: 0; } .arrow-next { right: 0; }
 
-    .carousel-arrow:hover {
-      background-color: #ffffff;
-      color: #000000;
-      border-color: #ffffff;
-    }
-
-    .arrow-prev { left: 0; }
-    .arrow-next { right: 0; }
-
-    /* ==========================================
-       DYNAMIC RECIPE MODAL SYSTEM STYLING
-       ========================================== */
+    /* MASTER MODAL STYLING */
     .recipe-modal-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(8px);
-      z-index: 2000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.9); backdrop-filter: blur(10px);
+      z-index: 2000; display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.4s;
     }
-
-    .recipe-modal-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
+    .recipe-modal-overlay.active { opacity: 1; pointer-events: auto; }
     .recipe-modal-window {
-      background-color: #121212;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      width: 90%;
-      max-width: 800px;
-      max-height: 85vh;
-      border-radius: 12px;
-      overflow-y: auto;
-      position: relative;
-      transform: translateY(30px);
-      transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-      padding: 3rem 2.5rem;
-      box-sizing: border-box;
+      background-color: #121212; border: 1px solid rgba(255, 255, 255, 0.1);
+      width: 90%; max-width: 800px; max-height: 85vh; border-radius: 12px;
+      overflow-y: auto; position: relative; padding: 3rem 2.5rem;
     }
-
-    .recipe-modal-overlay.active .recipe-modal-window {
-      transform: translateY(0);
-    }
-
-    /* Modal Scrollbar Customization */
-    .recipe-modal-window::-webkit-scrollbar {
-      width: 6px;
-    }
-    .recipe-modal-window::-webkit-scrollbar-track {
-      background: #121212;
-    }
-    .recipe-modal-window::-webkit-scrollbar-thumb {
-      background: #2a2a2a;
-      border-radius: 3px;
-    }
-
     .modal-close-trigger {
-      position: absolute;
-      top: 1.5rem; right: 1.5rem;
-      background: none;
-      border: none;
-      color: #888888;
-      font-size: 1.5rem;
-      cursor: pointer;
-      transition: color 0.2s;
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      background: none; border: none; color: #888888; font-size: 1.5rem; cursor: pointer;
     }
-
-    .modal-close-trigger:hover {
-      color: #ffffff;
-    }
-
-    /* Modal Typographic Content Structures */
-    .modal-content h1 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 3rem;
-      margin: 0 0 1.5rem 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 0.5rem;
-      letter-spacing: 1px;
-    }
-    .modal-content h2 {
-      font-size: 1.4rem;
-      font-weight: 500;
-      margin: 2.5rem 0 1rem 0;
-    }
-    .modal-content h3 {
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: rgba(255, 255, 255, 0.85);
-      margin: 1.5rem 0 0.5rem 0;
-    }
-    .modal-content p {
-      color: #aaaaaa;
-      font-size: 1rem;
-      line-height: 1.6;
-    }
-    .modal-content ul {
-      list-style: none; padding: 0; margin: 0 0 2rem 0;
-    }
-    .modal-content ul li {
-      position: relative; padding-left: 1.25rem; margin-bottom: 0.5rem; color: #cccccc;
-    }
-    .modal-content ul li::before {
-      content: "—"; position: absolute; left: 0; color: rgba(255, 255, 255, 0.3);
-    }
-    .modal-content ol {
-      list-style: none; padding: 0; counter-reset: modal-steps;
-    }
-    .modal-content ol li {
-      position: relative; padding-left: 3rem; margin-bottom: 2rem; color: #cccccc; line-height: 1.6;
-    }
+    .modal-content h1 { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; margin-bottom: 1rem; border-bottom: 1px solid #222; }
+    .modal-content h2 { font-size: 1.4rem; margin-top: 2rem; color: #fff; }
+    .modal-content p { color: #aaa; line-height: 1.6; }
+    .modal-content ul { list-style: none; padding: 0; }
+    .modal-content ul li { padding-left: 1rem; margin-bottom: 0.4rem; color: #ccc; position: relative;}
+    .modal-content ul li::before { content: "—"; position: absolute; left: 0; color: #444; }
+    .modal-content ol { list-style: none; padding: 0; counter-reset: steps; }
+    .modal-content ol li { position: relative; padding-left: 3rem; margin-bottom: 1.5rem; color: #ccc; }
     .modal-content ol li::before {
-      counter-increment: modal-steps;
-      content: "0" counter(modal-steps);
-      position: absolute; left: 0; top: 0;
-      font-family: 'DM Mono', monospace; font-size: 0.8rem;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 0.1rem 0.4rem; border-radius: 3px; color: #888888;
-    }
-    .modal-meta-tag {
-      font-family: 'DM Mono', monospace; font-size: 0.75rem; color: #888888; text-transform: uppercase; display: block; margin-bottom: 0.25rem; letter-spacing: 1.5px;
+      counter-increment: steps; content: "0" counter(steps);
+      position: absolute; left: 0; font-family: 'DM Mono'; color: #666;
+      border: 1px solid #333; padding: 2px 5px; border-radius: 3px; font-size: 0.8rem;
     }
   </style>
 </head>
@@ -362,253 +192,200 @@
       <li><a href="recipes.html">Recipes</a></li>
       <li><a href="top-restaurants.html">Winners</a></li>
       <li><a href="#">Academy</a></li>
-      <li><a href="#">Collections</a></li>
-      <li><a href="#">Directory</a></li>
-      <li><a href="#">Market</a></li>
     </ul>
-
-    <div class="nav-search-container">
-      <input type="text" class="nav-search-input" placeholder="Search nominees, recipes, cities...">
-      <div class="nav-search-icon"></div>
-    </div>
-
     <div class="nav-right">
-      <a href="#" class="btn-outline">Log in</a>
       <a href="#" class="btn-solid">Submit</a>
     </div>
   </nav>
 
   <header class="recipes-hero">
-    <div class="sotd-label" style="margin-bottom: 1rem;">Award-Winning Menus</div>
     <h1>Signature Recipes</h1>
-    <p>Recreate standard-defining plates and specialized course additions curated from elite international restaurants and culinary stars.</p>
+    <p>Professional step-by-step procedures from the world's leading culinary laboratories.</p>
   </header>
 
   <main class="carousel-viewframe">
-    <button class="carousel-arrow arrow-prev" id="prevBtn" aria-label="Previous Slide">←</button>
-    
+    <button class="carousel-arrow arrow-prev" id="prevBtn">←</button>
     <div class="carousel-window">
       <div class="carousel-track" id="carouselTrack">
         
         <div class="recipe-slide">
           <div class="recipe-card-inner">
-            <div class="recipe-img-box img-scallops">
-              <span class="recipe-badge">Signature</span>
-            </div>
+            <div class="recipe-img-box img-scallops"><span class="recipe-badge">Signature</span></div>
             <div class="recipe-card-body">
               <div class="recipe-meta-strip">20 MINS · MEDIUM</div>
               <h3 class="recipe-card-title">Pan-Seared Scallops on Cauliflower Purée</h3>
-              <p class="recipe-summary">Gordon Ramsay Restaurants' classic restaurant template. Perfectly golden, caramelized scallops paired with velvety purée and a sharp caper-raisin dressing.</p>
-              <button class="recipe-action-btn" onclick="openRecipeModal()">View Recipe →</button>
+              <p class="recipe-summary">Gordon Ramsay's classic masterclass template. Perfect caramelization meets velvety purée.</p>
+              <button class="recipe-action-btn" onclick="showRecipe('scallops')">View Recipe →</button>
             </div>
           </div>
         </div>
 
         <div class="recipe-slide">
           <div class="recipe-card-inner">
-            <div class="recipe-img-box img-salmon">
-              <span class="recipe-badge">2 Michelin Stars</span>
-            </div>
+            <div class="recipe-img-box img-salmon"><span class="recipe-badge">2 Michelin Stars</span></div>
             <div class="recipe-card-body">
               <div class="recipe-meta-strip">35 MINS · EASY</div>
               <h3 class="recipe-card-title">Roasted Salmon Steak with Carrot Ginger Juice</h3>
-              <p class="recipe-summary">Originating from Le Bateau Ivre (France), this lightweight masterpiece relies on clean sear styling and a vibrant, nutrient-dense herbal extraction layer.</p>
-              <button class="recipe-action-btn">View Recipe →</button>
+              <p class="recipe-summary">A vibrant, nutrient-dense masterpiece from Le Bateau Ivre relying on clean sear styling.</p>
+              <button class="recipe-action-btn" onclick="showRecipe('salmon')">View Recipe →</button>
             </div>
           </div>
         </div>
 
         <div class="recipe-slide">
           <div class="recipe-card-inner">
-            <div class="recipe-img-box img-risotto">
-              <span class="recipe-badge">Michelin Star</span>
-            </div>
+            <div class="recipe-img-box img-risotto"><span class="recipe-badge">Michelin Star</span></div>
             <div class="recipe-card-body">
               <div class="recipe-meta-strip">40 MINS · HARD</div>
               <h3 class="recipe-card-title">Wild Garlic & Broad Bean Risotto</h3>
-              <p class="recipe-summary">Created by Shaun Rankin at Grantley Hall. High-grade risotto rice brought to an audible crack, deglazed with white wine, and finished with fresh wild garlic leaves.</p>
-              <button class="recipe-action-btn">View Recipe →</button>
+              <p class="recipe-summary">Created by Shaun Rankin. High-grade rice brought to an audible crack with fresh garlic leaves.</p>
+              <button class="recipe-action-btn" onclick="showRecipe('risotto')">View Recipe →</button>
             </div>
           </div>
         </div>
 
         <div class="recipe-slide">
           <div class="recipe-card-inner">
-            <div class="recipe-img-box img-crostini">
-              <span class="recipe-badge">Elegant Grazing</span>
-            </div>
+            <div class="recipe-img-box img-crostini"><span class="recipe-badge">Appetizer</span></div>
             <div class="recipe-card-body">
               <div class="recipe-meta-strip">15 MINS · EASY</div>
               <h3 class="recipe-card-title">Smoked Salmon, Dill & Caviar Crostini</h3>
-              <p class="recipe-summary">A staple starter layout. Crisp toasted crostini bases spread with aromatic dill cream, topped with silky ribbons of smoked salmon and dark caviar pearls.</p>
-              <button class="recipe-action-btn">View Recipe →</button>
+              <p class="recipe-summary">Elegant grazing staples featuring toasted crostini and premium dark caviar pearls.</p>
+              <button class="recipe-action-btn" onclick="showRecipe('crostini')">View Recipe →</button>
             </div>
           </div>
         </div>
 
         <div class="recipe-slide">
           <div class="recipe-card-inner">
-            <div class="recipe-img-box img-tarts">
-              <span class="recipe-badge">Patisserie</span>
-            </div>
+            <div class="recipe-img-box img-tarts"><span class="recipe-badge">Patisserie</span></div>
             <div class="recipe-card-body">
               <div class="recipe-meta-strip">50 MINS · MEDIUM</div>
               <h3 class="recipe-card-title">Mini Chocolate Tarts with Fresh Berries</h3>
-              <p class="recipe-summary">An intentional dessert solution balancing rich cacao ganache pastry crusts with targeted bursts of fresh seasonal fruit layers to clean the palate.</p>
-              <button class="recipe-action-btn">View Recipe →</button>
+              <p class="recipe-summary">Rich cacao ganache pastry crusts balanced with targeted bursts of fresh seasonal fruit.</p>
+              <button class="recipe-action-btn" onclick="showRecipe('tarts')">View Recipe →</button>
             </div>
           </div>
         </div>
 
       </div>
     </div>
-
-    <button class="carousel-arrow arrow-next" id="nextBtn" aria-label="Next Slide">→</button>
+    <button class="carousel-arrow arrow-next" id="nextBtn">→</button>
   </main>
 
-  <div class="recipe-modal-overlay" id="recipeModal" onclick="closeRecipeModal(event)">
+  <div class="recipe-modal-overlay" id="recipeModal" onclick="checkOverlay(event)">
     <div class="recipe-modal-window">
-      <button class="modal-close-trigger" onclick="forceCloseModal()">✕</button>
-      <div class="modal-content">
-        <span class="modal-meta-tag">Culinary Masterclass Series</span>
-        <h1>Pan-Seared Scallops on Cauliflower Purée</h1>
-        
-        <h2>Introduction & Flavor Profile</h2>
-        <p>This dish is a classic culinary masterpiece that balances delicate textures and sophisticated flavors. The star of the plate features sea scallops pan-seared to perfection, creating a deeply caramelized, golden-brown crust while maintaining a sweet, tender, and succulent center.</p>
-        <p>The scallops are nested on a bed of velvety cauliflower purée. The purée offers a smooth, creamy contrast with subtle nutty undertones from the blended cauliflower, butter, and cream. To elevate the dish, a sharp, vibrant caper-raisin dressing is drizzled over the top, introducing a beautiful harmony of sweet, briny, and acidic notes that cut through the richness of the purée.</p>
-        
-        <h2>Ingredients</h2>
-        <h3>For the Scallops:</h3>
-        <ul>
-          <li>6 large fresh sea scallops (tough side muscles removed)</li>
-          <li>1 tablespoon neutral high-smoke-point oil (such as grapeseed or vegetable oil)</li>
-          <li>1 tablespoon unsalted butter</li>
-          <li>A pinch of flaky sea salt and freshly cracked black pepper</li>
-        </ul>
-        
-        <h3>For the Cauliflower Purée:</h3>
-        <ul>
-          <li>1 medium head of cauliflower (cut into small florets)</li>
-          <li>2 cups whole milk (or vegetable stock)</li>
-          <li>2 tablespoons unsalted butter</li>
-          <li>2 tablespoons heavy cream</li>
-          <li>Salt and white pepper to taste</li>
-        </ul>
-
-        <h3>For the Caper-Raisin Dressing:</h3>
-        <ul>
-          <li>2 tablespoons capers (drained and rinsed)</li>
-          <li>2 tablespoons golden raisins (finely chopped)</li>
-          <li>1 tablespoon flat-leaf parsley (finely chopped)</li>
-          <li>2 tablespoons extra virgin olive oil</li>
-          <li>1 tablespoon fresh lemon juice</li>
-        </ul>
-
-        <h2>Cooking Procedure</h2>
-        <ol>
-          <li><strong>Prepare the Cauliflower Purée:</strong> Place the cauliflower florets into a medium saucepan and pour in the whole milk until the cauliflower is mostly submerged. Bring to a gentle simmer over medium heat. Cook for 12 to 15 minutes, or until the florets are completely fork-tender. Drain the cauliflower, reserving a splash of the warm cooking milk. Transfer the cooked cauliflower into a high-powered blender. Add the butter, heavy cream, a pinch of salt, and a pinch of white pepper. Blend on high until completely smooth and velvety. If the mixture is too thick, add a tablespoon or two of the reserved milk. Taste and adjust seasoning, then cover to keep warm.</li>
-          <li><strong>Mix the Dressing:</strong> In a small mixing bowl, combine the drained capers, chopped golden raisins, and finely chopped parsley. Whisk in the extra virgin olive oil and fresh lemon juice until well incorporated. Set aside at room temperature to let the flavors marry.</li>
-          <li><strong>Sear the Scallops:</strong> Thoroughly pat the scallops dry with paper towels. Moisture is the enemy of a good sear; they must be completely dry to form a crust. Season both sides of the scallops generously with sea salt and freshly cracked black pepper just before cooking. Heat a heavy-bottomed skillet or cast-iron pan over high heat until it begins to smoke slightly. Pour in the neutral oil. Carefully place the scallops in the pan one by one, leaving plenty of space between them. Press down gently on each scallop for the first few seconds to ensure even contact with the hot surface. Sear undisturbed for 90 seconds to 2 minutes until a deep, golden-brown crust forms on the bottom. Flip the scallops over. Add the tablespoon of butter to the pan. As it melts, tilt the pan slightly and spoon the foaming butter over the tops of the scallops for another 30 to 45 seconds. Remove the scallops from the pan immediately to prevent overcooking. They should feel slightly springy to the touch.</li>
-          <li><strong>Assemble the Plate:</strong> Spoon a generous pool of the warm cauliflower purée onto the center of a shallow plate or bowl. Use the back of the spoon to smooth it out into an elegant circle. Arrange three pan-seared scallops gracefully on top of the purée, keeping the golden crust facing upward. Spoon the caper-raisin dressing over and around the scallops, ensuring a bit of the briny, sweet mixture accentuates each bite. Serve immediately.</li>
-        </ol>
-      </div>
+      <button class="modal-close-trigger" onclick="closeModal()">✕</button>
+      <div id="modalContent" class="modal-content"></div>
     </div>
-  </div>
-
-  <footer>
-    <div class="footer-brand">
-      <span class="footer-logo">Taste<span>.</span></span>
-      <p class="footer-tagline">Recognising and promoting the world's finest culinary web experiences since 2024.</p>
-    </div>
-    <div>
-      <div class="footer-col-title">Awards</div>
-      <ul class="footer-links">
-        <li><a href="top-restaurants.html">Menu of the Day</a></li>
-        <li><a href="top-restaurants.html">Nominees</a></li>
-        <li><a href="top-restaurants.html">Hon. Mentions</a></li>
-        <li><a href="top-restaurants.html">Michelin Digital</a></li>
-      </ul>
-    </div>
-  </footer>
-  <div class="footer-bottom">
-    <span class="footer-copy">© 2026 Taste & Beverages. All rights reserved.</span>
   </div>
 
   <script>
-    // Custom Cursor logic
+    // RECIPE DATABASE
+    const recipes = {
+      scallops: {
+        title: "Pan-Seared Scallops on Cauliflower Purée",
+        intro: "A balance of delicate textures featuring sea scallops with a golden-brown crust on a velvety cauliflower bed.",
+        ingredients: ["6 large sea scallops", "1 head cauliflower", "2 cups whole milk", "2 tbsp unsalted butter", "Capers and raisins for dressing"],
+        steps: [
+          "Simmer cauliflower in milk until tender, then blend with butter and cream until velvety smooth.",
+          "Whisk capers, raisins, parsley, and lemon juice for the briny dressing.",
+          "Pat scallops completely dry. Sear in a smoking hot pan for 2 minutes until caramelized.",
+          "Flip scallops, add butter to the pan, and baste for 45 seconds.",
+          "Pool the purée on a plate, top with scallops, and drizzle with dressing."
+        ]
+      },
+      salmon: {
+        title: "Roasted Salmon Steak with Carrot Ginger Juice",
+        intro: "A lightweight masterpiece that replaces heavy sauces with a vibrant ginger-infused carrot extraction.",
+        ingredients: ["2 Salmon steaks (skin on)", "4 large carrots", "1 inch fresh ginger", "Baby spinach", "Lemon zest"],
+        steps: [
+          "Extract juice from carrots and ginger; simmer in a pan until reduced by half into a thick glaze.",
+          "Season salmon with sea salt. Sear skin-side down in a medium-hot pan for 5 minutes until crispy.",
+          "Flip salmon gently and cook for 2 more minutes for a medium-rare center.",
+          "Sauté baby spinach briefly with lemon zest and a touch of olive oil.",
+          "Place salmon over spinach and pour the vibrant carrot-ginger reduction around the base."
+        ]
+      },
+      risotto: {
+        title: "Wild Garlic & Broad Bean Risotto",
+        intro: "A seasonal Michelin-standard risotto using the 'all'onda' technique for a wavy, flowing consistency.",
+        ingredients: ["200g Arborio rice", "1L Vegetable stock", "Handful wild garlic leaves", "100g Shelled broad beans", "Parmigiano Reggiano"],
+        steps: [
+          "Blanch wild garlic and blend with oil to create a vibrant green base.",
+          "Toast rice in a dry pan until hot to the touch, then deglaze with white wine.",
+          "Add stock one ladle at a time, stirring constantly to release starches.",
+          "Fold in the broad beans and wild garlic oil in the final 3 minutes.",
+          "Vigorously beat in cold butter and parmesan (Mantecatura) until creamy."
+        ]
+      },
+      crostini: {
+        title: "Smoked Salmon, Dill & Caviar Crostini",
+        intro: "The ultimate grazing starter balancing briny caviar with high-fat smoked salmon ribbons.",
+        ingredients: ["Sourdough baguette", "100g Smoked Salmon", "50g Caviar", "Crème fraîche", "Fresh dill"],
+        steps: [
+          "Slice baguette into thin rounds and toast until golden and rigid.",
+          "Whip crème fraîche with lemon juice and finely chopped dill.",
+          "Pipe a small dollop of the cream onto each toasted round.",
+          "Fold a ribbon of smoked salmon on top of the cream.",
+          "Finish with a small spoon of caviar and a single dill frond."
+        ]
+      },
+      tarts: {
+        title: "Mini Chocolate Tarts with Fresh Berries",
+        intro: "Decadent cacao ganache paired with the acidity of seasonal berries.",
+        ingredients: ["Shortcrust pastry shells", "200g Dark chocolate (70%)", "200ml Heavy cream", "Seasonal berries", "Sea salt"],
+        steps: [
+          "Blind bake mini pastry shells until crisp and completely cooled.",
+          "Bring cream to a simmer, pour over chopped chocolate, and let sit for 2 minutes.",
+          "Gently stir the ganache until glossy; add a tiny pinch of sea salt.",
+          "Pour ganache into shells and refrigerate for at least 2 hours to set.",
+          "Top with fresh raspberries or strawberries just before serving."
+        ]
+      }
+    };
+
+    // MODAL LOGIC
+    function showRecipe(id) {
+      const r = recipes[id];
+      let html = `<h1>${r.title}</h1><p>${r.intro}</p><h2>Ingredients</h2><ul>`;
+      r.ingredients.forEach(i => html += `<li>${i}</li>`);
+      html += `</ul><h2>Procedure</h2><ol>`;
+      r.steps.forEach(s => html += `<li>${s}</li>`);
+      html += `</ol>`;
+      
+      document.getElementById('modalContent').innerHTML = html;
+      document.getElementById('recipeModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('recipeModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function checkOverlay(e) {
+      if (e.target.id === 'recipeModal') closeModal();
+    }
+
+    // CURSOR & CAROUSEL
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top  = e.clientY + 'px';
+      cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
     });
-    document.querySelectorAll('a, button, .recipe-card-inner').forEach(el => {
+    document.querySelectorAll('button, a').forEach(el => {
       el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
       el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
     });
 
-    // Gallery Carousel logic
     const track = document.getElementById('carouselTrack');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
     const slides = Array.from(track.children);
-    
-    let currentIndex = 0;
-
-    function getSlidesPerView() {
-      if (window.innerWidth >= 1024) return 3;
-      if (window.innerWidth >= 768) return 2;
-      return 1;
-    }
-
-    function updateCarouselPosition() {
-      const slidesPerView = getSlidesPerView();
-      const maxIndex = slides.length - slidesPerView;
-      
-      if (currentIndex < 0) currentIndex = 0;
-      if (currentIndex > maxIndex) currentIndex = maxIndex;
-
-      const slideWidth = slides[0].getBoundingClientRect().width;
-      track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-    }
-
-    nextBtn.addEventListener('click', () => {
-      const slidesPerView = getSlidesPerView();
-      if (currentIndex < slides.length - slidesPerView) {
-        currentIndex++;
-        updateCarouselPosition();
-      }
-    });
-
-    prevBtn.addEventListener('click', () => {
-      if (currentIndex > 0) {
-        currentIndex--;
-        updateCarouselPosition();
-      }
-    });
-
-    window.addEventListener('resize', updateCarouselPosition);
-
-    /* ==========================================
-       MODAL CONTROL INTERACTION ACTIONS
-       ========================================== */
-    const modal = document.getElementById('recipeModal');
-
-    function openRecipeModal() {
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden'; // Stop background scrolling
-    }
-
-    function forceCloseModal() {
-      modal.classList.remove('active');
-      document.body.style.overflow = ''; // Restore standard scrolling
-    }
-
-    function closeRecipeModal(event) {
-      // Closes only if user clicks the backdrop overlay instead of internal text content window
-      if (event.target === modal) {
-        forceCloseModal();
-      }
-    }
+    let idx = 0;
+    function getV() { return window.innerWidth >= 1024 ? 3 : (window.innerWidth >= 768 ? 2 : 1); }
+    document.getElementById('nextBtn').onclick = () => { if(idx < slides.length - getV()) { idx++; move(); } };
+    document.getElementById('prevBtn').onclick = () => { if(idx > 0) { idx--; move(); } };
+    function move() { track.style.transform = `translateX(-${idx * slides[0].offsetWidth}px)`; }
+    window.onresize = move;
   </script>
 </body>
 </html>
