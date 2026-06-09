@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Taste & Beverages — Culinary Web Awards</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght=0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
   <style>
     nav { position: relative; z-index: 1000; }
@@ -190,11 +190,127 @@
     .thumb-wine-coll { width:100%;height:100%;background-image:url('map.webp');background-size:cover;background-position:center; }
     .thumb-fine      { width:100%;height:100%;background-image:url('dining.jpg');background-size:cover;background-position:center; }
     .thumb-spice     { width:100%;height:100%;background-image:url('dark.jpg');background-size:cover;background-position:center; }
+
+    /* ── MODAL WINDOW SYSTEM ── */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(17, 17, 17, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 10000;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: auto; }
+    
+    .modal-content {
+      background: #ffffff;
+      border: 1px solid #111111;
+      width: 90%; max-width: 640px;
+      padding: var(--space-xl, 2.5rem);
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    }
+    .modal-overlay.active .modal-content { transform: translateY(0); }
+    
+    .modal-close-btn {
+      position: absolute; top: 1.25rem; right: 1.25rem;
+      background: transparent; border: none;
+      font-size: 1.5rem; cursor: pointer; line-height: 1;
+      color: var(--color-ink, #111111);
+    }
+    .modal-header-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem; letter-spacing: 0.03em;
+      margin-bottom: 0.5rem; line-height: 1;
+    }
+    .modal-subtitle {
+      font-size: 0.9rem; color: var(--color-muted, #888888);
+      margin-bottom: 2rem; font-family: 'DM Sans', sans-serif;
+    }
+    
+    .modal-links-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;
+    }
+    @media (max-width: 480px) {
+      .modal-links-grid { grid-template-columns: 1fr; }
+    }
+    
+    .modal-site-item {
+      display: flex; align-items: center; gap: 0.8rem;
+      padding: 1rem; border: 1px solid var(--color-border, #dddddd);
+      text-decoration: none; color: inherit;
+      transition: all 0.2s ease;
+    }
+    .modal-site-item:hover {
+      border-color: var(--color-ink, #111111);
+      background-color: var(--color-surface, #f5f5f5);
+      transform: translateY(-2px);
+    }
+    .modal-site-emoji { font-size: 1.5rem; }
+    .modal-site-name { font-weight: 500; font-size: 0.9rem; margin-bottom: 2px; color: #111; }
+    .modal-site-desc { font-size: 0.72rem; color: #888; font-family: 'DM Mono', monospace; text-transform: uppercase; }
   </style>
 </head>
 <body>
 
   <div id="cursor"></div>
+
+  <div class="modal-overlay" id="othersModal">
+    <div class="modal-content">
+      <button class="modal-close-btn" id="closeModalBtn">×</button>
+      <h3 class="modal-header-title">Culinary Networks</h3>
+      <p class="modal-subtitle">Explore other exceptional web experiences in global gastronomy.</p>
+      
+      <div class="modal-links-grid">
+        <a href="https://www.michelin.com" target="_blank" class="modal-site-item">
+          <span class="modal-site-emoji">🌟</span>
+          <div>
+            <div class="modal-site-name">Michelin Guide</div>
+            <div class="modal-site-desc">Fine Dining Index</div>
+          </div>
+        </a>
+        <a href="https://www.eater.com" target="_blank" class="modal-site-item">
+          <span class="modal-site-emoji">🍔</span>
+          <div>
+            <div class="modal-site-name">Eater Digital</div>
+            <div class="modal-site-desc">Food Culture & News</div>
+          </div>
+        </a>
+        <a href="https://www.bonappetit.com" target="_blank" class="modal-site-item">
+          <span class="modal-site-emoji">🍷</span>
+          <div>
+            <div class="modal-site-name">Bon Appétit</div>
+            <div class="modal-site-desc">Recipes & Reviews</div>
+          </div>
+        </a>
+        <a href="https://www.nytimes.com/cooking" target="_blank" class="modal-site-item">
+          <span class="modal-site-emoji">🍳</span>
+          <div>
+            <div class="modal-site-name">NYT Cooking</div>
+            <div class="modal-site-desc">Premium Recipes</div>
+          </div>
+        </a>
+        <a href="https://www.theworlds50best.com" target="_blank" class="modal-site-item">
+          <span class="modal-site-emoji">🏆</span>
+          <div>
+            <div class="modal-site-name">World's 50 Best</div>
+            <div class="modal-site-desc">Global Rankings</div>
+          </div>
+        </a>
+        <a href="https://www.saveur.com" target="_blank" class="modal-site-item">
+          <span class="modal-site-emoji">🌾</span>
+          <div>
+            <div class="modal-site-name">Saveur Magazine</div>
+            <div class="modal-site-desc">Heritage & Travel</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
 
   <nav>
     <a href="#" class="nav-logo">Taste<span>.</span></a>
@@ -204,7 +320,7 @@
       <li><a href="#">Academy</a></li>
       <li><a href="#">Collections</a></li>
       <li><a href="#">Directory</a></li>
-      <li><a href="#">Others</a></li> </ul>
+      <li><a href="#" id="othersNavLink">Others</a></li> </ul>
     <div class="nav-search-container">
       <input type="text" class="nav-search-input" id="searchInput" placeholder="Search nominees, recipes, cities..." autocomplete="off">
       <div class="nav-search-icon"></div>
@@ -468,7 +584,7 @@
       <ul class="footer-links">
         <li><a href="explore.html">Collections</a></li>
         <li><a href="#">Academy</a></li>
-        <li><a href="#">Others</a></li> <li><a href="#">Directory</a></li>
+        <li><a href="#" class="footer-others-trigger">Others</a></li> <li><a href="#">Directory</a></li>
       </ul>
     </div>
     <div>
@@ -575,10 +691,15 @@
       cursor.style.left = e.clientX + 'px';
       cursor.style.top  = e.clientY + 'px';
     });
-    document.querySelectorAll('a, button, .card').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
-    });
+    
+    // Updated selector to dynamic event handlers to catch runtime expansions
+    function initCursorHover() {
+      document.querySelectorAll('a, button, .card, .modal-site-item').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+      });
+    }
+    initCursorHover();
 
     // ── SCROLL REVEAL ────────────────────────────────────────────
     const reveals = document.querySelectorAll('.reveal');
@@ -597,6 +718,40 @@
       document.querySelectorAll('.inline-media-loop').forEach(track => {
         track.play().catch(err => console.log("Autoplay waiting:", err));
       });
+    });
+
+    // ── MODAL TOGGLE JAVASCRIPT ──────────────────────────────────
+    const modal          = document.getElementById('othersModal');
+    const openModalBtn   = document.getElementById('othersNavLink');
+    const closeModalBtn  = document.getElementById('closeModalBtn');
+    const footerTrigger  = document.querySelector('.footer-others-trigger');
+
+    function openModal(e) {
+      e.preventDefault();
+      modal.classList.add('active');
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+    }
+
+    // Event listeners
+    openModalBtn.addEventListener('click', openModal);
+    if(footerTrigger) footerTrigger.addEventListener('click', openModal);
+    closeModalBtn.addEventListener('click', closeModal);
+
+    // Close modal when clicking on the dark layout overlay background
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
     });
   </script>
 </body>
