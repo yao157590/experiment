@@ -7,6 +7,66 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght=0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
   <style>
+    /* Layout styling for the search bar container */
+    .nav-search-container {
+      display: flex;
+      align-items: center;
+      margin-left: var(--space-md, 1.5rem);
+      margin-right: auto; /* Pushes the nav-right links (Log in/Submit) to the far right */
+      position: relative;
+      max-width: 300px;
+      width: 100%;
+    }
+
+    .nav-search-input {
+      width: 100%;
+      padding: 0.6rem 1rem 0.6rem 2.5rem;
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--color-border, rgba(255, 255, 255, 0.15));
+      border-radius: 4px;
+      color: #ffffff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .nav-search-input:focus {
+      outline: none;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-color: #ffffff;
+    }
+
+    /* Minimalist magnifying glass icon using CSS graphics */
+    .nav-search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 10px;
+      height: 10px;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .nav-search-icon::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      right: -4px;
+      width: 2px;
+      height: 6px;
+      background-color: rgba(255, 255, 255, 0.4);
+      transform: rotate(-45deg);
+    }
+
+    .nav-search-input:focus + .nav-search-icon,
+    .nav-search-input:focus + .nav-search-icon::after {
+      border-color: #ffffff;
+      background-color: #ffffff;
+    }
+
+    /* Existing layout fixes and fallback rules */
     .cta-banner {
       display: flex; flex-wrap: wrap; border-bottom: 1px solid var(--color-border);
     }
@@ -32,7 +92,6 @@
       overflow: hidden;
     }
 
-    /* CRITICAL FIX: Higher z-index forces the video on top of the background images */
     .card-preview-video {
       position: absolute;
       top: 0;
@@ -73,6 +132,12 @@
       <li><a href="#">Directory</a></li>
       <li><a href="#">Market</a></li>
     </ul>
+
+    <div class="nav-search-container">
+      <input type="text" class="nav-search-input" placeholder="Search nominees, recipes, cities...">
+      <div class="nav-search-icon"></div>
+    </div>
+
     <div class="nav-right">
       <a href="#" class="btn-outline">Log in</a>
       <a href="#" class="btn-solid">Submit</a>
@@ -402,7 +467,7 @@
       cursor.style.left = e.clientX + 'px';
       cursor.style.top  = e.clientY + 'px';
     });
-    document.querySelectorAll('a, button, .card').forEach(el => {
+    document.querySelectorAll('a, button, .card, .nav-search-input').forEach(el => {
       el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
       el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
     });
