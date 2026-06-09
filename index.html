@@ -37,6 +37,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      background: #111;
     }
     .thumb-brew {
       background-image: url('deep.png');
@@ -173,7 +174,7 @@
       <div class="card-hover-overlay"></div>
       <div class="card-thumb">
         <div class="card-thumb-inner">
-          <video class="card-thumb-video" autoplay loop muted playsinline poster="bites.jpeg">
+          <video class="card-thumb-video background-video" autoplay loop muted playsinline poster="bites.jpeg">
             <source src="recipe.mp4" type="video/mp4">
           </video>
         </div>
@@ -255,7 +256,7 @@
     <a href="ambar.mp4" class="card reveal" style="text-decoration: none; color: inherit; display: block;">
       <div class="card-thumb">
         <div class="card-thumb-inner">
-          <video class="card-thumb-video" autoplay loop muted playsinline poster="Amber.jpeg">
+          <video class="card-thumb-video background-video" autoplay loop muted playsinline poster="Amber.jpeg">
             <source src="ambar.mp4" type="video/mp4">
           </video>
         </div>
@@ -468,6 +469,15 @@
       });
     }, { threshold: 0.1 });
     reveals.forEach(r => observer.observe(r));
+
+    // Force autoplay backup for background videos
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.background-video').forEach(video => {
+        video.play().catch(error => {
+          console.log("Autoplay waiting for user interaction trigger.");
+        });
+      });
+    });
   </script>
 </body>
 </html>
