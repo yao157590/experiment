@@ -86,7 +86,7 @@
 
     /* INDIVIDUAL RECIPE CARDS */
     .recipe-slide {
-      flex: 0 0 100%; /* Shows one main recipe card per view frame */
+      flex: 0 0 100%;
       min-width: 100%;
       box-sizing: border-box;
       padding: 0 1rem;
@@ -94,14 +94,14 @@
 
     @media (min-width: 768px) {
       .recipe-slide {
-        flex: 0 0 50%; /* Slides show side-by-side on wider viewport frames */
+        flex: 0 0 50%;
         min-width: 50%;
       }
     }
 
     @media (min-width: 1024px) {
       .recipe-slide {
-        flex: 0 0 33.333%; /* Displays 3 elegant recipe listings simultaneously */
+        flex: 0 0 33.333%;
         min-width: 33.333%;
       }
     }
@@ -130,7 +130,6 @@
       overflow: hidden;
     }
 
-    /* Placeholder gradient art matching visual aesthetics */
     .recipe-img-box::before {
       content: '';
       position: absolute;
@@ -139,12 +138,12 @@
       opacity: 0.15;
     }
 
-    /* Fallback dynamic graphics representing master culinary art files */
-    .img-steak { background: url('Grilled-T-Bone.jpg') center/cover no-repeat; }
-    .img-chicken { background: url('bites.jpeg') center/cover no-repeat; }
-    .img-cocktail { background: url('cocktail.webp') center/cover no-repeat; }
-    .img-coffee { background: url('coffee.jpg') center/cover no-repeat; }
-    .img-dessert { background: url('dark.jpg') center/cover no-repeat; }
+    /* Real Imagery References from Project Assets */
+    .img-scallops { background: url('dining.jpg') center/cover no-repeat; }
+    .img-salmon { background: url('wine.webp') center/cover no-repeat; }
+    .img-risotto { background: url('dark.jpg') center/cover no-repeat; }
+    .img-crostini { background: url('bites.jpeg') center/cover no-repeat; }
+    .img-tarts { background: url('coffee.jpg') center/cover no-repeat; }
 
     .recipe-badge {
       position: absolute;
@@ -204,7 +203,7 @@
       color: #888888;
     }
 
-    /* CAROUSEL INTERACTIVE CONTROLS */
+    /* CAROUSEL CONTROLS */
     .carousel-arrow {
       position: absolute;
       top: 50%;
@@ -243,6 +242,7 @@
     <a href="index.html" class="nav-logo">Taste<span>.</span></a>
     <ul class="nav-links">
       <li><a href="explore.html">Explore</a></li>
+      <li><a href="recipes.html">Recipes</a></li>
       <li><a href="top-restaurants.html">Winners</a></li>
       <li><a href="#">Academy</a></li>
       <li><a href="#">Collections</a></li>
@@ -262,9 +262,9 @@
   </nav>
 
   <header class="recipes-hero">
-    <div class="sotd-label" style="margin-bottom: 1rem;">Culinary Masterclasses</div>
+    <div class="sotd-label" style="margin-bottom: 1rem;">Award-Winning Menus</div>
     <h1>Signature Recipes</h1>
-    <p>Recreate standard-defining plates and mixed drink profiles formulated by our award-winning partner chefs and global culinary visionaries.</p>
+    <p>Recreate standard-defining plates and specialized course additions curated from elite international restaurants and culinary stars.</p>
   </header>
 
   <main class="carousel-viewframe">
@@ -275,13 +275,13 @@
         
         <div class="recipe-slide">
           <div class="recipe-card-inner">
-            <div class="recipe-img-box img-steak">
-              <span class="recipe-badge">Masterclass</span>
+            <div class="recipe-img-box img-scallops">
+              <span class="recipe-badge">Signature</span>
             </div>
             <div class="recipe-card-body">
-              <div class="recipe-meta-strip">45 MINS · EASY</div>
-              <h3 class="recipe-card-title">Grilled T-Bone with Garlic Herb Butter</h3>
-              <p class="recipe-summary">A beautifully seared, thick-cut T-bone steak basted generously with melted garlic and fresh rosemary sprigs.</p>
+              <div class="recipe-meta-strip">20 MINS · MEDIUM</div>
+              <h3 class="recipe-card-title">Pan-Seared Scallops on Cauliflower Purée</h3>
+              <p class="recipe-summary">Gordon Ramsay Restaurants' classic restaurant template. Perfectly golden, caramelized scallops paired with velvety purée and a sharp caper-raisin dressing.</p>
               <a href="#" class="recipe-action-btn">View Recipe →</a>
             </div>
           </div>
@@ -289,13 +289,13 @@
 
         <div class="recipe-slide">
           <div class="recipe-card-inner">
-            <div class="recipe-img-box img-chicken">
-              <span class="recipe-badge">Trending</span>
+            <div class="recipe-img-box img-salmon">
+              <span class="recipe-badge">2 Michelin Stars</span>
             </div>
             <div class="recipe-card-body">
-              <div class="recipe-meta-strip">30 MINS · MEDIUM</div>
-              <h3 class="recipe-card-title">World's Best Crispy Fried Chicken</h3>
-              <p class="recipe-summary">Golden, crunchy buttermilk-soaked chicken thighs featuring a signature blend of eleven curated herbs and aromatic spices.</p>
+              <div class="recipe-meta-strip">35 MINS · EASY</div>
+              <h3 class="recipe-card-title">Roasted Salmon Steak with Carrot Ginger Juice</h3>
+              <p class="recipe-summary">Originating from Le Bateau Ivre (France), this lightweight masterpiece relies on clean sear styling and a vibrant, nutrient-dense herbal extraction layer.</p>
               <a href="#" class="recipe-action-btn">View Recipe →</a>
             </div>
           </div>
@@ -303,13 +303,13 @@
 
         <div class="recipe-slide">
           <div class="recipe-card-inner">
-            <div class="recipe-img-box img-cocktail">
-              <span class="recipe-badge">Mixology</span>
+            <div class="recipe-img-box img-risotto">
+              <span class="recipe-badge">Michelin Star</span>
             </div>
             <div class="recipe-card-body">
-              <div class="recipe-meta-strip">10 MINS · EXPERT</div>
-              <h3 class="recipe-card-title">Cyan Lab Citrus Botanical infusion</h3>
-              <p class="recipe-summary">A clean, avant-garde cocktail marrying blue curacao elements with freshly muddled blood orange juices and artisan gin base notes.</p>
+              <div class="recipe-meta-strip">40 MINS · HARD</div>
+              <h3 class="recipe-card-title">Wild Garlic & Broad Bean Risotto</h3>
+              <p class="recipe-summary">Created by Shaun Rankin at Grantley Hall. High-grade risotto rice brought to an audible crack, deglazed with white wine, and finished with fresh wild garlic leaves.</p>
               <a href="#" class="recipe-action-btn">View Recipe →</a>
             </div>
           </div>
@@ -317,13 +317,13 @@
 
         <div class="recipe-slide">
           <div class="recipe-card-inner">
-            <div class="recipe-img-box img-coffee">
-              <span class="recipe-badge">Brewing</span>
+            <div class="recipe-img-box img-crostini">
+              <span class="recipe-badge">Elegant Grazing</span>
             </div>
             <div class="recipe-card-body">
               <div class="recipe-meta-strip">15 MINS · EASY</div>
-              <h3 class="recipe-card-title">Bespoke Cold Brew Extraction</h3>
-              <p class="recipe-summary">Gilded Roastery’s signature slow drip formulation yielding ultra-smooth, chocolatey notes without natural high acidity variables.</p>
+              <h3 class="recipe-card-title">Smoked Salmon, Dill & Caviar Crostini</h3>
+              <p class="recipe-summary">A 2026 staple starter layout. Crisp toasted crostini bases spread with aromatic dill cream cream, topped with silky ribbons of smoked salmon and dark caviar pearls.</p>
               <a href="#" class="recipe-action-btn">View Recipe →</a>
             </div>
           </div>
@@ -331,13 +331,13 @@
 
         <div class="recipe-slide">
           <div class="recipe-card-inner">
-            <div class="recipe-img-box img-dessert">
+            <div class="recipe-img-box img-tarts">
               <span class="recipe-badge">Patisserie</span>
             </div>
             <div class="recipe-card-body">
-              <div class="recipe-meta-strip">60 MINS · HARD</div>
-              <h3 class="recipe-card-title">Dark Espresso Mousse Tart</h3>
-              <p class="recipe-summary">A decadent dessert balancing dark cacao cookie crusts with airy, smooth coffee-infused french cream layers.</p>
+              <div class="recipe-meta-strip">50 MINS · MEDIUM</div>
+              <h3 class="recipe-card-title">Mini Chocolate Tarts with Fresh Berries</h3>
+              <p class="recipe-summary">An intentional dessert solution balancing rich cacao ganache pastry crusts with targeted bursts of fresh seasonal fruit layers to clean the palate.</p>
               <a href="#" class="recipe-action-btn">View Recipe →</a>
             </div>
           </div>
@@ -369,7 +369,6 @@
   </div>
 
   <script>
-    // Custom Tracking Cursor Animation Logic
     const cursor = document.getElementById('cursor');
     document.addEventListener('mousemove', e => {
       cursor.style.left = e.clientX + 'px';
@@ -380,7 +379,6 @@
       el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
     });
 
-    // Gallery Carousel Calculation Logic
     const track = document.getElementById('carouselTrack');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
@@ -398,11 +396,9 @@
       const slidesPerView = getSlidesPerView();
       const maxIndex = slides.length - slidesPerView;
       
-      // Limit bounds securely
       if (currentIndex < 0) currentIndex = 0;
       if (currentIndex > maxIndex) currentIndex = maxIndex;
 
-      // Move the carousel smoothly
       const slideWidth = slides[0].getBoundingClientRect().width;
       track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
     }
@@ -422,7 +418,6 @@
       }
     });
 
-    // Handle viewport changes adaptively
     window.addEventListener('resize', updateCarouselPosition);
   </script>
 </body>
