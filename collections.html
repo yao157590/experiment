@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Collections — Taste & Beverages</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    nav { position: relative; z-index: 1000; }
+    #cursor { position:fixed;width:20px;height:20px;border:2px solid #111;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none!important;z-index:99999;mix-blend-mode:difference;transition:width .2s,height .2s;background:transparent; }
+    #cursor.expand { width:40px;height:40px; }
+    .coming-soon-wrap {
+      min-height: calc(100vh - 56px);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 4rem 2rem;
+      border-bottom: 1px solid var(--color-border, #ddd);
+    }
+    .cs-eyebrow {
+      font-family: 'DM Mono', monospace; font-size: 0.68rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--color-muted, #888); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .cs-eyebrow::before { content:''; width:6px;height:6px;background:var(--color-signal,#e8333a);border-radius:50%;animation:pulse 1.8s infinite; }
+    .cs-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 10vw, 9rem); line-height: 0.92;
+      letter-spacing: 0.02em; margin-bottom: 1.5rem;
+    }
+    .cs-sub {
+      font-size: 1rem; color: var(--color-muted, #888);
+      max-width: 440px; line-height: 1.7; margin-bottom: 2.5rem;
+    }
+    .cs-back {
+      font-family: 'DM Mono', monospace; font-size: 0.72rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--color-ink, #111); text-decoration: none;
+      border-bottom: 1px solid var(--color-ink, #111);
+      padding-bottom: 2px; transition: color 0.2s, border-color 0.2s;
+    }
+    .cs-back:hover { color: var(--color-signal,#e8333a); border-color: var(--color-signal,#e8333a); }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+  </style>
+</head>
+<body>
+  <div id="cursor"></div>
+  <nav>
+    <a href="index.html" class="nav-logo">Taste<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="explore.html">Explore</a></li>
+      <li><a href="top-restaurants.html">Winners</a></li>
+      <li><a href="academy.html">Academy</a></li>
+      <li><a href="collections.html">Collections</a></li>
+      <li><a href="directory.html">Directory</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="#" class="btn-outline">Log in</a>
+      <a href="#" class="btn-solid">Submit</a>
+    </div>
+  </nav>
+  <div class="coming-soon-wrap">
+    <div class="cs-eyebrow">Coming Soon</div>
+    <h1 class="cs-title">Collections</h1>
+    <p class="cs-sub">We're building something great here. This section of Taste & Beverages is currently under construction — check back soon.</p>
+    <a href="index.html" class="cs-back">← Back to Home</a>
+  </div>
+  <script>
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => { cursor.style.left=e.clientX+'px'; cursor.style.top=e.clientY+'px'; });
+    document.querySelectorAll('a,button').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
+    });
+  </script>
+</body>
+</html>
