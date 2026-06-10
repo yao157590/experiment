@@ -226,7 +226,7 @@
     .cta-half:last-child { border-right:none; }
     .cta-title { font-family:'Bebas Neue',sans-serif; font-size:var(--text-title); margin-bottom:1rem; }
 
-    /* ── OTHERS MODAL ── */
+    /* ── MODALS BASE ── */
     .modal-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(17,17,17,0.6); backdrop-filter: blur(4px);
@@ -265,6 +265,20 @@
     .modal-site-emoji { font-size: 1.5rem; }
     .modal-site-name { font-weight: 500; font-size: 0.9rem; margin-bottom: 2px; color: #111; }
     .modal-site-desc { font-size: 0.72rem; color: #888; font-family: 'DM Mono', monospace; text-transform: uppercase; }
+
+    /* ── DYNAMIC PROJECT MODAL (Matches design language) ── */
+    .card-modal-content { max-width: 800px; padding: 0; overflow: hidden; display: flex; flex-direction: row; }
+    .card-modal-media { flex: 1; min-width: 300px; background: #000; position: relative; display: flex; align-items: center; justify-content: center;}
+    .card-modal-media img, .card-modal-media video { width: 100%; height: 100%; object-fit: cover; }
+    .card-modal-body { flex: 1.2; padding: var(--space-xl, 2.5rem); display: flex; flex-direction: column; justify-content: center; }
+    @media (max-width: 768px) {
+      .card-modal-content { flex-direction: column; }
+      .card-modal-media { height: 250px; min-height: 250px; }
+    }
+    .modal-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; }
+    .modal-tag { border: 1px solid #ddd; padding: 0.2rem 0.6rem; border-radius: 2px; color: #888; text-transform: uppercase; }
+    .card-modal-body .visit-btn { align-self: flex-start; margin-top: 1rem; }
+    .modal-body-text { font-size: 0.9rem; color: #444; line-height: 1.7; margin-bottom: 1.5rem; }
 
     /* ── BE PRO MODAL ── */
     #beProModal .modal-content { max-width: 560px; padding: 0; overflow: hidden; }
@@ -329,7 +343,7 @@
     <div class="modal-content">
       <button class="modal-close-btn" id="closeOthersBtn">×</button>
       <h3 class="modal-header-title">Culinary Networks</h3>
-      <p class="modal-subtitle">Explore other exceptional web experiences in global gastronomy.</p>
+      <p class="modal subtitle">Explore other exceptional web experiences in global gastronomy.</p>
       <div class="modal-links-grid">
         <a href="https://www.michelin.com" target="_blank" class="modal-site-item"><span class="modal-site-emoji">🌟</span><div><div class="modal-site-name">Michelin Guide</div><div class="modal-site-desc">Fine Dining Index</div></div></a>
         <a href="https://www.eater.com" target="_blank" class="modal-site-item"><span class="modal-site-emoji">🍔</span><div><div class="modal-site-name">Eater Digital</div><div class="modal-site-desc">Food Culture & News</div></div></a>
@@ -372,13 +386,29 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="genericCardModal">
+    <div class="modal-content card-modal-content">
+      <button class="modal-close-btn" id="closeCardModalBtn">×</button>
+      <div class="card-modal-media" id="modalMedia">
+        </div>
+      <div class="card-modal-body">
+        <div class="bepro-eyebrow" style="color:var(--color-ink);" id="modalCategory">Category</div>
+        <h3 class="modal-header-title" style="margin-bottom:1rem;" id="modalTitle">Title</h3>
+        <p class="modal-body-text" id="modalDesc">Researched description appears here...</p>
+        <div class="modal-tags" id="modalTags">
+          </div>
+        <a href="#" target="_blank" class="visit-btn" id="modalLink">Visit Site →</a>
+      </div>
+    </div>
+  </div>
+
   <div class="mobile-nav" id="mobileNav">
     <a href="explore.html">Explore</a>
     <a href="top-restaurants.html">Winners</a>
     <a href="academy.html">Academy</a>
     <a href="collections.html">Collections</a>
     <a href="directory.html">Directory</a>
-    <a href="blog.html">Blog</a> <a href="#" id="mobileOthersLink">Others</a>
+    <a href="#" id="mobileOthersLink">Others</a>
     <div class="mobile-nav-actions">
       <a href="#" class="btn-outline">Log in</a>
       <a href="#" class="btn-solid">Submit</a>
@@ -393,7 +423,7 @@
       <li><a href="academy.html">Academy</a></li>
       <li><a href="collections.html">Collections</a></li>
       <li><a href="directory.html">Directory</a></li>
-      <li><a href="blog.html">Blog</a></li> <li><a href="#" id="othersNavLink">Others</a></li>
+      <li><a href="#" id="othersNavLink">Others</a></li>
     </ul>
     <div class="nav-search-container">
       <input type="text" class="nav-search-input" id="searchInput" placeholder="Search nominees, recipes, cities..." autocomplete="off">
@@ -456,7 +486,7 @@
     <a href="#" class="section-link">View All Nominees →</a>
   </div>
   <div class="nominees-grid">
-    <div class="card reveal">
+    <div class="card reveal generic-card-trigger" style="cursor:pointer;" data-project-id="bite">
       <div class="card-hover-overlay"></div>
       <div class="card-thumb">
         <div class="card-thumb-inner">
@@ -479,7 +509,7 @@
         </div>
       </div>
     </div>
-    <div class="card reveal">
+    <div class="card reveal generic-card-trigger" style="cursor:pointer;" data-project-id="deepwater">
       <div class="card-hover-overlay"></div>
       <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-brew"></div></div></div>
       <div class="card-body">
@@ -495,7 +525,7 @@
         </div>
       </div>
     </div>
-    <div class="card reveal">
+    <div class="card reveal generic-card-trigger" style="cursor:pointer;" data-project-id="gilded">
       <div class="card-hover-overlay"></div>
       <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-bean"></div></div></div>
       <div class="card-body">
@@ -511,7 +541,7 @@
         </div>
       </div>
     </div>
-    <div class="card reveal">
+    <div class="card reveal generic-card-trigger" style="cursor:pointer;" data-project-id="marsvine">
       <div class="card-hover-overlay"></div>
       <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-vine"></div></div></div>
       <div class="card-body">
@@ -539,12 +569,12 @@
       <div class="card-body"><div class="card-category">App · Mixology</div><div class="card-title">Cyan Cocktails Platform</div><div class="card-author">by cyanlab</div></div>
       <div class="card-footer"><div class="card-score">8.88</div><div class="card-tags"><span class="tag">SOTD</span></div></div>
     </a>
-    <div class="card reveal">
+    <div class="card reveal generic-card-trigger" style="cursor:pointer;" data-project-id="ambar">
       <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-ambar"></div><video class="card-preview-video inline-media-loop" autoplay loop muted playsinline><source src="ambars.mp4" type="video/mp4"></video></div></div>
       <div class="card-body"><div class="card-category">Grill · Experience</div><div class="card-title">Ambar — Fire & Flavour</div><div class="card-author">by ambargroup</div></div>
       <div class="card-footer"><div class="card-score">9.12</div><div class="card-tags"><span class="tag">SOTD</span></div></div>
     </div>
-    <div class="card reveal">
+    <div class="card reveal generic-card-trigger" style="cursor:pointer;" data-project-id="flowstate">
       <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-ferm"></div></div></div>
       <div class="card-body"><div class="card-category">Beverage · Experimental</div><div class="card-title">Flowstate — Kombucha Lab</div><div class="card-author">by flowstate</div></div>
       <div class="card-footer"><div class="card-score">8.67</div><div class="card-tags"><span class="tag">SOTD</span></div></div>
@@ -576,13 +606,17 @@
       <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-cafe"></div></div></div>
       <div class="card-body"><div class="card-category">Inspiration</div><div class="card-title">Best Coffee Shop Web Interfaces</div><div class="card-author">+142 curated sites</div></div>
     </a>
-    <div class="card reveal"><div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-wine-coll"></div></div></div><div class="card-body"><div class="card-category">Layouts</div><div class="card-title">Interactive Wine Maps & Estates</div><div class="card-author">+89 curated sites</div></div></div>
+    <div class="card reveal generic-card-trigger" style="cursor:pointer;" data-project-id="winemaps">
+      <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-wine-coll"></div></div></div><div class="card-body"><div class="card-category">Layouts</div><div class="card-title">Interactive Wine Maps & Estates</div><div class="card-author">+89 curated sites</div></div>
+    </div>
     <div class="card reveal" id="fineDiningCard" onclick="openFineDining()" style="cursor:pointer;">
       <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-fine"></div></div></div>
       <div class="card-body"><div class="card-category">Interactions</div><div class="card-title">Immersive Fine Dining Experiences</div><div class="card-author">+104 curated sites</div></div>
       <div class="card-footer"><div class="card-score" style="font-size:0.75rem;color:var(--color-muted);">Click to explore</div><div class="card-tags"><span class="tag">Collections</span></div></div>
     </div>
-    <div class="card reveal"><div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-spice"></div></div></div><div class="card-body"><div class="card-category">Photography</div><div class="card-title">Dark Mode Culinary Portfolios</div><div class="card-author">+67 curated sites</div></div></div>
+    <div class="card reveal generic-card-trigger" style="cursor:pointer;" data-project-id="darkmode">
+      <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-spice"></div></div></div><div class="card-body"><div class="card-category">Photography</div><div class="card-title">Dark Mode Culinary Portfolios</div><div class="card-author">+67 curated sites</div></div>
+    </div>
   </div>
 
   <div class="cta-banner">
@@ -874,12 +908,6 @@
       document.querySelectorAll('.inline-media-loop').forEach(t => t.play().catch(()=>{}));
     });
 
-    // ── FINE DINING MODAL ────────────────────────────────────────
-    const fineDiningModal = document.getElementById('fineDiningModal');
-    function openFineDining()  { fineDiningModal.classList.add('active'); document.body.style.overflow='hidden'; }
-    function closeFineDining() { fineDiningModal.classList.remove('active'); document.body.style.overflow=''; }
-    fineDiningModal.addEventListener('click', e => { if(e.target===fineDiningModal) closeFineDining(); });
-
     // ── OTHERS MODAL ─────────────────────────────────────────────
     const othersModal   = document.getElementById('othersModal');
     const othersNavLink = document.getElementById('othersNavLink');
@@ -917,8 +945,137 @@
       setTimeout(() => alert(`✅ Welcome to Taste Pro!\n\nPayment of $100,000,000 via ${method} is being processed.\n\nEvery restaurant on Earth is now yours. Bon appétit. 🌍`), 300);
     }
 
+    // ── FINE DINING MODAL (Original Handler) ─────────────────────
+    const fineDiningModal = document.getElementById('fineDiningModal');
+    function openFineDining()  { fineDiningModal.classList.add('active'); document.body.style.overflow='hidden'; }
+    function closeFineDining() { fineDiningModal.classList.remove('active'); document.body.style.overflow=''; }
+    fineDiningModal.addEventListener('click', e => { if(e.target===fineDiningModal) closeFineDining(); });
+
+
+    // ── DYNAMIC PROJECT MODAL SYSTEM (New) ────────────────────────
+    // DATA DATABASE (Researched Context)
+    const cardData = {
+      'bite': {
+        category: 'Restaurant · 3D Menu',
+        title: 'Bite Studio — Gastronomy',
+        desc: 'A revolutionary digital menu experience utilizing WebGL technology to render signature dishes in high-fidelity 3D. Users can rotate, zoom, and inspect textures before ordering. This studio focuses on immersive storytelling for luxury gastronomy brands, turning standard menus into interactive culinary explorations.',
+        media: '<video autoplay loop muted playsinline><source src="World\'s Best Fried Chicken RECIPE - Nick Kratka (720p).mp4" type="video/mp4"></video>',
+        tags: ['WebGL', 'Three.js', 'React', 'Immersive UI'],
+        link: '#'
+      },
+      'deepwater': {
+        category: 'Brewery · Branding',
+        title: 'Deepwater Ales — Digital',
+        desc: 'A complete digital overhaul for a coastal craft brewery. The focus was on translating the raw, nautical aesthetic of the brand into a slick, modern user interface. Featuring custom iconography, scroll-triggered animations showcasing brewing processes, and an interactive "beer finder" map, the site successfully connects digital presence with the physical taproom experience.',
+        media: '<img src="deep.png" style="object-fit:contain;background:#fff;">', // Matches original design note
+        tags: ['React', 'GSAP Animation', 'E-Commerce', 'Brand Storytelling'],
+        link: '#'
+      },
+      'gilded': {
+        category: 'E-Commerce · Roastery',
+        title: 'Gilded — Bespoke Coffee',
+        desc: 'A luxury e-commerce experience built on Shopify for a specialty roastery focusing on rare micro-lots. The design leverages high-contrast typography and dramatic product photography to create a standard of premium quality. Features include a complex "Brew Guide" section populated via Metafields and a seamless subscription model.',
+        media: '<img src="coffee.jpg">',
+        tags: ['Shopify', 'Liquid', 'Luxury E-Com', 'Subscription Model'],
+        link: '#'
+      },
+      'marsvine': {
+        category: 'Winery · Portfolio',
+        title: 'Mars + Vine — Tasting',
+        desc: 'An elegant portfolio site for an experimental winery blending terroir-driven techniques with futuristic presentation. The site utilizes Next.js for lightning-fast performance and seamless page transitions. Highlights include a virtual tour of the cellar, elegant typography, and a streamlined wine club integration.',
+        media: '<img src="wine.webp">',
+        tags: ['Next.js', 'Vercel', 'Portfolio', 'Winery'],
+        link: '#'
+      },
+      'ambar': {
+        category: 'Grill · Experience',
+        title: 'Ambar — Fire & Flavour',
+        desc: 'The digital presence for a restaurant specializing in ancient open-fire cooking techniques. The site captures the smokey, raw aesthetic through a moody color palette and video integration (as seen in the preview). It focuses on conversion via an integrated online reservation system and a seamless view-to-order flow for signature sauces.',
+        media: '<video autoplay loop muted playsinline><source src="ambars.mp4" type="video/mp4"></video>',
+        tags: ['Experience Design', 'Video Integration', 'Reservations', 'BBQ/Grill'],
+        link: '#'
+      },
+      'flowstate': {
+        category: 'Beverage · Experimental',
+        title: 'Flowstate — Kombucha Lab',
+        desc: 'Branding and digital hub for an experimental kombucha "laboratory." The site contrasts clinical layouts (referencing fermentation science) with vibrant, fluid background gradients (representing probiotic flow). Features include dynamic inventory management for seasonal flavors and a health-focused blog section.',
+        media: '<img src="flow.jpeg">',
+        tags: ['Experimental UI', 'Vibrant Design', 'Blog', 'Beverage'],
+        link: '#'
+      },
+      'winemaps': {
+        category: 'Collections · Layouts',
+        title: 'Interactive Wine Maps & Estates',
+        desc: 'A curated collection of the web\'s best interactive cartography for viticulture. This gallery focuses on sites that use GIS data, WebGL mapping layers, and environmental graphics to visualize terroir, estate boundaries, and tasting trails. Essential viewing for designers blending geography with gastronomy.',
+        media: '<img src="map.webp">',
+        tags: ['Collections', 'Wine Map', 'Cartography', 'GIS Mapping'],
+        link: 'collections.html'
+      },
+      'darkmode': {
+        category: 'Collections · Photography',
+        title: 'Dark Mode Culinary Portfolios',
+        desc: 'A curated showcase of chef and restaurant portfolios adopting dramatic, moody lighting and deep contrast. This collection explores the trend of dark aesthetics in gastronomy design, highlighting how moody imagery elevates dish presentation and creates a sense of focused, premium exclusivity.',
+        media: '<img src="dark.jpg">',
+        tags: ['Collections', 'Dark Mode', ' moody', 'Chef Portfolio'],
+        link: 'collections.html'
+      }
+    };
+
+    const genericModal = document.getElementById('genericCardModal');
+    const genericClose = document.getElementById('closeCardModalBtn');
+
+    // Function to populate and open the dynamic modal
+    function openProjectModal(id) {
+      const data = cardData[id];
+      if (!data) return;
+
+      document.getElementById('modalCategory').textContent = data.category;
+      document.getElementById('modalTitle').textContent = data.title;
+      document.getElementById('modalDesc').textContent = data.desc;
+      document.getElementById('modalMedia').innerHTML = data.media;
+      document.getElementById('modalLink').href = data.link;
+
+      const tagsCont = document.getElementById('modalTags');
+      tagsCont.innerHTML = data.tags.map(t => `<span class="modal-tag">${t}</span>`).join('');
+
+      // Study video elements within dynamic media to ensure autoplay
+      const video = genericModal.querySelector('video');
+      if(video) video.play().catch(()=>{});
+
+      genericModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeGenericModal() {
+      genericModal.classList.remove('active');
+      document.body.style.overflow = '';
+      cursor.classList.remove('expand'); // Ensure cursor expands back properly
+    }
+
+    // Modal close events
+    genericClose.addEventListener('click', closeGenericModal);
+    genericModal.addEventListener('click', e => { if (e.target === genericModal) closeGenericModal(); });
+
+    // Add click listeners to all targeted generic-card-trigger cards
+    document.querySelectorAll('.generic-card-trigger').forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const id = trigger.getAttribute('data-project-id');
+        openProjectModal(id);
+      });
+    });
+
+    // ── ESCAPE KEY HANDLER ───────────────────────────────────────
     document.addEventListener('keydown', e => {
-      if (e.key==='Escape') { shutOthers(); closeBePro(); closeFineDining(); mobileNav.classList.remove('open'); hamburger.classList.remove('open'); document.body.style.overflow=''; }
+      if (e.key==='Escape') {
+        shutOthers();
+        closeBePro();
+        closeFineDining();
+        closeGenericModal(); // Add dynamic modal close to ESC handler
+        mobileNav.classList.remove('open');
+        hamburger.classList.remove('open');
+        dropdown.classList.remove('open'); // Also close search dropdown
+        document.body.style.overflow='';
+      }
     });
   </script>
 </body>
