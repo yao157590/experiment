@@ -51,7 +51,9 @@
       transition: color 0.2s;
     }
     .mobile-nav a:hover { color: var(--color-signal, #e8333a); }
-    .mobile-nav-actions { display: flex; gap: 1rem; margin-top: 2rem; }
+    .mobile-nav-actions {
+      display: flex; gap: 1rem; margin-top: 2rem;
+    }
     .mobile-nav-actions a {
       font-size: 1rem; font-family: 'DM Sans', sans-serif;
       font-weight: 500; letter-spacing: 0; border-bottom: none;
@@ -157,12 +159,13 @@
     }
     .search-footer span { color: var(--color-signal, #e8333a); }
 
-    /* ── HERO FALLBACK ── */
+    /* ── HERO FALLBACK (shown when image missing) ── */
     .hero-steak-bg {
       background-image: url('Grilled-T-Bone.jpg');
       background-size: cover; background-position: center;
       width: 100%; height: 100%; position: absolute; top: 0; left: 0;
     }
+    /* Gradient shows behind the image — visible if image fails to load */
     .hero-fake-img {
       background: linear-gradient(135deg, #1a0800 0%, #5c1a00 40%, #8b3a00 70%, #c05000 100%) !important;
     }
@@ -170,6 +173,8 @@
     /* ── CARD THUMBS ── */
     .card-thumb-inner { position: relative; width: 100%; height: 100%; overflow: hidden; }
     .card-preview-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 5; pointer-events: none; }
+
+    /* Images on top, gradient fallback behind — image listed FIRST so it renders above gradient */
     .thumb-bite      { width:100%;height:100%;background-image:url('bites.jpeg');background-size:cover;background-position:center;background-color:#8b4000; }
     .thumb-brew      { width:100%;height:100%;background-image:url('deep.png');background-size:contain;background-repeat:no-repeat;background-position:center;background-color:#ffffff; }
     .thumb-bean      { width:100%;height:100%;background-image:url('coffee.jpg');background-size:cover;background-position:center;background-color:#5c3000; }
@@ -190,13 +195,14 @@
       letter-spacing: 0.06em; text-transform: uppercase;
       background: none; border: 1px solid var(--color-border, #ddd);
       color: var(--color-muted, #888); border-radius: 2px;
-      padding: 0.25rem 0.7rem; cursor: pointer; transition: all 0.2s ease;
+      padding: 0.25rem 0.7rem; cursor: pointer;
+      transition: all 0.2s ease;
     }
     .vote-btn:hover { border-color: var(--color-signal, #e8333a); color: var(--color-signal, #e8333a); }
     .vote-btn.voted { background: var(--color-signal, #e8333a); color: #fff; border-color: var(--color-signal, #e8333a); }
     .vote-btn .vote-count { font-weight: 500; }
 
-    /* ── TOAST ── */
+    /* ── TOAST NOTIFICATION ── */
     .toast {
       position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(20px);
       background: #111111; color: #ffffff;
@@ -220,7 +226,7 @@
     .cta-half:last-child { border-right:none; }
     .cta-title { font-family:'Bebas Neue',sans-serif; font-size:var(--text-title); margin-bottom:1rem; }
 
-    /* ── MODALS BASE ── */
+    /* ── OTHERS MODAL ── */
     .modal-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(17,17,17,0.6); backdrop-filter: blur(4px);
@@ -260,20 +266,6 @@
     .modal-site-name { font-weight: 500; font-size: 0.9rem; margin-bottom: 2px; color: #111; }
     .modal-site-desc { font-size: 0.72rem; color: #888; font-family: 'DM Mono', monospace; text-transform: uppercase; }
 
-    /* ── DYNAMIC PROJECT MODAL ── */
-    .card-modal-content { max-width: 800px; padding: 0; overflow: hidden; display: flex; flex-direction: row; }
-    .card-modal-media { flex: 1; min-width: 300px; background: #000; position: relative; display: flex; align-items: center; justify-content: center;}
-    .card-modal-media img, .card-modal-media video { width: 100%; height: 100%; object-fit: cover; }
-    .card-modal-body { flex: 1.2; padding: var(--space-xl, 2.5rem); display: flex; flex-direction: column; justify-content: center; }
-    @media (max-width: 768px) {
-      .card-modal-content { flex-direction: column; }
-      .card-modal-media { height: 250px; min-height: 250px; }
-    }
-    .modal-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; }
-    .modal-tag { border: 1px solid #ddd; padding: 0.2rem 0.6rem; border-radius: 2px; color: #888; text-transform: uppercase; }
-    .card-modal-body .visit-btn { align-self: flex-start; margin-top: 1rem; }
-    .modal-body-text { font-size: 0.9rem; color: #444; line-height: 1.7; margin-bottom: 1.5rem; }
-
     /* ── BE PRO MODAL ── */
     #beProModal .modal-content { max-width: 560px; padding: 0; overflow: hidden; }
     .bepro-header { background: #111111; color: #ffffff; padding: 2.5rem 2.5rem 2rem; position: relative; }
@@ -284,7 +276,10 @@
       text-transform: uppercase; color: #e8333a; margin-bottom: 0.6rem;
       display: flex; align-items: center; gap: 0.5rem;
     }
-    .bepro-eyebrow::before { content: ''; width: 6px; height: 6px; background: #e8333a; border-radius: 50%; animation: pulse 1.8s infinite; }
+    .bepro-eyebrow::before {
+      content: ''; width: 6px; height: 6px; background: #e8333a;
+      border-radius: 50%; animation: pulse 1.8s infinite;
+    }
     .bepro-title { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; line-height: 1; letter-spacing: 0.04em; margin-bottom: 0.5rem; }
     .bepro-title em { color: #e8333a; font-style: normal; }
     .bepro-tagline { font-size: 0.88rem; color: rgba(255,255,255,0.6); line-height: 1.5; font-weight: 300; }
@@ -298,6 +293,7 @@
     .bepro-perk-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
     .bepro-perk-label { font-weight: 500; }
     .bepro-perk-sub { font-size: 0.78rem; color: var(--color-muted, #888888); font-weight: 300; }
+    .bepro-payment-perks { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-muted, #888888); margin-bottom: 0.8rem; }
     .bepro-payment-options { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; }
     .payment-btn {
       flex: 1; padding: 0.75rem 1rem; border: 1.5px solid var(--color-border, #dddddd);
@@ -322,101 +318,19 @@
       font-size: 0.58rem; letter-spacing: 0.06em; text-transform: uppercase;
       color: var(--color-muted-2, #aaaaaa); text-align: center; line-height: 1.5;
     }
-
-    /* ── FINE DINING MODAL — original list styles ── */
-    .fd-item {
-      display: flex; align-items: flex-start; gap: 1rem;
-      padding: 1.2rem 0; border-bottom: 1px solid var(--color-border, #ddd);
-    }
-    .fd-rank { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--color-muted-2, #aaa); line-height: 1; flex-shrink: 0; width: 24px; }
-    .fd-thumb { width: 56px; height: 56px; border-radius: 3px; flex-shrink: 0; }
-    .fd-info { flex: 1; min-width: 0; }
-    .fd-name { font-weight: 500; font-size: 0.9rem; margin-bottom: 0.3rem; color: var(--color-ink, #111); }
-    .fd-desc { font-size: 0.78rem; color: var(--color-muted, #888); line-height: 1.6; margin-bottom: 0.5rem; }
-    .fd-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-    .fd-tag { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid var(--color-border, #ddd); padding: 0.15rem 0.5rem; color: var(--color-muted, #888); border-radius: 2px; }
-    .fd-score { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: #e8333a; flex-shrink: 0; line-height: 1; }
-
-    /* ── MAP TAB TOGGLE ── */
-    .fd-tabs {
-      display: flex; border-bottom: 1px solid #222; flex-shrink: 0;
-      background: #111111;
-    }
-    .fd-tab {
-      padding: 0.7rem 1.5rem;
-      font-family: 'DM Mono', monospace; font-size: 0.65rem;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(255,255,255,0.45); background: none;
-      border: none; border-bottom: 2px solid transparent;
-      cursor: pointer; transition: all 0.2s;
-    }
-    .fd-tab.active { color: #ffffff; border-bottom-color: #e8333a; }
-    .fd-tab:hover { color: rgba(255,255,255,0.8); }
-
-    /* ── MAP PANEL ── */
-    #fdMapPanel { display: none; flex: 1; min-height: 0; }
-    #fdMapPanel.visible { display: flex; }
-    #fdListPanel { display: flex; flex-direction: column; flex: 1; min-height: 0; overflow: hidden; }
-    #fdListPanel.hidden { display: none; }
-
-    /* Map split layout */
-    .fd-map-wrap {
-      display: flex; width: 100%; height: 100%; min-height: 460px;
-    }
-    .fd-map-list {
-      width: 300px; flex-shrink: 0; overflow-y: auto;
-      background: #111111; border-right: 1px solid #222;
-    }
-    .fd-map-list-header {
-      padding: 0.7rem 1rem;
-      font-family: 'DM Mono', monospace; font-size: 0.58rem;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: #666; border-bottom: 1px solid #222;
-    }
-    .fd-map-card {
-      padding: 0.9rem 1rem; border-bottom: 1px solid #1a1a1a;
-      cursor: pointer; transition: background 0.15s;
-    }
-    .fd-map-card:hover, .fd-map-card.active { background: #1c1c1c; }
-    .fd-map-card.active { border-left: 3px solid #e8333a; }
-    .fd-map-card-rating { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em; color: #e8333a; margin-bottom: 0.25rem; }
-    .fd-map-card-name { font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 0.88rem; color: #ffffff; margin-bottom: 0.2rem; line-height: 1.2; }
-    .fd-map-card-stars { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: #c8a000; margin-bottom: 0.25rem; }
-    .fd-map-card-addr { font-size: 0.72rem; color: #888; margin-bottom: 0.4rem; line-height: 1.4; }
-    .fd-map-card-link { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.06em; color: #e8333a; text-decoration: underline; }
-    .fd-map-card-link:hover { color: #ff6666; }
-
-    #fdMapEl { flex: 1; }
-
-    /* Leaflet popup dark theme */
-    .leaflet-popup-content-wrapper {
-      background: #111111 !important; color: #fff !important;
-      border-radius: 4px !important; border: 1px solid #333 !important;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.5) !important;
-    }
-    .leaflet-popup-tip { background: #111111 !important; }
-    .leaflet-popup-content { margin: 12px 14px !important; min-width: 180px; }
-    .popup-name { font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 0.88rem; color: #fff; margin-bottom: 3px; }
-    .popup-rating { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.08em; color: #e8333a; margin-bottom: 2px; }
-    .popup-stars { font-family: 'DM Mono', monospace; font-size: 0.58rem; color: #c8a000; margin-bottom: 4px; }
-    .popup-addr { font-size: 0.72rem; color: #888; margin-bottom: 7px; line-height: 1.4; }
-    .popup-link { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.06em; color: #e8333a; text-decoration: underline; }
-    .popup-link:hover { color: #ff6666; }
-    .leaflet-container a.leaflet-popup-close-button { color: #888 !important; }
-    .leaflet-container a.leaflet-popup-close-button:hover { color: #fff !important; }
   </style>
 </head>
 <body>
 
   <div id="cursor"></div>
+
   <div class="toast" id="toast"></div>
 
-  <!-- OTHERS MODAL -->
   <div class="modal-overlay" id="othersModal">
     <div class="modal-content">
       <button class="modal-close-btn" id="closeOthersBtn">×</button>
       <h3 class="modal-header-title">Culinary Networks</h3>
-      <p class="modal subtitle">Explore other exceptional web experiences in global gastronomy.</p>
+      <p class="modal-subtitle">Explore other exceptional web experiences in global gastronomy.</p>
       <div class="modal-links-grid">
         <a href="https://www.michelin.com" target="_blank" class="modal-site-item"><span class="modal-site-emoji">🌟</span><div><div class="modal-site-name">Michelin Guide</div><div class="modal-site-desc">Fine Dining Index</div></div></a>
         <a href="https://www.eater.com" target="_blank" class="modal-site-item"><span class="modal-site-emoji">🍔</span><div><div class="modal-site-name">Eater Digital</div><div class="modal-site-desc">Food Culture & News</div></div></a>
@@ -428,7 +342,6 @@
     </div>
   </div>
 
-  <!-- BE PRO MODAL -->
   <div class="modal-overlay" id="beProModal">
     <div class="modal-content">
       <div class="bepro-header">
@@ -460,22 +373,6 @@
     </div>
   </div>
 
-  <!-- GENERIC CARD MODAL -->
-  <div class="modal-overlay" id="genericCardModal">
-    <div class="modal-content card-modal-content">
-      <button class="modal-close-btn" id="closeCardModalBtn">×</button>
-      <div class="card-modal-media" id="modalMedia"></div>
-      <div class="card-modal-body">
-        <div class="bepro-eyebrow" style="color:var(--color-ink);" id="modalCategory">Category</div>
-        <h3 class="modal-header-title" style="margin-bottom:1rem;" id="modalTitle">Title</h3>
-        <p class="modal-body-text" id="modalDesc">Researched description appears here...</p>
-        <div class="modal-tags" id="modalTags"></div>
-        <a href="#" target="_blank" class="visit-btn" id="modalLink">Visit Site →</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- MOBILE NAV -->
   <div class="mobile-nav" id="mobileNav">
     <a href="explore.html">Explore</a>
     <a href="top-restaurants.html">Winners</a>
@@ -560,7 +457,7 @@
     <a href="#" class="section-link">View All Nominees →</a>
   </div>
   <div class="nominees-grid">
-    <div class="card reveal generic-card-trigger" style="cursor:pointer;" data-project-id="bite">
+    <div class="card reveal">
       <div class="card-hover-overlay"></div>
       <div class="card-thumb">
         <div class="card-thumb-inner">
@@ -579,11 +476,11 @@
         <div class="card-score">9.4</div>
         <div class="card-tags">
           <span class="tag">WebGL</span>
-          <button class="vote-btn" onclick="handleVote(this, 'Bite Studio'); event.stopPropagation();"><span>▲</span><span class="vote-count">142</span></button>
+          <button class="vote-btn" onclick="handleVote(this, 'Bite Studio')"><span>▲</span><span class="vote-count">142</span></button>
         </div>
       </div>
     </div>
-    <div class="card reveal generic-card-trigger" style="cursor:pointer;" data-project-id="deepwater">
+    <div class="card reveal">
       <div class="card-hover-overlay"></div>
       <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-brew"></div></div></div>
       <div class="card-body">
@@ -595,11 +492,11 @@
         <div class="card-score">8.7</div>
         <div class="card-tags">
           <span class="tag">React</span>
-          <button class="vote-btn" onclick="handleVote(this, 'Deepwater Ales'); event.stopPropagation();"><span>▲</span><span class="vote-count">98</span></button>
+          <button class="vote-btn" onclick="handleVote(this, 'Deepwater Ales')"><span>▲</span><span class="vote-count">98</span></button>
         </div>
       </div>
     </div>
-    <div class="card reveal generic-card-trigger" style="cursor:pointer;" data-project-id="gilded">
+    <div class="card reveal">
       <div class="card-hover-overlay"></div>
       <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-bean"></div></div></div>
       <div class="card-body">
@@ -611,11 +508,11 @@
         <div class="card-score">9.0</div>
         <div class="card-tags">
           <span class="tag">Shopify</span>
-          <button class="vote-btn" onclick="handleVote(this, 'Gilded Coffee'); event.stopPropagation();"><span>▲</span><span class="vote-count">211</span></button>
+          <button class="vote-btn" onclick="handleVote(this, 'Gilded Coffee')"><span>▲</span><span class="vote-count">211</span></button>
         </div>
       </div>
     </div>
-    <div class="card reveal generic-card-trigger" style="cursor:pointer;" data-project-id="marsvine">
+    <div class="card reveal">
       <div class="card-hover-overlay"></div>
       <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-vine"></div></div></div>
       <div class="card-body">
@@ -627,7 +524,7 @@
         <div class="card-score">8.5</div>
         <div class="card-tags">
           <span class="tag">Next.js</span>
-          <button class="vote-btn" onclick="handleVote(this, 'Mars + Vine'); event.stopPropagation();"><span>▲</span><span class="vote-count">76</span></button>
+          <button class="vote-btn" onclick="handleVote(this, 'Mars + Vine')"><span>▲</span><span class="vote-count">76</span></button>
         </div>
       </div>
     </div>
@@ -643,12 +540,12 @@
       <div class="card-body"><div class="card-category">App · Mixology</div><div class="card-title">Cyan Cocktails Platform</div><div class="card-author">by cyanlab</div></div>
       <div class="card-footer"><div class="card-score">8.88</div><div class="card-tags"><span class="tag">SOTD</span></div></div>
     </a>
-    <div class="card reveal generic-card-trigger" style="cursor:pointer;" data-project-id="ambar">
+    <div class="card reveal">
       <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-ambar"></div><video class="card-preview-video inline-media-loop" autoplay loop muted playsinline><source src="ambars.mp4" type="video/mp4"></video></div></div>
       <div class="card-body"><div class="card-category">Grill · Experience</div><div class="card-title">Ambar — Fire & Flavour</div><div class="card-author">by ambargroup</div></div>
       <div class="card-footer"><div class="card-score">9.12</div><div class="card-tags"><span class="tag">SOTD</span></div></div>
     </div>
-    <div class="card reveal generic-card-trigger" style="cursor:pointer;" data-project-id="flowstate">
+    <div class="card reveal">
       <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-ferm"></div></div></div>
       <div class="card-body"><div class="card-category">Beverage · Experimental</div><div class="card-title">Flowstate — Kombucha Lab</div><div class="card-author">by flowstate</div></div>
       <div class="card-footer"><div class="card-score">8.67</div><div class="card-tags"><span class="tag">SOTD</span></div></div>
@@ -680,19 +577,13 @@
       <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-cafe"></div></div></div>
       <div class="card-body"><div class="card-category">Inspiration</div><div class="card-title">Best Coffee Shop Web Interfaces</div><div class="card-author">+142 curated sites</div></div>
     </a>
-    <div class="card reveal generic-card-trigger" style="cursor:pointer;" data-project-id="winemaps">
-      <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-wine-coll"></div></div></div>
-      <div class="card-body"><div class="card-category">Layouts</div><div class="card-title">Interactive Wine Maps & Estates</div><div class="card-author">+89 curated sites</div></div>
-    </div>
-   <div class="card reveal" id="fineDiningCard" onclick="openFineDining()" role="button" tabindex="0" style="cursor:pointer;">
+    <div class="card reveal"><div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-wine-coll"></div></div></div><div class="card-body"><div class="card-category">Layouts</div><div class="card-title">Interactive Wine Maps & Estates</div><div class="card-author">+89 curated sites</div></div></div>
+    <div class="card reveal" id="fineDiningCard" onclick="openFineDining()" role="button" tabindex="0" style="cursor:pointer;">
       <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-fine"></div></div></div>
       <div class="card-body"><div class="card-category">Interactions</div><div class="card-title">Immersive Fine Dining Experiences</div><div class="card-author">+104 curated sites</div></div>
       <div class="card-footer"><div class="card-score" style="font-size:0.75rem;color:var(--color-muted);">Click to explore</div><div class="card-tags"><span class="tag">Collections</span></div></div>
     </div>
-    <div class="card reveal generic-card-trigger" style="cursor:pointer;" data-project-id="darkmode">
-      <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-spice"></div></div></div>
-      <div class="card-body"><div class="card-category">Photography</div><div class="card-title">Dark Mode Culinary Portfolios</div><div class="card-author">+67 curated sites</div></div>
-    </div>
+    <div class="card reveal"><div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-spice"></div></div></div><div class="card-body"><div class="card-category">Photography</div><div class="card-title">Dark Mode Culinary Portfolios</div><div class="card-author">+67 curated sites</div></div></div>
   </div>
 
   <div class="cta-banner">
@@ -746,35 +637,24 @@
     <span class="footer-copy">Privacy · Terms · Cookies</span>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════
-       FINE DINING MODAL — original content + new Map tab
-  ════════════════════════════════════════════════════════ -->
   <div class="modal-overlay" id="fineDiningModal">
-    <div class="modal-content" style="max-width:900px;width:95vw;padding:0;overflow:hidden;max-height:90vh;display:flex;flex-direction:column;">
+    <div class="modal-content" style="max-width:700px;padding:0;overflow:hidden;max-height:88vh;display:flex;flex-direction:column;">
 
-      <!-- Header (unchanged) -->
-      <div style="background:#111111;color:#ffffff;padding:2rem 2.5rem 1.5rem;flex-shrink:0;position:relative;">
+      <div style="background:#111111;color:#ffffff;padding:2rem 2.5rem 1.5rem;flex-shrink:0;">
         <button class="modal-close-btn" onclick="closeFineDining()" style="color:rgba(255,255,255,0.6);">×</button>
         <div style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:#e8333a;margin-bottom:0.6rem;">Collections · Interactions</div>
         <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2.4rem;letter-spacing:0.03em;line-height:1;margin-bottom:0.5rem;">Immersive Fine Dining<br/>Experiences</h2>
         <p style="font-size:0.85rem;color:rgba(255,255,255,0.55);font-weight:300;line-height:1.6;">The world's most extraordinary restaurants — where environment, service, and cuisine converge into a single unforgettable experience.</p>
       </div>
 
-      <!-- Stats bar (unchanged) -->
       <div style="background:#e8333a;padding:0.75rem 2.5rem;display:flex;gap:3rem;flex-shrink:0;">
         <div><div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#fff;line-height:1;">104</div><div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);">Curated Sites</div></div>
         <div><div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#fff;line-height:1;">38</div><div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);">Countries</div></div>
         <div><div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#fff;line-height:1;">9.4</div><div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);">Avg Score</div></div>
       </div>
 
-      <!-- NEW: Tab bar -->
-      <div class="fd-tabs" id="fdTabs">
-        <button class="fd-tab active" onclick="switchFdTab('list', this)">📋 Restaurant List</button>
-        <button class="fd-tab" onclick="switchFdTab('map', this)">🗺 Map View</button>
-      </div>
+      <div style="overflow-y:auto;flex:1;padding:1.5rem 2.5rem 2rem;">
 
-      <!-- LIST PANEL (original content, unchanged) -->
-      <div id="fdListPanel" style="overflow-y:auto;flex:1;padding:1.5rem 2.5rem 2rem;">
         <div style="font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-muted,#888);margin-bottom:1rem;">Featured Restaurants</div>
 
         <div class="fd-item">
@@ -831,27 +711,48 @@
           </div>
           <div class="fd-score">9.5</div>
         </div>
+
       </div>
 
-      <!-- MAP PANEL (new) -->
-      <div id="fdMapPanel">
-        <div class="fd-map-wrap">
-          <!-- Left sidebar -->
-          <div class="fd-map-list" id="fdMapSidebar">
-            <div class="fd-map-list-header">Elite selections across the world</div>
-          </div>
-          <!-- Map -->
-          <div id="fdMapEl"></div>
-        </div>
-      </div>
-
-      <!-- Footer (unchanged) -->
-      <div style="padding:1rem 2.5rem;border-top:1px solid var(--color-border,#ddd);display:flex;justify-content:space-between;align-items:center;flex-shrink:0;background:#fff;">
+      <div style="padding:1rem 2.5rem;border-top:1px solid var(--color-border,#ddd);display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
         <span style="font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-muted,#888);">Showing 5 of 104 restaurants</span>
         <a href="collections.html" onclick="closeFineDining()" style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-ink,#111);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px;">View All 104 →</a>
       </div>
     </div>
   </div>
+
+  <style>
+    .fd-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.2rem 0; border-bottom: 1px solid var(--color-border, #ddd);
+    }
+    .fd-rank {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+      color: var(--color-muted-2, #aaa); line-height: 1; flex-shrink: 0; width: 24px;
+    }
+    .fd-thumb {
+      width: 56px; height: 56px; border-radius: 3px; flex-shrink: 0;
+    }
+    .fd-info { flex: 1; min-width: 0; }
+    .fd-name {
+      font-weight: 500; font-size: 0.9rem; margin-bottom: 0.3rem; color: var(--color-ink, #111);
+    }
+    .fd-desc {
+      font-size: 0.78rem; color: var(--color-muted, #888);
+      line-height: 1.6; margin-bottom: 0.5rem;
+    }
+    .fd-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .fd-tag {
+      font-family: 'DM Mono', monospace; font-size: 0.58rem;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      border: 1px solid var(--color-border, #ddd); padding: 0.15rem 0.5rem;
+      color: var(--color-muted, #888); border-radius: 2px;
+    }
+    .fd-score {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+      color: #e8333a; flex-shrink: 0; line-height: 1;
+    }
+  </style>
 
   <script>
     // ── AUTO DATE ────────────────────────────────────────────────
@@ -887,6 +788,7 @@
 
     const input    = document.getElementById('searchInput');
     const dropdown = document.getElementById('searchDropdown');
+
     function search(query) {
       if (!query.trim()) { dropdown.classList.remove('open'); return; }
       const q = query.toLowerCase();
@@ -973,11 +875,26 @@
       document.querySelectorAll('.inline-media-loop').forEach(t => t.play().catch(()=>{}));
     });
 
+    // ── FINE DINING MODAL ────────────────────────────────────────
+    const fineDiningModal = document.getElementById('fineDiningModal');
+    function openFineDining()  { fineDiningModal.classList.add('active'); document.body.style.overflow='hidden'; }
+    function closeFineDining() { fineDiningModal.classList.remove('active'); document.body.style.overflow=''; }
+    fineDiningModal.addEventListener('click', e => { if(e.target===fineDiningModal) closeFineDining(); });
+
+    // FIXED FOR ACCESSIBILITY: Keyboard handler for fine dining card activation
+    document.getElementById('fineDiningCard').addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openFineDining();
+      }
+    });
+
     // ── OTHERS MODAL ─────────────────────────────────────────────
     const othersModal   = document.getElementById('othersModal');
     const othersNavLink = document.getElementById('othersNavLink');
     const closeOthers   = document.getElementById('closeOthersBtn');
     const mobileOthers  = document.getElementById('mobileOthersLink');
+
     function openOthers(e) { e.preventDefault(); othersModal.classList.add('active'); document.body.style.overflow='hidden'; }
     function shutOthers()  { othersModal.classList.remove('active'); document.body.style.overflow=''; }
     othersNavLink.addEventListener('click', openOthers);
@@ -990,11 +907,13 @@
     const beProBtn      = document.getElementById('beProBtn');
     const closeBeProBtn = document.getElementById('closeBeProBtn');
     let selectedPayment = null;
+
     function openBePro(e) { e.preventDefault(); beProModal.classList.add('active'); document.body.style.overflow='hidden'; }
     function closeBePro() { beProModal.classList.remove('active'); document.body.style.overflow=''; }
     beProBtn.addEventListener('click', openBePro);
     closeBeProBtn.addEventListener('click', closeBePro);
     beProModal.addEventListener('click', e => { if(e.target===beProModal) closeBePro(); });
+
     function selectPayment(method) {
       selectedPayment = method;
       document.getElementById('visaBtn').classList.toggle('selected', method==='visa');
@@ -1007,170 +926,8 @@
       setTimeout(() => alert(`✅ Welcome to Taste Pro!\n\nPayment of $100,000,000 via ${method} is being processed.\n\nEvery restaurant on Earth is now yours. Bon appétit. 🌍`), 300);
     }
 
-    // ── FINE DINING MODAL ────────────────────────────────────────
-    const fineDiningModal = document.getElementById('fineDiningModal');
-    function openFineDining() {
-      fineDiningModal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeFineDining() {
-      fineDiningModal.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-    fineDiningModal.addEventListener('click', e => { if(e.target===fineDiningModal) closeFineDining(); });
-    // Allow keyboard users to open the Fine Dining modal
-document.getElementById('fineDiningCard').addEventListener('keydown', e => {
-  if (e.key === 'Enter' || e.key === ' ') {
-    e.preventDefault();
-    openFineDining();
-  }
-});
-
-    // ── MAP TAB SWITCHING ─────────────────────────────────────────
-    const fdRestaurants = [
-      { name: "Sublimotion", rating: "★ 9.8 · Avant-Garde / Theatrical", stars: "⭐⭐⭐ Michelin", address: "Hard Rock Hotel Ibiza, Spain", url: "https://sublimotionibiza.com", lat: 38.8826, lng: 1.4046 },
-      { name: "Ultraviolet by Paul Pairet", rating: "★ 9.7 · French / Multi-Sensory", stars: "⭐⭐⭐ Michelin", address: "Secret location, Shanghai, China", url: "https://uvbypp.cc", lat: 31.2304, lng: 121.4737 },
-      { name: "Dinner by Heston Blumenthal", rating: "★ 9.5 · Modern British", stars: "⭐⭐ Michelin", address: "Mandarin Oriental, London, UK", url: "https://www.dinnerbyheston.com", lat: 51.5016, lng: -0.1606 },
-      { name: "Noma", rating: "★ 9.6 · New Nordic", stars: "⭐⭐ Michelin", address: "Refshalevej 96, Copenhagen, Denmark", url: "https://noma.dk", lat: 55.6894, lng: 12.6044 },
-      { name: "Mirazur", rating: "★ 9.5 · Contemporary French", stars: "⭐⭐⭐ Michelin", address: "30 Av. Aristide Briand, Menton, France", url: "https://www.mirazur.fr", lat: 43.7764, lng: 7.5039 },
-    ];
-
-    let fdMap = null, fdMarkers = [], fdMapReady = false;
-
-    function switchFdTab(tab, btn) {
-      // Update tab buttons
-      document.querySelectorAll('.fd-tab').forEach(t => t.classList.remove('active'));
-      btn.classList.add('active');
-
-      const listPanel = document.getElementById('fdListPanel');
-      const mapPanel  = document.getElementById('fdMapPanel');
-
-      if (tab === 'list') {
-        listPanel.classList.remove('hidden');
-        mapPanel.classList.remove('visible');
-      } else {
-        listPanel.classList.add('hidden');
-        mapPanel.classList.add('visible');
-        // Init map on first open
-        if (!fdMapReady) { loadLeafletAndBuild(); }
-        else if (fdMap) { setTimeout(() => fdMap.invalidateSize(), 50); }
-      }
-    }
-
-    function loadLeafletAndBuild() {
-      // Load Leaflet CSS
-      if (!document.getElementById('leaflet-css')) {
-        const lc = document.createElement('link');
-        lc.id = 'leaflet-css'; lc.rel = 'stylesheet';
-        lc.href = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css';
-        document.head.appendChild(lc);
-      }
-      // Load Leaflet JS
-      if (!document.getElementById('leaflet-js')) {
-        const ls = document.createElement('script');
-        ls.id = 'leaflet-js';
-        ls.src = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
-        ls.onload = buildFdMap;
-        document.head.appendChild(ls);
-      } else {
-        buildFdMap();
-      }
-    }
-
-    function buildFdMap() {
-      fdMapReady = true;
-      fdMap = L.map('fdMapEl').setView([48, 10], 3);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a>', maxZoom: 18
-      }).addTo(fdMap);
-
-      // Build sidebar
-      const sidebar = document.getElementById('fdMapSidebar');
-      fdRestaurants.forEach((r, i) => {
-        // Sidebar card
-        const card = document.createElement('div');
-        card.className = 'fd-map-card' + (i === 0 ? ' active' : '');
-        card.id = 'fdCard_' + i;
-        card.innerHTML = `
-          <div class="fd-map-card-rating">${r.rating}</div>
-          <div class="fd-map-card-name">${r.name}</div>
-          <div class="fd-map-card-stars">🏅 ${r.stars}</div>
-          <div class="fd-map-card-addr">${r.address}</div>
-          <a class="fd-map-card-link" href="${r.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Visit Homepage ↗</a>`;
-        card.addEventListener('click', () => focusFdMarker(i));
-        sidebar.appendChild(card);
-
-        // Map marker
-        const marker = L.marker([r.lat, r.lng]).addTo(fdMap);
-        marker.bindPopup(`
-          <div class="popup-name">${r.name}</div>
-          <div class="popup-rating">${r.rating}</div>
-          <div class="popup-stars">🏅 ${r.stars}</div>
-          <div class="popup-addr">${r.address}</div>
-          <a class="popup-link" href="${r.url}" target="_blank" rel="noopener">Open Website ↗</a>`);
-        marker.on('click', () => highlightFdCard(i));
-        fdMarkers.push(marker);
-      });
-
-      // Open first popup after a short delay
-      setTimeout(() => {
-        fdMap.invalidateSize();
-        fdMarkers[0].openPopup();
-      }, 150);
-    }
-
-    function focusFdMarker(i) {
-      highlightFdCard(i);
-      fdMap.setView([fdRestaurants[i].lat, fdRestaurants[i].lng], 12, { animate: true });
-      fdMarkers[i].openPopup();
-    }
-
-    function highlightFdCard(i) {
-      document.querySelectorAll('.fd-map-card').forEach((c, idx) => c.classList.toggle('active', idx === i));
-      const card = document.getElementById('fdCard_' + i);
-      if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-
-    // ── DYNAMIC PROJECT MODAL ─────────────────────────────────────
-    const cardData = {
-      'bite': { category: 'Restaurant · 3D Menu', title: 'Bite Studio — Gastronomy', desc: 'A revolutionary digital menu experience utilizing WebGL technology to render signature dishes in high-fidelity 3D. Users can rotate, zoom, and inspect textures before ordering. This studio focuses on immersive storytelling for luxury gastronomy brands, turning standard menus into interactive culinary explorations.', media: '<video autoplay loop muted playsinline><source src="World\'s Best Fried Chicken RECIPE - Nick Kratka (720p).mp4" type="video/mp4"></video>', tags: ['WebGL', 'Three.js', 'React', 'Immersive UI'], link: '#' },
-      'deepwater': { category: 'Brewery · Branding', title: 'Deepwater Ales — Digital', desc: 'A complete digital overhaul for a coastal craft brewery. The focus was on translating the raw, nautical aesthetic of the brand into a slick, modern user interface. Featuring custom iconography, scroll-triggered animations showcasing brewing processes, and an interactive beer finder map.', media: '<img src="deep.png" style="object-fit:contain;background:#fff;">', tags: ['React', 'GSAP Animation', 'E-Commerce', 'Brand Storytelling'], link: '#' },
-      'gilded': { category: 'E-Commerce · Roastery', title: 'Gilded — Bespoke Coffee', desc: 'A luxury e-commerce experience built on Shopify for a specialty roastery focusing on rare micro-lots. The design leverages high-contrast typography and dramatic product photography. Features include a Brew Guide section and seamless subscription model.', media: '<img src="coffee.jpg">', tags: ['Shopify', 'Liquid', 'Luxury E-Com', 'Subscription Model'], link: '#' },
-      'marsvine': { category: 'Winery · Portfolio', title: 'Mars + Vine — Tasting', desc: 'An elegant portfolio site for an experimental winery blending terroir-driven techniques with futuristic presentation. Next.js for lightning-fast performance and seamless page transitions. Highlights include a virtual cellar tour and wine club integration.', media: '<img src="wine.webp">', tags: ['Next.js', 'Vercel', 'Portfolio', 'Winery'], link: '#' },
-      'ambar': { category: 'Grill · Experience', title: 'Ambar — Fire & Flavour', desc: 'The digital presence for a restaurant specializing in ancient open-fire cooking techniques. Captures the smokey, raw aesthetic through a moody color palette and video integration. Focuses on conversion via an integrated online reservation system.', media: '<video autoplay loop muted playsinline><source src="ambars.mp4" type="video/mp4"></video>', tags: ['Experience Design', 'Video Integration', 'Reservations', 'BBQ/Grill'], link: '#' },
-      'flowstate': { category: 'Beverage · Experimental', title: 'Flowstate — Kombucha Lab', desc: 'Branding and digital hub for an experimental kombucha laboratory. The site contrasts clinical layouts referencing fermentation science with vibrant fluid gradients. Features dynamic inventory management for seasonal flavors and a health-focused blog.', media: '<img src="flow.jpeg">', tags: ['Experimental UI', 'Vibrant Design', 'Blog', 'Beverage'], link: '#' },
-      'winemaps': { category: 'Collections · Layouts', title: 'Interactive Wine Maps & Estates', desc: 'A curated collection of the web\'s best interactive cartography for viticulture. This gallery focuses on sites that use GIS data, WebGL mapping layers, and environmental graphics to visualize terroir, estate boundaries, and tasting trails.', media: '<img src="map.webp">', tags: ['Collections', 'Wine Map', 'Cartography', 'GIS Mapping'], link: 'collections.html' },
-      'darkmode': { category: 'Collections · Photography', title: 'Dark Mode Culinary Portfolios', desc: 'A curated showcase of chef and restaurant portfolios adopting dramatic, moody lighting and deep contrast. Explores the trend of dark aesthetics in gastronomy design, highlighting how moody imagery elevates dish presentation.', media: '<img src="dark.jpg">', tags: ['Collections', 'Dark Mode', 'Moody', 'Chef Portfolio'], link: 'collections.html' }
-    };
-
-    const genericModal = document.getElementById('genericCardModal');
-    const genericClose = document.getElementById('closeCardModalBtn');
-    function openProjectModal(id) {
-      const data = cardData[id]; if (!data) return;
-      document.getElementById('modalCategory').textContent = data.category;
-      document.getElementById('modalTitle').textContent = data.title;
-      document.getElementById('modalDesc').textContent = data.desc;
-      document.getElementById('modalMedia').innerHTML = data.media;
-      document.getElementById('modalLink').href = data.link;
-      document.getElementById('modalTags').innerHTML = data.tags.map(t => `<span class="modal-tag">${t}</span>`).join('');
-      const video = genericModal.querySelector('video');
-      if (video) video.play().catch(()=>{});
-      genericModal.classList.add('active'); document.body.style.overflow = 'hidden';
-    }
-    function closeGenericModal() { genericModal.classList.remove('active'); document.body.style.overflow = ''; cursor.classList.remove('expand'); }
-    genericClose.addEventListener('click', closeGenericModal);
-    genericModal.addEventListener('click', e => { if (e.target === genericModal) closeGenericModal(); });
-    document.querySelectorAll('.generic-card-trigger').forEach(trigger => {
-      trigger.addEventListener('click', () => openProjectModal(trigger.getAttribute('data-project-id')));
-    });
-
-    // ── ESCAPE ───────────────────────────────────────────────────
     document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') {
-        shutOthers(); closeBePro(); closeFineDining(); closeGenericModal();
-        mobileNav.classList.remove('open'); hamburger.classList.remove('open');
-        dropdown.classList.remove('open'); document.body.style.overflow = '';
-      }
+      if (e.key==='Escape') { shutOthers(); closeBePro(); closeFineDining(); mobileNav.classList.remove('open'); hamburger.classList.remove('open'); document.body.style.overflow=''; }
     });
   </script>
 </body>
