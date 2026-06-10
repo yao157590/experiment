@@ -293,7 +293,6 @@
     .bepro-perk-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
     .bepro-perk-label { font-weight: 500; }
     .bepro-perk-sub { font-size: 0.78rem; color: var(--color-muted, #888888); font-weight: 300; }
-    .bepro-payment-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-muted, #888888); margin-bottom: 0.8rem; }
     .bepro-payment-options { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; }
     .payment-btn {
       flex: 1; padding: 0.75rem 1rem; border: 1.5px solid var(--color-border, #dddddd);
@@ -324,10 +323,8 @@
 
   <div id="cursor"></div>
 
-  <!-- TOAST -->
   <div class="toast" id="toast"></div>
 
-  <!-- OTHERS MODAL -->
   <div class="modal-overlay" id="othersModal">
     <div class="modal-content">
       <button class="modal-close-btn" id="closeOthersBtn">×</button>
@@ -344,7 +341,6 @@
     </div>
   </div>
 
-  <!-- BE PRO MODAL -->
   <div class="modal-overlay" id="beProModal">
     <div class="modal-content">
       <div class="bepro-header">
@@ -376,14 +372,13 @@
     </div>
   </div>
 
-  <!-- MOBILE NAV -->
   <div class="mobile-nav" id="mobileNav">
     <a href="explore.html">Explore</a>
     <a href="top-restaurants.html">Winners</a>
     <a href="academy.html">Academy</a>
-    <a href="Blog.html">Blog</a>
+    <a href="collections.html">Collections</a>
     <a href="directory.html">Directory</a>
-    <a href="#" id="mobileOthersLink">Others</a>
+    <a href="blog.html">Blog</a> <a href="#" id="mobileOthersLink">Others</a>
     <div class="mobile-nav-actions">
       <a href="#" class="btn-outline">Log in</a>
       <a href="#" class="btn-solid">Submit</a>
@@ -396,9 +391,9 @@
       <li><a href="explore.html">Explore</a></li>
       <li><a href="top-restaurants.html">Winners</a></li>
       <li><a href="academy.html">Academy</a></li>
-      <li><a href="Blog.html">Blog</a></li>
+      <li><a href="collections.html">Collections</a></li>
       <li><a href="directory.html">Directory</a></li>
-      <li><a href="#" id="othersNavLink">Others</a></li>
+      <li><a href="blog.html">Blog</a></li> <li><a href="#" id="othersNavLink">Others</a></li>
     </ul>
     <div class="nav-search-container">
       <input type="text" class="nav-search-input" id="searchInput" placeholder="Search nominees, recipes, cities..." autocomplete="off">
@@ -416,7 +411,6 @@
 
   <section class="hero">
     <div class="hero-left">
-      <!-- FIX: auto-updated date -->
       <div class="sotd-label" id="sotdLabel">Menu of the Day</div>
       <h1 class="hero-title">
         <span class="line">FOOD &</span>
@@ -431,7 +425,6 @@
       </div>
     </div>
     <div class="hero-right">
-      <!-- FIX: gradient fallback behind image -->
       <div class="hero-fake-img" style="position:relative;overflow:hidden;padding:0;">
         <div class="hero-steak-bg"></div>
       </div>
@@ -575,8 +568,8 @@
   </div>
 
   <div class="section-header reveal">
-    <h2 class="section-title">Blog</h2>
-    <a href="Blog.html" class="section-link">Explore Blog →</a>
+    <h2 class="section-title">Collections</h2>
+    <a href="collections.html" class="section-link">Explore Collections →</a>
   </div>
   <div class="nominees-grid">
     <a href="best-coffee-shops.html" class="card reveal" style="text-decoration:none;color:inherit;display:block;">
@@ -587,7 +580,7 @@
     <div class="card reveal" id="fineDiningCard" onclick="openFineDining()" style="cursor:pointer;">
       <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-fine"></div></div></div>
       <div class="card-body"><div class="card-category">Interactions</div><div class="card-title">Immersive Fine Dining Experiences</div><div class="card-author">+104 curated sites</div></div>
-      <div class="card-footer"><div class="card-score" style="font-size:0.75rem;color:var(--color-muted);">Click to explore</div><div class="card-tags"><span class="tag">Blog</span></div></div>
+      <div class="card-footer"><div class="card-score" style="font-size:0.75rem;color:var(--color-muted);">Click to explore</div><div class="card-tags"><span class="tag">Collections</span></div></div>
     </div>
     <div class="card reveal"><div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-spice"></div></div></div><div class="card-body"><div class="card-category">Photography</div><div class="card-title">Dark Mode Culinary Portfolios</div><div class="card-author">+67 curated sites</div></div></div>
   </div>
@@ -624,7 +617,7 @@
       <ul class="footer-links">
         <li><a href="explore.html">Explore</a></li>
         <li><a href="academy.html">Academy</a></li>
-        <li><a href="Blog.html">Blog</a></li>
+        <li><a href="collections.html">Collections</a></li>
         <li><a href="directory.html">Directory</a></li>
       </ul>
     </div>
@@ -643,31 +636,26 @@
     <span class="footer-copy">Privacy · Terms · Cookies</span>
   </div>
 
-  <!-- FINE DINING MODAL -->
   <div class="modal-overlay" id="fineDiningModal">
     <div class="modal-content" style="max-width:700px;padding:0;overflow:hidden;max-height:88vh;display:flex;flex-direction:column;">
 
-      <!-- Modal Header -->
       <div style="background:#111111;color:#ffffff;padding:2rem 2.5rem 1.5rem;flex-shrink:0;">
         <button class="modal-close-btn" onclick="closeFineDining()" style="color:rgba(255,255,255,0.6);">×</button>
-        <div style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:#e8333a;margin-bottom:0.6rem;">Blog · Interactions</div>
+        <div style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:#e8333a;margin-bottom:0.6rem;">Collections · Interactions</div>
         <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2.4rem;letter-spacing:0.03em;line-height:1;margin-bottom:0.5rem;">Immersive Fine Dining<br/>Experiences</h2>
         <p style="font-size:0.85rem;color:rgba(255,255,255,0.55);font-weight:300;line-height:1.6;">The world's most extraordinary restaurants — where environment, service, and cuisine converge into a single unforgettable experience.</p>
       </div>
 
-      <!-- Stats bar -->
       <div style="background:#e8333a;padding:0.75rem 2.5rem;display:flex;gap:3rem;flex-shrink:0;">
         <div><div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#fff;line-height:1;">104</div><div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);">Curated Sites</div></div>
         <div><div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#fff;line-height:1;">38</div><div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);">Countries</div></div>
         <div><div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#fff;line-height:1;">9.4</div><div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);">Avg Score</div></div>
       </div>
 
-      <!-- Restaurant list -->
       <div style="overflow-y:auto;flex:1;padding:1.5rem 2.5rem 2rem;">
 
         <div style="font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-muted,#888);margin-bottom:1rem;">Featured Restaurants</div>
 
-        <!-- Restaurant 1 -->
         <div class="fd-item">
           <div class="fd-rank">01</div>
           <div class="fd-thumb" style="background:linear-gradient(135deg,#1a0000,#6b1a00);"></div>
@@ -679,7 +667,6 @@
           <div class="fd-score">9.8</div>
         </div>
 
-        <!-- Restaurant 2 -->
         <div class="fd-item">
           <div class="fd-rank">02</div>
           <div class="fd-thumb" style="background:linear-gradient(135deg,#001a1a,#006b55);"></div>
@@ -691,7 +678,6 @@
           <div class="fd-score">9.7</div>
         </div>
 
-        <!-- Restaurant 3 -->
         <div class="fd-item">
           <div class="fd-rank">03</div>
           <div class="fd-thumb" style="background:linear-gradient(135deg,#0a0a2a,#2a0a5a);"></div>
@@ -703,7 +689,6 @@
           <div class="fd-score">9.5</div>
         </div>
 
-        <!-- Restaurant 4 -->
         <div class="fd-item">
           <div class="fd-rank">04</div>
           <div class="fd-thumb" style="background:linear-gradient(135deg,#1a1000,#6b4400);"></div>
@@ -715,7 +700,6 @@
           <div class="fd-score">9.6</div>
         </div>
 
-        <!-- Restaurant 5 -->
         <div class="fd-item" style="border-bottom:none;">
           <div class="fd-rank">05</div>
           <div class="fd-thumb" style="background:linear-gradient(135deg,#001a0d,#004d26);"></div>
@@ -729,10 +713,9 @@
 
       </div>
 
-      <!-- Footer -->
       <div style="padding:1rem 2.5rem;border-top:1px solid var(--color-border,#ddd);display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
         <span style="font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-muted,#888);">Showing 5 of 104 restaurants</span>
-        <a href="Blog.html" onclick="closeFineDining()" style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-ink,#111);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px;">View All 104 →</a>
+        <a href="collections.html" onclick="closeFineDining()" style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-ink,#111);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px;">View All 104 →</a>
       </div>
     </div>
   </div>
@@ -797,9 +780,9 @@
       { title: "Typography & Branding for Modern Wineries", meta: "Instructor: Hmmm Creative · 4.8/5", type: "course", badge: "Academy", icon: "🖋️", url: "academy.html", keywords: "typography branding winery design academy" },
       { title: "Figma from Scratch: Designing Restaurant Menus", meta: "Instructor: Plate UI · 5/5", type: "course", badge: "Academy", icon: "🎨", url: "academy.html", keywords: "figma design restaurant menu ui ux academy" },
       { title: "Best Coffee Shop Web Interfaces", meta: "+142 curated sites", type: "collection", badge: "Inspiration", icon: "☕", url: "best-coffee-shops.html", keywords: "coffee shop web interface inspiration design collection" },
-      { title: "Interactive Wine Maps & Estates", meta: "+89 curated sites", type: "collection", badge: "Layouts", icon: "🗺️", url: "Blog.html", keywords: "wine map estate interactive layout collection" },
-      { title: "Immersive Fine Dining Experiences", meta: "+104 curated sites", type: "collection", badge: "Interactions", icon: "🕯️", url: "Blog.html", keywords: "fine dining immersive experience interaction collection" },
-      { title: "Dark Mode Culinary Portfolios", meta: "+67 curated sites", type: "collection", badge: "Photography", icon: "📸", url: "Blog.html", keywords: "dark mode culinary portfolio photography collection" },
+      { title: "Interactive Wine Maps & Estates", meta: "+89 curated sites", type: "collection", badge: "Layouts", icon: "🗺️", url: "collections.html", keywords: "wine map estate interactive layout collection" },
+      { title: "Immersive Fine Dining Experiences", meta: "+104 curated sites", type: "collection", badge: "Interactions", icon: "🕯️", url: "collections.html", keywords: "fine dining immersive experience interaction collection" },
+      { title: "Dark Mode Culinary Portfolios", meta: "+67 curated sites", type: "collection", badge: "Photography", icon: "📸", url: "collections.html", keywords: "dark mode culinary portfolio photography collection" },
     ];
 
     const input    = document.getElementById('searchInput');
