@@ -174,19 +174,19 @@
     .card-thumb-inner { position: relative; width: 100%; height: 100%; overflow: hidden; }
     .card-preview-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 5; pointer-events: none; }
 
-    /* Real images — gradient fallback shows when file missing */
-    .thumb-bite      { width:100%;height:100%;background: linear-gradient(135deg,#3d1a00,#8b4000) url('bites.jpeg') center/cover no-repeat; }
-    .thumb-brew      { width:100%;height:100%;background: linear-gradient(135deg,#001a3d,#003d8b) url('deep.png') center/contain no-repeat #fff; }
-    .thumb-bean      { width:100%;height:100%;background: linear-gradient(135deg,#1a0d00,#5c3000) url('coffee.jpg') center/cover no-repeat; }
-    .thumb-vine      { width:100%;height:100%;background: linear-gradient(135deg,#1a001a,#5c005c) url('wine.webp') center/cover no-repeat; }
-    .thumb-ambar     { width:100%;height:100%;background: linear-gradient(135deg,#3d1a00,#8b4513) url('Amber.jpeg') center/cover no-repeat; }
-    .thumb-zest      { width:100%;height:100%;background: linear-gradient(135deg,#001a1a,#006b6b) url('cocktail.webp') center/cover no-repeat; }
-    .thumb-ferm      { width:100%;height:100%;background: linear-gradient(135deg,#001a0d,#006b3a) url('flow.jpeg') center/cover no-repeat; }
-    .thumb-moss      { width:100%;height:100%;background: linear-gradient(135deg,#0d1a00,#3a6b00) url('moss.gif') center/cover no-repeat; }
-    .thumb-cafe      { width:100%;height:100%;background: linear-gradient(135deg,#1a1000,#5c3d00) url('shop.png') center/cover no-repeat; }
-    .thumb-wine-coll { width:100%;height:100%;background: linear-gradient(135deg,#1a0a00,#6b3300) url('map.webp') center/cover no-repeat; }
-    .thumb-fine      { width:100%;height:100%;background: linear-gradient(135deg,#0a0a1a,#2a2a6b) url('dining.jpg') center/cover no-repeat; }
-    .thumb-spice     { width:100%;height:100%;background: linear-gradient(135deg,#1a0000,#6b0000) url('dark.jpg') center/cover no-repeat; }
+    /* Images on top, gradient fallback behind — image listed FIRST so it renders above gradient */
+    .thumb-bite      { width:100%;height:100%;background-image:url('bites.jpeg');background-size:cover;background-position:center;background-color:#8b4000; }
+    .thumb-brew      { width:100%;height:100%;background-image:url('deep.png');background-size:contain;background-repeat:no-repeat;background-position:center;background-color:#ffffff; }
+    .thumb-bean      { width:100%;height:100%;background-image:url('coffee.jpg');background-size:cover;background-position:center;background-color:#5c3000; }
+    .thumb-vine      { width:100%;height:100%;background-image:url('wine.webp');background-size:cover;background-position:center;background-color:#5c005c; }
+    .thumb-ambar     { width:100%;height:100%;background-image:url('Amber.jpeg');background-size:cover;background-position:center;background-color:#8b4513; }
+    .thumb-zest      { width:100%;height:100%;background-image:url('cocktail.webp');background-size:cover;background-position:center;background-color:#006b6b; }
+    .thumb-ferm      { width:100%;height:100%;background-image:url('flow.jpeg');background-size:cover;background-position:center;background-color:#006b3a; }
+    .thumb-moss      { width:100%;height:100%;background-image:url('moss.gif');background-size:cover;background-position:center;background-color:#3a6b00; }
+    .thumb-cafe      { width:100%;height:100%;background-image:url('shop.png');background-size:cover;background-position:center;background-color:#5c3d00; }
+    .thumb-wine-coll { width:100%;height:100%;background-image:url('map.webp');background-size:cover;background-position:center;background-color:#6b3300; }
+    .thumb-fine      { width:100%;height:100%;background-image:url('dining.jpg');background-size:cover;background-position:center;background-color:#2a2a6b; }
+    .thumb-spice     { width:100%;height:100%;background-image:url('dark.jpg');background-size:cover;background-position:center;background-color:#6b0000; }
 
     /* ── VOTE BUTTON ── */
     .vote-btn {
