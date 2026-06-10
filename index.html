@@ -584,7 +584,11 @@
       <div class="card-body"><div class="card-category">Inspiration</div><div class="card-title">Best Coffee Shop Web Interfaces</div><div class="card-author">+142 curated sites</div></div>
     </a>
     <div class="card reveal"><div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-wine-coll"></div></div></div><div class="card-body"><div class="card-category">Layouts</div><div class="card-title">Interactive Wine Maps & Estates</div><div class="card-author">+89 curated sites</div></div></div>
-    <div class="card reveal"><div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-fine"></div></div></div><div class="card-body"><div class="card-category">Interactions</div><div class="card-title">Immersive Fine Dining Experiences</div><div class="card-author">+104 curated sites</div></div></div>
+    <div class="card reveal" id="fineDiningCard" onclick="openFineDining()" style="cursor:pointer;">
+      <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-fine"></div></div></div>
+      <div class="card-body"><div class="card-category">Interactions</div><div class="card-title">Immersive Fine Dining Experiences</div><div class="card-author">+104 curated sites</div></div>
+      <div class="card-footer"><div class="card-score" style="font-size:0.75rem;color:var(--color-muted);">Click to explore</div><div class="card-tags"><span class="tag">Collections</span></div></div>
+    </div>
     <div class="card reveal"><div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-spice"></div></div></div><div class="card-body"><div class="card-category">Photography</div><div class="card-title">Dark Mode Culinary Portfolios</div><div class="card-author">+67 curated sites</div></div></div>
   </div>
 
@@ -638,6 +642,133 @@
     <span class="footer-copy">© 2026 Taste & Beverages. All rights reserved.</span>
     <span class="footer-copy">Privacy · Terms · Cookies</span>
   </div>
+
+  <!-- FINE DINING MODAL -->
+  <div class="modal-overlay" id="fineDiningModal">
+    <div class="modal-content" style="max-width:700px;padding:0;overflow:hidden;max-height:88vh;display:flex;flex-direction:column;">
+
+      <!-- Modal Header -->
+      <div style="background:#111111;color:#ffffff;padding:2rem 2.5rem 1.5rem;flex-shrink:0;">
+        <button class="modal-close-btn" onclick="closeFineDining()" style="color:rgba(255,255,255,0.6);">×</button>
+        <div style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:#e8333a;margin-bottom:0.6rem;">Collections · Interactions</div>
+        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2.4rem;letter-spacing:0.03em;line-height:1;margin-bottom:0.5rem;">Immersive Fine Dining<br/>Experiences</h2>
+        <p style="font-size:0.85rem;color:rgba(255,255,255,0.55);font-weight:300;line-height:1.6;">The world's most extraordinary restaurants — where environment, service, and cuisine converge into a single unforgettable experience.</p>
+      </div>
+
+      <!-- Stats bar -->
+      <div style="background:#e8333a;padding:0.75rem 2.5rem;display:flex;gap:3rem;flex-shrink:0;">
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#fff;line-height:1;">104</div><div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);">Curated Sites</div></div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#fff;line-height:1;">38</div><div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);">Countries</div></div>
+        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#fff;line-height:1;">9.4</div><div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);">Avg Score</div></div>
+      </div>
+
+      <!-- Restaurant list -->
+      <div style="overflow-y:auto;flex:1;padding:1.5rem 2.5rem 2rem;">
+
+        <div style="font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-muted,#888);margin-bottom:1rem;">Featured Restaurants</div>
+
+        <!-- Restaurant 1 -->
+        <div class="fd-item">
+          <div class="fd-rank">01</div>
+          <div class="fd-thumb" style="background:linear-gradient(135deg,#1a0000,#6b1a00);"></div>
+          <div class="fd-info">
+            <div class="fd-name">Sublimotion — Ibiza, Spain</div>
+            <div class="fd-desc">The world's most expensive restaurant at $2,000 per head. Each course is paired with a full theatrical production — holographic projections, live performers, and custom scent diffusion transform every bite into a multi-sensory event.</div>
+            <div class="fd-tags"><span class="fd-tag">🌍 Spain</span><span class="fd-tag">⭐⭐⭐ Michelin</span><span class="fd-tag">🎭 Theatrical</span></div>
+          </div>
+          <div class="fd-score">9.8</div>
+        </div>
+
+        <!-- Restaurant 2 -->
+        <div class="fd-item">
+          <div class="fd-rank">02</div>
+          <div class="fd-thumb" style="background:linear-gradient(135deg,#001a1a,#006b55);"></div>
+          <div class="fd-info">
+            <div class="fd-name">Ultraviolet — Shanghai, China</div>
+            <div class="fd-desc">A single table for ten guests, hidden somewhere in Shanghai. The location is revealed only on the day of dining. Every course triggers a new soundscape, light environment, and scent — 20 courses, 20 complete worlds.</div>
+            <div class="fd-tags"><span class="fd-tag">🌍 China</span><span class="fd-tag">⭐⭐⭐ Michelin</span><span class="fd-tag">🔊 Soundscape</span></div>
+          </div>
+          <div class="fd-score">9.7</div>
+        </div>
+
+        <!-- Restaurant 3 -->
+        <div class="fd-item">
+          <div class="fd-rank">03</div>
+          <div class="fd-thumb" style="background:linear-gradient(135deg,#0a0a2a,#2a0a5a);"></div>
+          <div class="fd-info">
+            <div class="fd-name">Dinner by Heston Blumenthal — London, UK</div>
+            <div class="fd-desc">A journey through British culinary history, with dishes dating to the 14th century reimagined through modern technique. The kitchen is visible through floor-to-ceiling glass — theatre and craft on full display.</div>
+            <div class="fd-tags"><span class="fd-tag">🌍 UK</span><span class="fd-tag">⭐⭐ Michelin</span><span class="fd-tag">🏛️ Historical</span></div>
+          </div>
+          <div class="fd-score">9.5</div>
+        </div>
+
+        <!-- Restaurant 4 -->
+        <div class="fd-item">
+          <div class="fd-rank">04</div>
+          <div class="fd-thumb" style="background:linear-gradient(135deg,#1a1000,#6b4400);"></div>
+          <div class="fd-info">
+            <div class="fd-name">Noma — Copenhagen, Denmark</div>
+            <div class="fd-desc">Four times voted the world's best restaurant. Noma's dining room sits beside a Copenhagen harbour, surrounded by foraged ingredients from Nordic forests. The service is informal, the food is transformative — fermentation and foraging as fine art.</div>
+            <div class="fd-tags"><span class="fd-tag">🌍 Denmark</span><span class="fd-tag">⭐⭐ Michelin</span><span class="fd-tag">🌿 Nordic</span></div>
+          </div>
+          <div class="fd-score">9.6</div>
+        </div>
+
+        <!-- Restaurant 5 -->
+        <div class="fd-item" style="border-bottom:none;">
+          <div class="fd-rank">05</div>
+          <div class="fd-thumb" style="background:linear-gradient(135deg,#001a0d,#004d26);"></div>
+          <div class="fd-info">
+            <div class="fd-name">Mirazur — Menton, France</div>
+            <div class="fd-desc">Perched on the French Riviera overlooking the Mediterranean, Mirazur's three floors of terraced dining rooms open entirely to the sea breeze. Chef Colagreco grows 60% of his ingredients in the restaurant's own gardens — the menu changes daily with what's harvested that morning.</div>
+            <div class="fd-tags"><span class="fd-tag">🌍 France</span><span class="fd-tag">⭐⭐⭐ Michelin</span><span class="fd-tag">🌊 Seaside</span></div>
+          </div>
+          <div class="fd-score">9.5</div>
+        </div>
+
+      </div>
+
+      <!-- Footer -->
+      <div style="padding:1rem 2.5rem;border-top:1px solid var(--color-border,#ddd);display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
+        <span style="font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-muted,#888);">Showing 5 of 104 restaurants</span>
+        <a href="collections.html" onclick="closeFineDining()" style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-ink,#111);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px;">View All 104 →</a>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .fd-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.2rem 0; border-bottom: 1px solid var(--color-border, #ddd);
+    }
+    .fd-rank {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+      color: var(--color-muted-2, #aaa); line-height: 1; flex-shrink: 0; width: 24px;
+    }
+    .fd-thumb {
+      width: 56px; height: 56px; border-radius: 3px; flex-shrink: 0;
+    }
+    .fd-info { flex: 1; min-width: 0; }
+    .fd-name {
+      font-weight: 500; font-size: 0.9rem; margin-bottom: 0.3rem; color: var(--color-ink, #111);
+    }
+    .fd-desc {
+      font-size: 0.78rem; color: var(--color-muted, #888);
+      line-height: 1.6; margin-bottom: 0.5rem;
+    }
+    .fd-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .fd-tag {
+      font-family: 'DM Mono', monospace; font-size: 0.58rem;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      border: 1px solid var(--color-border, #ddd); padding: 0.15rem 0.5rem;
+      color: var(--color-muted, #888); border-radius: 2px;
+    }
+    .fd-score {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+      color: #e8333a; flex-shrink: 0; line-height: 1;
+    }
+  </style>
 
   <script>
     // ── AUTO DATE ────────────────────────────────────────────────
@@ -760,6 +891,12 @@
       document.querySelectorAll('.inline-media-loop').forEach(t => t.play().catch(()=>{}));
     });
 
+    // ── FINE DINING MODAL ────────────────────────────────────────
+    const fineDiningModal = document.getElementById('fineDiningModal');
+    function openFineDining()  { fineDiningModal.classList.add('active'); document.body.style.overflow='hidden'; }
+    function closeFineDining() { fineDiningModal.classList.remove('active'); document.body.style.overflow=''; }
+    fineDiningModal.addEventListener('click', e => { if(e.target===fineDiningModal) closeFineDining(); });
+
     // ── OTHERS MODAL ─────────────────────────────────────────────
     const othersModal   = document.getElementById('othersModal');
     const othersNavLink = document.getElementById('othersNavLink');
@@ -798,7 +935,7 @@
     }
 
     document.addEventListener('keydown', e => {
-      if (e.key==='Escape') { shutOthers(); closeBePro(); mobileNav.classList.remove('open'); hamburger.classList.remove('open'); document.body.style.overflow=''; }
+      if (e.key==='Escape') { shutOthers(); closeBePro(); closeFineDining(); mobileNav.classList.remove('open'); hamburger.classList.remove('open'); document.body.style.overflow=''; }
     });
   </script>
 </body>
