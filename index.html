@@ -464,6 +464,65 @@
     </div>
   </div>
 
+  <!-- FINE DINING MODAL -->
+<div class="modal-overlay" id="fineDiningModal">
+  <div class="modal-content">
+    <button class="modal-close-btn" id="closeFineDiningBtn">×</button>
+
+    <h3 class="modal-header-title">
+      Immersive Fine Dining Experiences
+    </h3>
+
+    <p class="modal-subtitle">
+      Discover restaurants celebrated not only for exceptional cuisine,
+      but also for unforgettable ambience and world-class hospitality.
+    </p>
+
+    <div class="modal-links-grid">
+
+      <a href="https://www.alchemist.dk/" target="_blank" class="modal-site-item">
+        <span class="modal-site-emoji">✨</span>
+        <div>
+          <div class="modal-site-name">Alchemist</div>
+          <div class="modal-site-desc">
+            Copenhagen · Multi-sensory theatrical dining
+          </div>
+        </div>
+      </a>
+
+      <a href="https://www.ulkin.com/" target="_blank" class="modal-site-item">
+        <span class="modal-site-emoji">🌌</span>
+        <div>
+          <div class="modal-site-name">Ultraviolet</div>
+          <div class="modal-site-desc">
+            Shanghai · Lights, sound and scent immersion
+          </div>
+        </div>
+      </a>
+
+      <a href="https://www.odanewyork.com/" target="_blank" class="modal-site-item">
+        <span class="modal-site-emoji">🍽️</span>
+        <div>
+          <div class="modal-site-name">Odo</div>
+          <div class="modal-site-desc">
+            New York · Refined omakase hospitality
+          </div>
+        </div>
+      </a>
+
+      <a href="https://www.centralrestaurante.com.pe/" target="_blank" class="modal-site-item">
+        <span class="modal-site-emoji">🏔️</span>
+        <div>
+          <div class="modal-site-name">Central</div>
+          <div class="modal-site-desc">
+            Lima · Nature-inspired storytelling experience
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</div>
   <nav>
     <a href="#" class="nav-logo">Taste<span>.</span></a>
     <ul class="nav-links">
@@ -687,14 +746,19 @@
         <div class="card-author">+89 curated sites</div>
       </div>
     </div>
-    <div class="card reveal">
-      <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-fine"></div></div></div>
-      <div class="card-body">
-        <div class="card-category">Interactions</div>
-        <div class="card-title">Immersive Fine Dining Experiences</div>
-        <div class="card-author">+104 curated sites</div>
-      </div>
+  <div class="card reveal" id="fineDiningCard" style="cursor:pointer;">
+  <div class="card-thumb">
+    <div class="card-thumb-inner">
+      <div class="thumb-fine"></div>
     </div>
+  </div>
+
+  <div class="card-body">
+    <div class="card-category">Interactions</div>
+    <div class="card-title">Immersive Fine Dining Experiences</div>
+    <div class="card-author">+104 curated sites</div>
+  </div>
+</div>
     <div class="card reveal">
       <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-spice"></div></div></div>
       <div class="card-body">
@@ -901,12 +965,39 @@
     }
 
     // Global Escape key handler
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') {
-        closeOthers();
-        closeBePro();
-      }
-    });
+   document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeOthers();
+    closeBePro();
+    closeFineDining();
+  }
+});
+
+    // ── FINE DINING MODAL ─────────────────────────────
+
+const fineDiningModal = document.getElementById('fineDiningModal');
+const fineDiningCard = document.getElementById('fineDiningCard');
+const closeFineDiningBtn = document.getElementById('closeFineDiningBtn');
+
+function openFineDining() {
+  fineDiningModal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeFineDining() {
+  fineDiningModal.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+fineDiningCard.addEventListener('click', openFineDining);
+
+closeFineDiningBtn.addEventListener('click', closeFineDining);
+
+fineDiningModal.addEventListener('click', function(e) {
+  if (e.target === fineDiningModal) {
+    closeFineDining();
+  }
+});
   </script>
 </body>
 </html>
