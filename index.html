@@ -684,7 +684,7 @@
       <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-wine-coll"></div></div></div>
       <div class="card-body"><div class="card-category">Layouts</div><div class="card-title">Interactive Wine Maps & Estates</div><div class="card-author">+89 curated sites</div></div>
     </div>
-    <div class="card reveal" id="fineDiningCard" onclick="openFineDining()" style="cursor:pointer;">
+   <div class="card reveal" id="fineDiningCard" onclick="openFineDining()" role="button" tabindex="0" style="cursor:pointer;">
       <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-fine"></div></div></div>
       <div class="card-body"><div class="card-category">Interactions</div><div class="card-title">Immersive Fine Dining Experiences</div><div class="card-author">+104 curated sites</div></div>
       <div class="card-footer"><div class="card-score" style="font-size:0.75rem;color:var(--color-muted);">Click to explore</div><div class="card-tags"><span class="tag">Collections</span></div></div>
@@ -1018,6 +1018,13 @@
       document.body.style.overflow = '';
     }
     fineDiningModal.addEventListener('click', e => { if(e.target===fineDiningModal) closeFineDining(); });
+    // Allow keyboard users to open the Fine Dining modal
+document.getElementById('fineDiningCard').addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    openFineDining();
+  }
+});
 
     // ── MAP TAB SWITCHING ─────────────────────────────────────────
     const fdRestaurants = [
