@@ -6,6 +6,10 @@
   <title>Taste & Beverages — Culinary Web Awards</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="style.css"/>
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
   <style>
     nav { position: relative; z-index: 1000; }
 
@@ -51,9 +55,7 @@
       transition: color 0.2s;
     }
     .mobile-nav a:hover { color: var(--color-signal, #e8333a); }
-    .mobile-nav-actions {
-      display: flex; gap: 1rem; margin-top: 2rem;
-    }
+    .mobile-nav-actions { display: flex; gap: 1rem; margin-top: 2rem; }
     .mobile-nav-actions a {
       font-size: 1rem; font-family: 'DM Sans', sans-serif;
       font-weight: 500; letter-spacing: 0; border-bottom: none;
@@ -172,7 +174,6 @@
     /* ── CARD THUMBS ── */
     .card-thumb-inner { position: relative; width: 100%; height: 100%; overflow: hidden; }
     .card-preview-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 5; pointer-events: none; }
-
     .thumb-bite      { width:100%;height:100%;background-image:url('bites.jpeg');background-size:cover;background-position:center;background-color:#8b4000; }
     .thumb-brew      { width:100%;height:100%;background-image:url('deep.png');background-size:contain;background-repeat:no-repeat;background-position:center;background-color:#ffffff; }
     .thumb-bean      { width:100%;height:100%;background-image:url('coffee.jpg');background-size:cover;background-position:center;background-color:#5c3000; }
@@ -193,14 +194,13 @@
       letter-spacing: 0.06em; text-transform: uppercase;
       background: none; border: 1px solid var(--color-border, #ddd);
       color: var(--color-muted, #888); border-radius: 2px;
-      padding: 0.25rem 0.7rem; cursor: pointer;
-      transition: all 0.2s ease;
+      padding: 0.25rem 0.7rem; cursor: pointer; transition: all 0.2s ease;
     }
     .vote-btn:hover { border-color: var(--color-signal, #e8333a); color: var(--color-signal, #e8333a); }
     .vote-btn.voted { background: var(--color-signal, #e8333a); color: #fff; border-color: var(--color-signal, #e8333a); }
     .vote-btn .vote-count { font-weight: 500; }
 
-    /* ── TOAST NOTIFICATION ── */
+    /* ── TOAST ── */
     .toast {
       position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(20px);
       background: #111111; color: #ffffff;
@@ -224,7 +224,7 @@
     .cta-half:last-child { border-right:none; }
     .cta-title { font-family:'Bebas Neue',sans-serif; font-size:var(--text-title); margin-bottom:1rem; }
 
-    /* ── OTHERS MODAL ── */
+    /* ── MODALS BASE ── */
     .modal-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(17,17,17,0.6); backdrop-filter: blur(4px);
@@ -264,6 +264,20 @@
     .modal-site-name { font-weight: 500; font-size: 0.9rem; margin-bottom: 2px; color: #111; }
     .modal-site-desc { font-size: 0.72rem; color: #888; font-family: 'DM Mono', monospace; text-transform: uppercase; }
 
+    /* ── DYNAMIC PROJECT MODAL ── */
+    .card-modal-content { max-width: 800px; padding: 0; overflow: hidden; display: flex; flex-direction: row; }
+    .card-modal-media { flex: 1; min-width: 300px; background: #000; position: relative; display: flex; align-items: center; justify-content: center;}
+    .card-modal-media img, .card-modal-media video { width: 100%; height: 100%; object-fit: cover; }
+    .card-modal-body { flex: 1.2; padding: var(--space-xl, 2.5rem); display: flex; flex-direction: column; justify-content: center; }
+    @media (max-width: 768px) {
+      .card-modal-content { flex-direction: column; }
+      .card-modal-media { height: 250px; min-height: 250px; }
+    }
+    .modal-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; font-family: 'DM Mono', monospace; font-size: 0.65rem; }
+    .modal-tag { border: 1px solid #ddd; padding: 0.2rem 0.6rem; border-radius: 2px; color: #888; text-transform: uppercase; }
+    .card-modal-body .visit-btn { align-self: flex-start; margin-top: 1rem; }
+    .modal-body-text { font-size: 0.9rem; color: #444; line-height: 1.7; margin-bottom: 1.5rem; }
+
     /* ── BE PRO MODAL ── */
     #beProModal .modal-content { max-width: 560px; padding: 0; overflow: hidden; }
     .bepro-header { background: #111111; color: #ffffff; padding: 2.5rem 2.5rem 2rem; position: relative; }
@@ -274,10 +288,7 @@
       text-transform: uppercase; color: #e8333a; margin-bottom: 0.6rem;
       display: flex; align-items: center; gap: 0.5rem;
     }
-    .bepro-eyebrow::before {
-      content: ''; width: 6px; height: 6px; background: #e8333a;
-      border-radius: 50%; animation: pulse 1.8s infinite;
-    }
+    .bepro-eyebrow::before { content: ''; width: 6px; height: 6px; background: #e8333a; border-radius: 50%; animation: pulse 1.8s infinite; }
     .bepro-title { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; line-height: 1; letter-spacing: 0.04em; margin-bottom: 0.5rem; }
     .bepro-title em { color: #e8333a; font-style: normal; }
     .bepro-tagline { font-size: 0.88rem; color: rgba(255,255,255,0.6); line-height: 1.5; font-weight: 300; }
@@ -291,7 +302,6 @@
     .bepro-perk-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
     .bepro-perk-label { font-weight: 500; }
     .bepro-perk-sub { font-size: 0.78rem; color: var(--color-muted, #888888); font-weight: 300; }
-    .bepro-payment-perks { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-muted, #888888); margin-bottom: 0.8rem; }
     .bepro-payment-options { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; }
     .payment-btn {
       flex: 1; padding: 0.75rem 1rem; border: 1.5px solid var(--color-border, #dddddd);
@@ -317,406 +327,404 @@
       color: var(--color-muted-2, #aaaaaa); text-align: center; line-height: 1.5;
     }
 
-    /* ── PROJECT GENERIC MODAL ── */
-    #genericProjectModal .modal-content { max-width: 700px; padding: 0; overflow: hidden; max-height: 88vh; display: flex; flex-direction: column; }
-    .project-header { background: #111111; color: #ffffff; padding: 2rem 2.5rem 1.5rem; position: relative; flex-shrink: 0; }
-    .project-header .modal-close-btn { color: rgba(255,255,255,0.6); }
-    .project-header .modal-close-btn:hover { color: #ffffff; }
-    .project-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: #e8333a; margin-bottom: 0.6rem; }
-    .project-title { font-family: 'Bebas Neue', sans-serif; font-size: 2.6rem; line-height: 1.1; letter-spacing: 0.03em; margin-bottom: 0.5rem; }
-    .project-tagline { font-size: 0.88rem; color: rgba(255,255,255,0.6); line-height: 1.5; font-weight: 300; }
+    /* ── FINE DINING MODAL — original list styles ── */
+    .fd-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.2rem 0; border-bottom: 1px solid var(--color-border, #ddd);
+    }
+    .fd-rank { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--color-muted-2, #aaa); line-height: 1; flex-shrink: 0; width: 24px; }
+    .fd-thumb { width: 56px; height: 56px; border-radius: 3px; flex-shrink: 0; }
+    .fd-info { flex: 1; min-width: 0; }
+    .fd-name { font-weight: 500; font-size: 0.9rem; margin-bottom: 0.3rem; color: var(--color-ink, #111); }
+    .fd-desc { font-size: 0.78rem; color: var(--color-muted, #888); line-height: 1.6; margin-bottom: 0.5rem; }
+    .fd-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .fd-tag { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid var(--color-border, #ddd); padding: 0.15rem 0.5rem; color: var(--color-muted, #888); border-radius: 2px; }
+    .fd-score { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: #e8333a; flex-shrink: 0; line-height: 1; }
+
+    /* ── MAP TAB TOGGLE ── */
+    .fd-tabs {
+      display: flex; border-bottom: 1px solid #222; flex-shrink: 0;
+      background: #111111;
+    }
+    .fd-tab {
+      padding: 0.7rem 1.5rem;
+      font-family: 'DM Mono', monospace; font-size: 0.65rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.45); background: none;
+      border: none; border-bottom: 2px solid transparent;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .fd-tab.active { color: #ffffff; border-bottom-color: #e8333a; }
+    .fd-tab:hover { color: rgba(255,255,255,0.8); }
+
+    /* ── MAP PANEL ── */
+    #fdMapPanel { display: none; flex: 1; min-height: 0; }
+    #fdMapPanel.visible { display: flex; }
+    #fdListPanel { display: flex; flex-direction: column; flex: 1; min-height: 0; overflow: hidden; }
+    #fdListPanel.hidden { display: none; }
+
+    /* Map split layout */
+    .fd-map-wrap {
+      display: flex; width: 100%; height: 100%; min-height: 460px;
+    }
+    .fd-map-list {
+      width: 300px; flex-shrink: 0; overflow-y: auto;
+      background: #111111; border-right: 1px solid #222;
+    }
+    .fd-map-list-header {
+      padding: 0.7rem 1rem;
+      font-family: 'DM Mono', monospace; font-size: 0.62rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: #888; background: #161616; border-bottom: 1px solid #222;
+      position: sticky; top: 0; z-index: 10;
+    }
     
-    .project-stats-bar { background: #e8333a; padding: 0.75rem 2.5rem; display: flex; gap: 3rem; flex-shrink: 0; }
-    .project-stat-unit { color: #ffffff; }
-    .project-stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; line-height: 1; }
-    .project-stat-lbl { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.7); }
-    
-    .project-body { overflow-y: auto; flex: 1; padding: 1.8rem 2.5rem; }
-    .project-section-lbl { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-muted, #888888); margin-bottom: 1rem; }
-    
-    .project-detail-para { font-size: 0.88rem; line-height: 1.6; color: var(--color-ink, #111111); margin-bottom: 1.8rem; font-weight: 300; }
-    .project-media-wrapper { width: 100%; border-radius: 4px; overflow: hidden; background: #f5f5f5; border: 1px solid var(--color-border, #dddddd); margin-bottom: 1.8rem; position: relative; }
-    .project-media-wrapper img, .project-media-wrapper video { width: 100%; height: auto; display: block; object-fit: cover; }
-    
-    .project-meta-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; border-top: 1px solid var(--color-border, #dddddd); padding-top: 1.5rem; margin-bottom: 0.5rem; }
-    .project-meta-item { display: flex; flex-direction: column; gap: 0.2rem; }
-    .project-meta-lbl { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted, #888888); }
-    .project-meta-val { font-size: 0.85rem; font-weight: 500; color: var(--color-ink, #111111); }
-    
-    .project-footer { padding: 1rem 2.5rem; border-top: 1px solid var(--color-border, #dddddd); display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; background: #ffffff; }
-    .project-footer-lbl { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted, #888888); }
-    .project-footer-btn { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-ink, #111111); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; transition: color 0.15s; }
-    .project-footer-btn:hover { color: #e8333a; }
+    /* Map element height */
+    #fdMapEl { flex: 1; height: 100%; min-height: 460px; background: #1a1a1a; }
+
+    /* Sidebar entry styling */
+    .fd-map-card {
+      padding: 1rem; border-bottom: 1px solid #222; cursor: pointer;
+      transition: background 0.15s; position: relative;
+    }
+    .fd-map-card:hover { background: #1a1a1a; }
+    .fd-map-card.active { background: #222222; }
+    .fd-map-card-name { font-weight: 500; font-size: 0.85rem; color: #fff; margin-bottom: 0.2rem; padding-right: 2.5rem; }
+    .fd-map-card-rating { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: #e8333a; position: absolute; top: 1rem; right: 1rem; }
+    .fd-map-card-stars { font-size: 0.72rem; color: #aaa; margin-bottom: 0.4rem; }
+    .fd-map-card-addr { font-size: 0.72rem; color: #666; line-height: 1.4; margin-bottom: 0.5rem; }
+    .fd-map-card-link { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.6rem; text-transform: uppercase; color: #fff; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 1px; }
+    .fd-map-card-link:hover { border-bottom-color: #fff; }
+
+    /* Popup customizations */
+    .fd-popup { padding: 0.2rem; font-family: 'DM Sans', sans-serif; }
+    .fd-popup-name { font-weight: 600; font-size: 0.85rem; margin-bottom: 0.1rem; color: #111; }
+    .fd-popup-stars { font-size: 0.72rem; color: #e8333a; margin-bottom: 0.3rem; font-weight: 500; }
+    .fd-popup-desc { font-size: 0.75rem; color: #666; line-height: 1.4; }
   </style>
 </head>
 <body>
 
   <div id="cursor"></div>
 
-  <div class="toast" id="toast"></div>
-
-  <div class="modal-overlay" id="othersModal">
-    <div class="modal-content">
-      <button class="modal-close-btn" id="closeOthersBtn">×</button>
-      <h3 class="modal-header-title">Culinary Networks</h3>
-      <p class="modal-subtitle">Explore other exceptional web experiences in global gastronomy.</p>
-      <div class="modal-links-grid">
-        <a href="https://www.michelin.com" target="_blank" class="modal-site-item"><span class="modal-site-emoji">🌟</span><div><div class="modal-site-name">Michelin Guide</div><div class="modal-site-desc">Fine Dining Index</div></div></a>
-        <a href="https://www.eater.com" target="_blank" class="modal-site-item"><span class="modal-site-emoji">🍔</span><div><div class="modal-site-name">Eater Digital</div><div class="modal-site-desc">Food Culture & News</div></div></a>
-        <a href="https://www.bonappetit.com" target="_blank" class="modal-site-item"><span class="modal-site-emoji">🍷</span><div><div class="modal-site-name">Bon Appétit</div><div class="modal-site-desc">Recipes & Reviews</div></div></a>
-        <a href="https://www.nytimes.com/cooking" target="_blank" class="modal-site-item"><span class="modal-site-emoji">🍳</span><div><div class="modal-site-name">NYT Cooking</div><div class="modal-site-desc">Premium Recipes</div></div></a>
-        <a href="https://www.theworlds50best.com" target="_blank" class="modal-site-item"><span class="modal-site-emoji">🏆</span><div><div class="modal-site-name">World's 50 Best</div><div class="modal-site-desc">Global Rankings</div></div></a>
-        <a href="https://www.saveur.com" target="_blank" class="modal-site-item"><span class="modal-site-emoji">🌾</span><div><div class="modal-site-name">Saveur Magazine</div><div class="modal-site-desc">Heritage & Travel</div></div></a>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal-overlay" id="beProModal">
-    <div class="modal-content">
-      <div class="bepro-header">
-        <button class="modal-close-btn" id="closeBeProBtn">×</button>
-        <div class="bepro-eyebrow">Exclusive Membership</div>
-        <div class="bepro-title">Taste <em>Pro</em></div>
-        <p class="bepro-tagline">One membership. Every restaurant on Earth.<br/>The most exclusive dining pass ever created.</p>
-      </div>
-      <div class="bepro-price-bar">
-        <div class="bepro-price">$100,000,000</div>
-        <div class="bepro-price-note">One-time · Lifetime access</div>
-      </div>
-      <div class="bepro-body">
-        <ul class="bepro-perks">
-          <li><span class="bepro-perk-icon">🌍</span><div><div class="bepro-perk-label">Free access to every restaurant in the world</div><div class="bepro-perk-sub">All 22 million+ restaurants, from street stalls to 3-Michelin-star — fully covered, forever</div></div></li>
-          <li><span class="bepro-perk-icon">🏆</span><div><div class="bepro-perk-label">Priority table at any restaurant, any time</div><div class="bepro-perk-sub">Reserved seating guaranteed within 10 minutes, globally, no exceptions</div></div></li>
-          <li><span class="bepro-perk-icon">👨‍🍳</span><div><div class="bepro-perk-label">Personal chef concierge on call 24/7</div><div class="bepro-perk-sub">A dedicated Michelin-trained concierge handles all reservations and tastings</div></div></li>
-          <li><span class="bepro-perk-icon">🍾</span><div><div class="bepro-perk-label">Unlimited complimentary wine & beverages</div><div class="bepro-perk-sub">Every cellar, every vintage — included with every meal</div></div></li>
-          <li><span class="bepro-perk-icon">✈️</span><div><div class="bepro-perk-label">Private jet to any restaurant, anywhere</div><div class="bepro-perk-sub">Because no dining destination should ever be too far</div></div></li>
-        </ul>
-        <div class="bepro-payment-label">Choose payment method</div>
-        <div class="bepro-payment-options">
-          <button class="payment-btn visa-btn" id="visaBtn" onclick="selectPayment('visa')"><span class="pay-logo">💳</span> Visa</button>
-          <button class="payment-btn wechat-btn" id="wechatBtn" onclick="selectPayment('wechat')"><span class="pay-logo">💬</span> WeChat Pay</button>
-        </div>
-        <button class="bepro-cta" onclick="handleBeProPurchase()">Become a Pro Member →</button>
-        <p class="bepro-disclaimer">By proceeding you agree to immediate charge of $100,000,000 USD · Non-refundable · Lifetime access</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal-overlay" id="genericProjectModal">
-    <div class="modal-content">
-      <div class="project-header">
-        <button class="modal-close-btn" id="closeGenericModalBtn">×</button>
-        <div class="project-eyebrow" id="modalProjectEyebrow">Category · Domain</div>
-        <h2 class="project-title" id="modalProjectTitle">Project Title Name</h2>
-        <p class="project-tagline" id="modalProjectTagline">Brief conceptual narrative tagline description goes here.</p>
-      </div>
-      <div class="project-stats-bar">
-        <div class="project-stat-unit"><div class="project-stat-val" id="modalStatVal1">--</div><div class="project-stat-lbl" id="modalStatLbl1">Metric 1</div></div>
-        <div class="project-stat-unit"><div class="project-stat-val" id="modalStatVal2">--</div><div class="project-stat-lbl" id="modalStatLbl2">Metric 2</div></div>
-        <div class="project-stat-unit"><div class="project-stat-val" id="modalStatVal3">--</div><div class="project-stat-lbl" id="modalStatLbl3">Metric 3</div></div>
-      </div>
-      <div class="project-body">
-        <div class="project-section-lbl">Overview & Case Study</div>
-        <p class="project-detail-para" id="modalProjectDescription">Detailed comprehensive project study overview detailing design implementations, technological integration architectures, immersive brand development processes, and interface benchmarks achieved across modern web standards.</p>
+  <nav class="reveal">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Taste & Beverages</a>
+      
+      <div class="nav-search-container">
+        <div class="nav-search-icon"></div>
+        <input type="text" id="globalSearchInput" class="nav-search-input" placeholder="Search winners, nominees, courses..." autocomplete="off">
         
-        <div class="project-media-wrapper" id="modalProjectMediaContainer"></div>
-
-        <div class="project-meta-grid">
-          <div class="project-meta-item"><span class="project-meta-lbl">Creative Agency</span><span class="project-meta-val" id="modalMetaAuthor">Author/Studio</span></div>
-          <div class="project-meta-item"><span class="project-meta-lbl">Primary Tech</span><span class="project-meta-val" id="modalMetaTech">Framework</span></div>
-          <div class="project-meta-item"><span class="project-meta-lbl">Awards Level</span><span class="project-meta-val" id="modalMetaBadge">Accurate Tier</span></div>
-          <div class="project-meta-item"><span class="project-meta-lbl">Global Index</span><span class="project-meta-val" id="modalMetaScore">9.00 / 10</span></div>
+        <div id="searchDropdown" class="search-dropdown">
+          <div id="searchResultsList"></div>
+          <div class="search-footer">
+            <div>Press <kbd>ESC</kbd> to close</div>
+            <div>Powered by <span>Taste UI</span></div>
+          </div>
         </div>
       </div>
-      <div class="project-footer">
-        <span class="project-footer-lbl" id="modalFooterTracking">Product Ecosystem Mapping</span>
-        <a href="#" target="_blank" class="project-footer-btn" id="modalFooterActionBtn">Launch Live Site →</a>
+
+      <div class="nav-links">
+        <a href="winners.html">Winners</a>
+        <a href="nominees.html">Nominees</a>
+        <a href="collections.html">Collections</a>
+        <a href="academy.html">Academy</a>
       </div>
+      <div class="nav-actions">
+        <a href="#" id="beProBtn" class="btn btn-outline">Be Pro</a>
+        <a href="submit.html" class="btn btn-solid">Submit Entry</a>
+      </div>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
-  </div>
-
-  <div class="mobile-nav" id="mobileNav">
-    <a href="explore.html">Explore</a>
-    <a href="top-restaurants.html">Winners</a>
-    <a href="academy.html">Academy</a>
-    <a href="blog.html">Blog</a>
-    <a href="directory.html">Directory</a>
-    <a href="#" id="mobileOthersLink">Others</a>
-    <div class="mobile-nav-actions">
-      <a href="#" class="btn-outline">Log in</a>
-      <a href="#" class="btn-solid">Submit</a>
-    </div>
-  </div>
-
-  <nav>
-    <a href="index.html" class="nav-logo">Taste<span>.</span></a>
-    <ul class="nav-links">
-      <li><a href="explore.html">Explore</a></li>
-      <li><a href="top-restaurants.html">Winners</a></li>
-      <li><a href="academy.html">Academy</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="directory.html">Directory</a></li>
-      <li><a href="#" id="othersNavLink">Others</a></li>
-    </ul>
-    <div class="nav-search-container">
-      <input type="text" class="nav-search-input" id="searchInput" placeholder="Search nominees, recipes, cities..." autocomplete="off">
-      <div class="nav-search-icon"></div>
-      <div class="search-dropdown" id="searchDropdown"></div>
-    </div>
-    <div class="nav-right">
-      <a href="#" class="btn-outline">Log in</a>
-      <a href="#" class="btn-solid">Submit</a>
-    </div>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
   </nav>
 
-  <section class="hero">
-    <div class="hero-left">
-      <div class="sotd-label" id="sotdLabel">Menu of the Day</div>
-      <h1 class="hero-title">
-        <span class="line">FOOD &</span>
-        <span class="line">BEVERAGE</span>
-      </h1>
-      <div class="hero-meta">
-        <div class="score-badge">
-          <div class="score-num">9.8</div>
-          <div class="score-label">Score</div>
-        </div>
-        <p class="hero-desc">Recognising the talent and effort of the best digital agencies, chefs, and sommeliers in the world.</p>
-      </div>
+  <div class="mobile-nav" id="mobileNavMenu">
+    <a href="winners.html">Winners</a>
+    <a href="nominees.html">Nominees</a>
+    <a href="collections.html">Collections</a>
+    <a href="academy.html">Academy</a>
+    <div class="mobile-nav-actions">
+      <a href="#" onclick="openBePro(event)" class="btn btn-outline">Be Pro</a>
+      <a href="submit.html" class="btn btn-solid">Submit Entry</a>
     </div>
-    <div class="hero-right">
-      <div class="hero-fake-img" style="position:relative;overflow:hidden;padding:0;">
+  </div>
+
+  <header class="hero-grid">
+    <div class="hero-main reveal">
+      <div class="hero-media">
         <div class="hero-steak-bg"></div>
       </div>
-      <div class="hero-image-overlay" style="z-index:1;"></div>
-      <div class="hero-image-label" style="z-index:2;">
-        <span class="site-name">Global Gastronomy</span>
-        <a href="food%20around%20the%20world.html" class="visit-btn">View Site →</a>
+      <div class="hero-content">
+        <div class="hero-eyebrow">Project of the Year — Winner</div>
+        <h1 class="hero-title">The Fireplace: Woodfire Craftsmanship</h1>
+        <p class="hero-desc">An ultra-minimalist interaction showcase celebrating regional charcoal methods, flame temperatures, and structural concrete gastronomy layouts.</p>
+        <div class="hero-meta">
+          <span>Score: 9.92/10</span>
+          <span>Studio: Pyro-Digital</span>
+        </div>
       </div>
+    </div>
+    <div class="hero-side reveal">
+      <div class="hero-side-item">
+        <div class="side-item-tag">Live Masterclass</div>
+        <h3 class="side-item-title">Fermentation Mechanics with Noma alumni</h3>
+        <p class="side-item-desc">A 4-part modular video layout investigating zero-waste liquids, dynamic molds, and multi-chamber equipment setups.</p>
+      </div>
+      <div class="hero-side-item">
+        <div class="side-item-tag">Trending Interface</div>
+        <h3 class="side-item-title">Liquid Gold: Biodynamic Vineyards</h3>
+        <p class="side-item-desc">Horizontal WebGL storytelling exploration mapping organic production charts across lunar cycles.</p>
+      </div>
+    </div>
+  </header>
+
+  <section class="stats-ticker reveal">
+    <div class="ticker-item"><span class="ticker-num">1,420</span><span class="ticker-label">Submissions</span></div>
+    <div class="ticker-item"><span class="ticker-num">89</span><span class="ticker-label">Countries</span></div>
+    <div class="ticker-item"><span class="ticker-num">24</span><span class="ticker-label">Jurors</span></div>
+    <div class="ticker-item"><span class="ticker-num">0.4%</span><span class="ticker-label">Acceptance Rate</span></div>
+  </section>
+
+  <main class="showcase-container">
+    <div class="section-header reveal">
+      <h2 class="section-title">Today's Selected Winners</h2>
+      <div class="section-filters">
+        <span class="filter-chip active">All Projects</span>
+        <span class="filter-chip">E-Commerce</span>
+        <span class="filter-chip">Editorial</span>
+        <span class="filter-chip">Experimental</span>
+      </div>
+    </div>
+
+    <div class="nominees-grid">
+      <div class="card reveal generic-card-trigger" style="cursor:pointer;" data-project-id="bites">
+        <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-bite"></div></div></div>
+        <div class="card-body">
+          <div class="card-category">Experimental · 2026</div>
+          <div class="card-title">Micro-Bites: Edible UI Prototypes</div>
+          <div class="card-author">By Studio Gastronome</div>
+        </div>
+        <div class="card-footer">
+          <button class="vote-btn" data-id="microbites" onclick="event.stopPropagation(); handleVote(this)">
+            <span>▲ Vote</span> <span class="vote-count">342</span>
+          </button>
+          <div class="card-tags"><span class="tag">WebGL</span><span class="tag">3D</span></div>
+        </div>
+      </div>
+
+      <div class="card reveal generic-card-trigger" style="cursor:pointer;" data-project-id="deepbrew">
+        <div class="card-thumb">
+          <div class="card-thumb-inner">
+            <div class="thumb-brew"></div>
+            <video class="card-preview-video" src="brew.mp4" muted loop playsinline></video>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-category">E-Commerce · Liquid</div>
+          <div class="card-title">Deep Brew: Specialty Coffee Vault</div>
+          <div class="card-author">By Caffeine Pixel</div>
+        </div>
+        <div class="card-footer">
+          <button class="vote-btn" data-id="deepbrew" onclick="event.stopPropagation(); handleVote(this)">
+            <span>▲ Vote</span> <span class="vote-count">289</span>
+          </button>
+          <div class="card-tags"><span class="tag">Next.js</span><span class="tag">E-Com</span></div>
+        </div>
+      </div>
+
+      <div class="card reveal generic-card-trigger" style="cursor:pointer;" data-project-id="marsvine">
+        <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-vine"></div></div></div>
+        <div class="card-body">
+          <div class="card-category">Winery · Portfolio</div>
+          <div class="card-title">Mars + Vine: Tasting Room Space</div>
+          <div class="card-author">By Off-Grid Agency</div>
+        </div>
+        <div class="card-footer">
+          <button class="vote-btn" data-id="marsvine" onclick="event.stopPropagation(); handleVote(this)">
+            <span>▲ Vote</span> <span class="vote-count">512</span>
+          </button>
+          <div class="card-tags"><span class="tag">Editorial</span><span class="tag">GSAP</span></div>
+        </div>
+      </div>
+
+      <div class="card reveal generic-card-trigger" style="cursor:pointer;" data-project-id="ambar">
+        <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-ambar"></div></div></div>
+        <div class="card-body">
+          <div class="card-category">Grill · Experience</div>
+          <div class="card-title">Ambar — Fire & Flavour</div>
+          <div class="card-author">By Plate UI</div>
+        </div>
+        <div class="card-footer">
+          <button class="vote-btn" data-id="ambar" onclick="event.stopPropagation(); handleVote(this)">
+            <span>▲ Vote</span> <span class="vote-count">196</span>
+          </button>
+          <div class="card-tags"><span class="tag">Minimalist</span></div>
+        </div>
+      </div>
+
+      <div class="card reveal generic-card-trigger" style="cursor:pointer;" data-project-id="flowstate">
+        <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-ferm"></div></div></div>
+        <div class="card-body">
+          <div class="card-category">Beverage · Experimental</div>
+          <div class="card-title">Flowstate Kombucha Lab</div>
+          <div class="card-author">By Kinetic Fluid</div>
+        </div>
+        <div class="card-footer">
+          <button class="vote-btn" data-id="flowstate" onclick="event.stopPropagation(); handleVote(this)">
+            <span>▲ Vote</span> <span class="vote-count">421</span>
+          </button>
+          <div class="card-tags"><span class="tag">Typography</span><span class="tag">Fluid</span></div>
+        </div>
+      </div>
+
+      <div class="card reveal generic-card-trigger" style="cursor:pointer;" data-project-id="mossfield">
+        <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-moss"></div></div></div>
+        <div class="card-body">
+          <div class="card-category">Agriculture · Non-profit</div>
+          <div class="card-title">Mossfield Organic Farms</div>
+          <div class="card-author">By Earthlings Digital</div>
+        </div>
+        <div class="card-footer">
+          <button class="vote-btn" data-id="mossfield" onclick="event.stopPropagation(); handleVote(this)">
+            <span>▲ Vote</span> <span class="vote-count">305</span>
+          </button>
+          <div class="card-tags"><span class="tag">Sustainability</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header reveal" style="margin-top:var(--space-2xl);">
+      <h2 class="section-title">Culinary Academy Lessons</h2>
+      <a href="academy.html" class="section-link">View All Masterclasses →</a>
+    </div>
+    <div class="nominees-grid">
+      <div class="card reveal">
+        <div class="card-body">
+          <div class="card-category">Instructor: Pyro-Digital</div>
+          <div class="card-title">Advanced WebGL Liquid Shaders for Luxury Drinks</div>
+          <div class="card-author">Score: 4.95/5</div>
+        </div>
+      </div>
+      <div class="card reveal">
+        <div class="card-body">
+          <div class="card-category">Instructor: Off-Grid Agency</div>
+          <div class="card-title">Immersive Horizontal Layout Scroll Timelines for Modern Wineries</div>
+          <div class="card-author">Score: 4.8/5</div>
+        </div>
+      </div>
+      <div class="card reveal">
+        <div class="card-body">
+          <div class="card-category">Instructor: Plate UI</div>
+          <div class="card-title">Figma from Scratch: Designing Restaurant Menus</div>
+          <div class="card-author">Score: 5/5</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header reveal">
+      <h2 class="section-title">Collections</h2>
+      <a href="collections.html" class="section-link">Explore Collections →</a>
+    </div>
+    <div class="nominees-grid">
+      <a href="best-coffee-shops.html" class="card reveal" style="text-decoration:none;color:inherit;display:block;">
+        <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-cafe"></div></div></div>
+        <div class="card-body">
+          <div class="card-category">Inspiration</div>
+          <div class="card-title">Best Coffee Shop Web Interfaces</div>
+          <div class="card-author">+142 curated sites</div>
+        </div>
+      </a>
+      <div class="card reveal generic-card-trigger" style="cursor:pointer;" data-project-id="winemaps">
+        <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-wine-coll"></div></div></div>
+        <div class="card-body">
+          <div class="card-category">Layouts</div>
+          <div class="card-title">Interactive Wine Maps & Estates</div>
+          <div class="card-author">+89 curated sites</div>
+        </div>
+      </div>
+      
+      <div class="card reveal" id="fineDiningCard" onclick="openFineDining()" style="cursor:pointer;">
+        <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-fine"></div></div></div>
+        <div class="card-body">
+          <div class="card-category">Interactions</div>
+          <div class="card-title">Immersive Fine Dining Experiences</div>
+          <div class="card-author">+104 curated sites</div>
+        </div>
+        <div class="card-footer">
+          <div class="card-score" style="font-size:0.75rem;color:var(--color-muted);">Click to explore</div>
+          <div class="card-tags"><span class="tag">Collections</span></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <section class="cta-banner reveal">
+    <div class="cta-half">
+      <h2 class="cta-title">Have a Masterpiece?</h2>
+      <p style="color:var(--color-muted); margin-bottom:2rem; font-size:0.95rem; line-height:1.6;">Submit your live beverage site or computational kitchen layout interface. Our independent panel reviews items daily based on motion performance parameters.</p>
+      <a href="submit.html" class="btn btn-solid">Submit Your Project Now</a>
+    </div>
+    <div class="cta-half" style="background-color:var(--color-surface);">
+      <h2 class="cta-title">Join the Taste Jury</h2>
+      <p style="color:var(--color-muted); margin-bottom:2rem; font-size:0.95rem; line-height:1.6;">Help shape the digital standards of gastronomic design. Apply to evaluate cutting-edge sensory interfaces, interactive recipes, and experimental portfolios.</p>
+      <a href="apply.html" class="btn btn-outline" style="background:#fff;">Apply for Academy Seat</a>
     </div>
   </section>
 
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker-inner">
-      <span class="ticker-item"><span>New</span> 3D Dining Experience · Luminary Kitchen</span>
-      <span class="ticker-item"><span>Nominee</span> Craft Brewery Tour · HopForm</span>
-      <span class="ticker-item"><span>Hon. Mention</span> E-commerce Redesign · Luxe Teas</span>
-      <span class="ticker-item"><span>New</span> Interactive Wine Map · Nebula Cellars</span>
-      <span class="ticker-item"><span>Nominee</span> Recipe Data Viz · FoodStruct</span>
-      <span class="ticker-item"><span>New</span> 3D Dining Experience · Luminary Kitchen</span>
-      <span class="ticker-item"><span>Nominee</span> Craft Brewery Tour · HopForm</span>
-      <span class="ticker-item"><span>Hon. Mention</span> E-commerce Redesign · Luxe Teas</span>
-      <span class="ticker-item"><span>New</span> Interactive Wine Map · Nebula Cellars</span>
-      <span class="ticker-item"><span>Nominee</span> Recipe Data Viz · FoodStruct</span>
-    </div>
-  </div>
-
-  <div class="section-header reveal">
-    <h2 class="section-title">Latest Nominees</h2>
-    <a href="#" class="section-link">View All Nominees →</a>
-  </div>
-  <div class="nominees-grid">
-    <div class="card reveal generic-card-trigger" data-project-id="bite">
-      <div class="card-hover-overlay"></div>
-      <div class="card-thumb">
-        <div class="card-thumb-inner">
-          <div class="thumb-bite"></div>
-          <video class="card-preview-video inline-media-loop" autoplay loop muted playsinline>
-            <source src="World's Best Fried Chicken RECIPE - Nick Kratka (720p).mp4" type="video/mp4">
-          </video>
+  <footer class="site-footer reveal">
+    <div class="footer-grid">
+      <div>
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:1.5rem; margin-bottom:1rem;">Taste Awards</div>
+        <p style="color:#666; font-size:var(--text-small); line-height:1.6;">The global benchmark program celebrating creative interaction architecture across restaurants, digital vintners, and multi-sensory cooking frameworks.</p>
+      </div>
+      <div>
+        <div style="font-family:'DM Mono',monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:1rem; color:#111;">Indexes</div>
+        <div style="display:flex; flex-direction:column; gap:0.5rem; font-size:var(--text-small);">
+          <a href="#" style="color:#666; text-decoration:none;">2026 Winners Grid</a>
+          <a href="#" style="color:#666; text-decoration:none;">Jury Selection Pool</a>
+          <a href="#" style="color:#666; text-decoration:none;">Historical Submissions</a>
         </div>
       </div>
-      <div class="card-body">
-        <div class="card-category">Restaurant · 3D Menu</div>
-        <div class="card-title">Bite Studio — Gastronomy</div>
-        <div class="card-author">by bitecreative</div>
-      </div>
-      <div class="card-footer">
-        <div class="card-score">9.4</div>
-        <div class="card-tags">
-          <span class="tag">WebGL</span>
-          <button class="vote-btn" onclick="event.stopPropagation(); handleVote(this, 'Bite Studio')"><span>▲</span><span class="vote-count">142</span></button>
+      <div>
+        <div style="font-family:'DM Mono',monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:1rem; color:#111;">Resources</div>
+        <div style="display:flex; flex-direction:column; gap:0.5rem; font-size:var(--text-small);">
+          <a href="#" style="color:#666; text-decoration:none;">Evaluation Matrix v2</a>
+          <a href="#" style="color:#666; text-decoration:none;">Brand Assets Kit</a>
+          <a href="#" style="color:#666; text-decoration:none;">API Endpoint Docs</a>
         </div>
       </div>
     </div>
-    <div class="card reveal generic-card-trigger" data-project-id="deepwater">
-      <div class="card-hover-overlay"></div>
-      <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-brew"></div></div></div>
-      <div class="card-body">
-        <div class="card-category">Brewery · Branding</div>
-        <div class="card-title">Deepwater Ales — Digital</div>
-        <div class="card-author">by deepwater</div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 Culinary Web Awards. Built using Taste Engine v4.</div>
+      <div style="display:flex; gap:1rem;">
+        <a href="#" style="color:inherit; text-decoration:none;">Terms</a>
+        <a href="#" style="color:inherit; text-decoration:none;">Privacy Policy</a>
       </div>
-      <div class="card-footer">
-        <div class="card-score">8.7</div>
-        <div class="card-tags">
-          <span class="tag">React</span>
-          <button class="vote-btn" onclick="event.stopPropagation(); handleVote(this, 'Deepwater Ales')"><span>▲</span><span class="vote-count">98</span></button>
-        </div>
-      </div>
-    </div>
-    <div class="card reveal generic-card-trigger" data-project-id="gilded">
-      <div class="card-hover-overlay"></div>
-      <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-bean"></div></div></div>
-      <div class="card-body">
-        <div class="card-category">E-Commerce · Roastery</div>
-        <div class="card-title">Gilded — Bespoke Coffee</div>
-        <div class="card-author">by gildedco</div>
-      </div>
-      <div class="card-footer">
-        <div class="card-score">9.0</div>
-        <div class="card-tags">
-          <span class="tag">Shopify</span>
-          <button class="vote-btn" onclick="event.stopPropagation(); handleVote(this, 'Gilded Coffee')"><span>▲</span><span class="vote-count">211</span></button>
-        </div>
-      </div>
-    </div>
-    <div class="card reveal generic-card-trigger" data-project-id="marsvine">
-      <div class="card-hover-overlay"></div>
-      <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-vine"></div></div></div>
-      <div class="card-body">
-        <div class="card-category">Winery · Portfolio</div>
-        <div class="card-title">Mars + Vine — Tasting</div>
-        <div class="card-author">by marsvine</div>
-      </div>
-      <div class="card-footer">
-        <div class="card-score">8.5</div>
-        <div class="card-tags">
-          <span class="tag">Next.js</span>
-          <button class="vote-btn" onclick="event.stopPropagation(); handleVote(this, 'Mars + Vine')"><span>▲</span><span class="vote-count">76</span></button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section-header reveal">
-    <h2 class="section-title">Recent Winners</h2>
-    <a href="top-restaurants.html" class="section-link">View Winners →</a>
-  </div>
-  <div class="nominees-grid">
-    <a href="cyan.html" class="card reveal" style="text-decoration:none;color:inherit;display:block;">
-      <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-zest"></div></div></div>
-      <div class="card-body"><div class="card-category">App · Mixology</div><div class="card-title">Cyan Cocktails Platform</div><div class="card-author">by cyanlab</div></div>
-      <div class="card-footer"><div class="card-score">8.88</div><div class="card-tags"><span class="tag">SOTD</span></div></div>
-    </a>
-    <div class="card reveal generic-card-trigger" data-project-id="ambar">
-      <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-ambar"></div><video class="card-preview-video inline-media-loop" autoplay loop muted playsinline><source src="ambars.mp4" type="video/mp4"></video></div></div>
-      <div class="card-body"><div class="card-category">Grill · Experience</div><div class="card-title">Ambar — Fire & Flavour</div><div class="card-author">by ambargroup</div></div>
-      <div class="card-footer"><div class="card-score">9.12</div><div class="card-tags"><span class="tag">SOTD</span></div></div>
-    </div>
-    <div class="card reveal generic-card-trigger" data-project-id="flowstate">
-      <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-ferm"></div></div></div>
-      <div class="card-body"><div class="card-category">Beverage · Experimental</div><div class="card-title">Flowstate — Kombucha Lab</div><div class="card-author">by flowstate</div></div>
-      <div class="card-footer"><div class="card-score">8.67</div><div class="card-tags"><span class="tag">SOTD</span></div></div>
-    </div>
-    <a href="mossfield.html" class="card reveal" style="text-decoration:none;color:inherit;display:block;">
-      <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-moss"></div></div></div>
-      <div class="card-body"><div class="card-category">Agriculture · Non-profit</div><div class="card-title">Mossfield — Organic Farms</div><div class="card-author">by mossfield</div></div>
-      <div class="card-footer"><div class="card-score">8.44</div><div class="card-tags"><span class="tag">SOTD</span></div></div>
-    </a>
-  </div>
-
-  <div class="section-header reveal">
-    <h2 class="section-title">Academy</h2>
-    <a href="academy.html" class="section-link">View All Courses →</a>
-  </div>
-  <div class="nominees-grid">
-    <div class="card reveal"><div class="card-body"><div class="card-category">Instructor: Chef Digital</div><div class="card-title">Mastering E-Commerce for Roasteries in Shopify</div><div class="card-author">Score: 4.9/5</div></div></div>
-    <div class="card reveal"><div class="card-body"><div class="card-category">Instructor: Luminary Studio</div><div class="card-title">3D WebGL: Rendering Photorealistic Food</div><div class="card-author">Score: 5/5</div></div></div>
-    <div class="card reveal"><div class="card-body"><div class="card-category">Instructor: Hmmm Creative</div><div class="card-title">Typography & Branding for Modern Wineries</div><div class="card-author">Score: 4.8/5</div></div></div>
-    <div class="card reveal"><div class="card-body"><div class="card-category">Instructor: Plate UI</div><div class="card-title">Figma from Scratch: Designing Restaurant Menus</div><div class="card-author">Score: 5/5</div></div></div>
-  </div>
-
-  <div class="section-header reveal">
-    <h2 class="section-title">Collections</h2>
-    <a href="collections.html" class="section-link">Explore Collections →</a>
-  </div>
-  <div class="nominees-grid">
-    <a href="best-coffee-shops.html" class="card reveal" style="text-decoration:none;color:inherit;display:block;">
-      <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-cafe"></div></div></div>
-      <div class="card-body"><div class="card-category">Inspiration</div><div class="card-title">Best Coffee Shop Web Interfaces</div><div class="card-author">+142 curated sites</div></div>
-    </a>
-    <div class="card reveal generic-card-trigger" data-project-id="winemaps"><div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-wine-coll"></div></div></div><div class="card-body"><div class="card-category">Layouts</div><div class="card-title">Interactive Wine Maps & Estates</div><div class="card-author">+89 curated sites</div></div></div>
-    <div class="card reveal" id="fineDiningCard" onclick="openFineDining()" role="button" tabindex="0" style="cursor:pointer;">
-      <div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-fine"></div></div></div>
-      <div class="card-body"><div class="card-category">Interactions</div><div class="card-title">Immersive Fine Dining Experiences</div><div class="card-author">+104 curated sites</div></div>
-      <div class="card-footer"><div class="card-score" style="font-size:0.75rem;color:var(--color-muted);">Click to explore</div><div class="card-tags"><span class="tag">Collections</span></div></div>
-    </div>
-    <div class="card reveal generic-card-trigger" data-project-id="darkmode"><div class="card-thumb"><div class="card-thumb-inner"><div class="thumb-spice"></div></div></div><div class="card-body"><div class="card-category">Photography</div><div class="card-title">Dark Mode Culinary Portfolios</div><div class="card-author">+67 curated sites</div></div></div>
-  </div>
-
-  <div class="cta-banner">
-    <div class="cta-half reveal">
-      <h3 class="cta-title">Share your work</h3>
-      <p style="color:var(--color-muted);font-size:var(--text-body-sm);margin-bottom:1rem;">Submit your website for visibility and recognition</p>
-      <a href="#" class="btn-solid">Submit Website</a>
-    </div>
-    <div class="cta-half reveal">
-      <h3 class="cta-title">Be a member</h3>
-      <p style="color:var(--color-muted);font-size:var(--text-body-sm);margin-bottom:1rem;">Get access to special pro features and directory listings</p>
-      <a href="#" class="btn-signal" id="beProBtn">Be Pro</a>
-    </div>
-  </div>
-
-  <footer>
-    <div class="footer-brand">
-      <span class="footer-logo">Taste<span>.</span></span>
-      <p class="footer-tagline">Recognising and promoting the world's finest culinary web experiences since 2024.</p>
-    </div>
-    <div>
-      <div class="footer-col-title">Awards</div>
-      <ul class="footer-links">
-        <li><a href="top-restaurants.html">Menu of the Day</a></li>
-        <li><a href="top-restaurants.html">Nominees</a></li>
-        <li><a href="top-restaurants.html">Hon. Mentions</a></li>
-        <li><a href="top-restaurants.html">Michelin Digital</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="footer-col-title">Explore</div>
-      <ul class="footer-links">
-        <li><a href="explore.html">Explore</a></li>
-        <li><a href="academy.html">Academy</a></li>
-        <li><a href="collections.html">Collections</a></li>
-        <li><a href="directory.html">Directory</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="footer-col-title">Company</div>
-      <ul class="footer-links">
-        <li><a href="#">About</a></li>
-        <li><a href="#">Submit a Menu</a></li>
-        <li><a href="#">Advertise</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
     </div>
   </footer>
-  <div class="footer-bottom">
-    <span class="footer-copy">© 2026 Taste & Beverages. All rights reserved.</span>
-    <span class="footer-copy">Privacy · Terms · Cookies</span>
-  </div>
 
-  <div class="modal-overlay" id="fineDiningModal">
-    <div class="modal-content" style="max-width:700px;padding:0;overflow:hidden;max-height:88vh;display:flex;flex-direction:column;">
-      <div style="background:#111111;color:#ffffff;padding:2rem 2.5rem 1.5rem;flex-shrink:0;">
-        <button class="modal-close-btn" onclick="closeFineDining()" style="color:rgba(255,255,255,0.6);">×</button>
-        <div style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;color:#e8333a;margin-bottom:0.6rem;">Collections · Interactions</div>
-        <h2 style="font-family:'Bebas Neue',sans-serif;font-size:2.4rem;letter-spacing:0.03em;line-height:1;margin-bottom:0.5rem;">Immersive Fine Dining<br/>Experiences</h2>
-        <p style="font-size:0.85rem;color:rgba(255,255,255,0.55);font-weight:300;line-height:1.6;">The world's most extraordinary restaurants — where environment, service, and cuisine converge into a single unforgettable experience.</p>
+  <div id="fineDiningModal" class="modal-overlay">
+    <div class="modal-content" style="max-width:960px;padding:0;overflow:hidden;display:flex;flex-direction:column;height:90vh;max-height:680px;">
+      <button class="modal-close-btn" onclick="closeFineDining()">&times;</button>
+      
+      <div style="padding:2rem 2.5rem 1.2rem;border-bottom:1px solid var(--color-border,#ddd);background:#fff;flex-shrink:0;">
+        <div style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:#e8333a;margin-bottom:0.3rem;">Interactive Curated Showcase</div>
+        <h2 class="modal-header-title" style="margin-bottom:0.2rem;">Immersive Fine Dining Experiences</h2>
+        <div style="font-size:0.85rem;color:#666;line-height:1.4;">A global directory of premium spatial interfaces utilizing generative projection layers and sonic gastronomy timelines.</div>
       </div>
 
-      <div style="background:#e8333a;padding:0.75rem 2.5rem;display:flex;gap:3rem;flex-shrink:0;">
-        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#fff;line-height:1;">104</div><div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);">Curated Sites</div></div>
-        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#fff;line-height:1;">38</div><div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);">Countries</div></div>
-        <div><div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#fff;line-height:1;">9.4</div><div style="font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);">Avg Score</div></div>
+      <div class="fd-tabs">
+        <button class="fd-tab active" onclick="switchFdTab('list', this)">📋 Restaurant List</button>
+        <button class="fd-tab" onclick="switchFdTab('map', this)">🗺 Map View</button>
       </div>
 
-      <div style="overflow-y:auto;flex:1;padding:1.5rem 2.5rem 2rem;">
+      <div id="fdListPanel" style="overflow-y:auto;flex:1;padding:1.5rem 2.5rem 2rem;">
         <div style="font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-muted,#888);margin-bottom:1rem;">Featured Restaurants</div>
-
+        
         <div class="fd-item">
           <div class="fd-rank">01</div>
           <div class="fd-thumb" style="background:linear-gradient(135deg,#1a0000,#6b1a00);"></div>
@@ -730,447 +738,251 @@
 
         <div class="fd-item">
           <div class="fd-rank">02</div>
-          <div class="fd-thumb" style="background:linear-gradient(135deg,#001a1a,#006b55);"></div>
+          <div class="fd-thumb" style="background:linear-gradient(135deg,#001a1a,#006b6b);"></div>
           <div class="fd-info">
-            <div class="fd-name">Ultraviolet — Shanghai, China</div>
-            <div class="fd-desc">A single table for ten guests, hidden somewhere in Shanghai. The location is revealed only on the day of dining. Every course triggers a new soundscape, light environment, and scent — 20 courses, 20 complete worlds.</div>
-            <div class="fd-tags"><span class="fd-tag">🌍 China</span><span class="fd-tag">⭐⭐⭐ Michelin</span><span class="fd-tag">🔊 Soundscape</span></div>
+            <div class="fd-name">Ultraviolet by Paul Pairet — Shanghai, China</div>
+            <div class="fd-desc">A single table of ten hidden in an undisclosed city warehouse. 360-degree wall projections, dynamic atmospheric scents, surrounding audio tracks, and custom ambient temperatures respond synchronously to changing food profiles.</div>
+            <div class="fd-tags"><span class="fd-tag">🇨🇳 China</span><span class="fd-tag">⭐⭐⭐ Michelin</span><span class="fd-tag">👁️ Immersive</span></div>
           </div>
           <div class="fd-score">9.7</div>
         </div>
 
         <div class="fd-item">
           <div class="fd-rank">03</div>
-          <div class="fd-thumb" style="background:linear-gradient(135deg,#0a0a2a,#2a0a5a);"></div>
+          <div class="fd-thumb" style="background:linear-gradient(135deg,#1a1a00,#6b6b00);"></div>
           <div class="fd-info">
-            <div class="fd-name">Dinner by Heston Blumenthal — London, UK</div>
-            <div class="fd-desc">A journey through British culinary history, with dishes dating to the 14th century reimagined through modern technique. The kitchen is visible through floor-to-ceiling glass — theatre and craft on full display.</div>
-            <div class="fd-tags"><span class="fd-tag">🌍 UK</span><span class="fd-tag">⭐⭐ Michelin</span><span class="fd-tag">🏛️ Historical</span></div>
-          </div>
-          <div class="fd-score">9.5</div>
-        </div>
-
-        <div class="fd-item">
-          <div class="fd-rank">04</div>
-          <div class="fd-thumb" style="background:linear-gradient(135deg,#1a1000,#6b4400);"></div>
-          <div class="fd-info">
-            <div class="fd-name">Noma — Copenhagen, Denmark</div>
-            <div class="fd-desc">Four times voted the world's best restaurant. Noma's dining room sits beside a Copenhagen harbour, surrounded by foraged ingredients from Nordic forests. The service is informal, the food is transformative — fermentation and foraging as fine art.</div>
-            <div class="fd-tags"><span class="fd-tag">🌍 Denmark</span><span class="fd-tag">⭐⭐ Michelin</span><span class="fd-tag">🌿 Nordic</span></div>
+            <div class="fd-name">Alchemist — Copenhagen, Denmark</div>
+            <div class="fd-desc">A dramatic culinary experience set under a massive planetarium dome. Fifty graphic sensory impressions split into distinct acts across theatrical acts dealing with societal messaging, wildlife preservation, and classic structural performance.</div>
+            <div class="fd-tags"><span class="fd-tag">🇩🇰 Denmark</span><span class="fd-tag">⭐⭐ Michelin</span><span class="fd-tag">🌌 Dome Layout</span></div>
           </div>
           <div class="fd-score">9.6</div>
         </div>
+      </div>
 
-        <div class="fd-item" style="border-bottom:none;">
-          <div class="fd-rank">05</div>
-          <div class="fd-thumb" style="background:linear-gradient(135deg,#001a0d,#004d26);"></div>
-          <div class="fd-info">
-            <div class="fd-name">Mirazur — Menton, France</div>
-            <div class="fd-desc">Perched on the French Riviera overlooking the Mediterranean, Mirazur's three floors of terraced dining rooms open entirely to the sea breeze. Chef Colagreco grows 60% of his ingredients in the restaurant's own gardens — the menu changes daily with what's harvested that morning.</div>
-            <div class="fd-tags"><span class="fd-tag">🌍 France</span><span class="fd-tag">⭐⭐⭐ Michelin</span><span class="fd-tag">🌊 Seaside</span></div>
+      <div id="fdMapPanel">
+        <div class="fd-map-wrap">
+          <div class="fd-map-list" id="fdMapSidebar">
+            <div class="fd-map-list-header">Elite selections across the world</div>
           </div>
-          <div class="fd-score">9.5</div>
+          <div id="fdMapEl"></div>
         </div>
       </div>
 
-      <div style="padding:1rem 2.5rem;border-top:1px solid var(--color-border,#ddd);display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
+      <div style="padding:1rem 2.5rem;border-top:1px solid var(--color-border,#ddd);display:flex;justify-content:space-between;align-items:center;flex-shrink:0;background:#fff;">
         <span style="font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-muted,#888);">Showing 5 of 104 restaurants</span>
         <a href="collections.html" onclick="closeFineDining()" style="font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-ink,#111);text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:1px;">View All 104 →</a>
       </div>
     </div>
   </div>
 
-  <style>
-    .fd-item {
-      display: flex; align-items: flex-start; gap: 1rem;
-      padding: 1.2rem 0; border-bottom: 1px solid var(--color-border, #ddd);
-    }
-    .fd-rank {
-      font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
-      color: var(--color-muted-2, #aaa); line-height: 1; flex-shrink: 0; width: 24px;
-    }
-    .fd-thumb {
-      width: 56px; height: 56px; border-radius: 3px; flex-shrink: 0;
-    }
-    .fd-info { flex: 1; min-width: 0; }
-    .fd-name {
-      font-weight: 500; font-size: 0.9rem; margin-bottom: 0.3rem; color: var(--color-ink, #111);
-    }
-    .fd-desc {
-      font-size: 0.78rem; color: var(--color-muted, #888);
-      line-height: 1.6; margin-bottom: 0.5rem;
-    }
-    .fd-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-    .fd-tag {
-      font-family: 'DM Mono', monospace; font-size: 0.58rem;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      border: 1px solid var(--color-border, #ddd); padding: 0.15rem 0.5rem;
-      color: var(--color-muted, #888); border-radius: 2px;
-    }
-    .fd-score {
-      font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
-      color: #e8333a; flex-shrink: 0; line-height: 1;
-    }
-  </style>
+  <div id="beProModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="bepro-header">
+        <button class="modal-close-btn" id="closeBeProBtn">&times;</button>
+        <div class="bepro-eyebrow">Taste Engine Enterprise Portal</div>
+        <h2 class="bepro-title">Become a <em>Taste Pro</em> Member</h2>
+        <p class="bepro-tagline">Unlock the absolute planetary authority over global web menus, award submissions, and molecular asset servers.</p>
+      </div>
+      <div class="bepro-price-bar">
+        <span class="bepro-price">$100,000,000</span>
+        <span class="bepro-price-note">USD / One-time payment</span>
+      </div>
+      <div class="bepro-body">
+        <ul class="bepro-perks">
+          <li>
+            <span class="bepro-perk-icon">👑</span>
+            <div>
+              <div class="bepro-perk-label">Supreme Culinary Ownership</div>
+              <div class="bepro-perk-sub">Every dining establishment on Earth becomes legally and digitalized as yours.</div>
+            </div>
+          </li>
+          <li>
+            <span class="bepro-perk-icon">⚡</span>
+            <div>
+              <div class="bepro-perk-label">Instant Juror Executive Override</div>
+              <div class="bepro-perk-sub">Manually alter any live submission score with instant zero latency propagation.</div>
+            </div>
+          </li>
+          <li>
+            <span class="bepro-perk-icon">💎</span>
+            <div>
+              <div class="bepro-perk-label">Infinite Tasting Server Bandwidth</div>
+              <div class="bepro-perk-sub">Stream high-fidelity, interactive flavor files up to 16K directly to neural implants.</div>
+            </div>
+          </li>
+        </ul>
+        
+        <div class="bepro-payment-options">
+          <button class="payment-btn visa-btn" id="visaBtn" onclick="selectPayment('visa')">
+            <span class="pay-logo">💳</span> Visa Secure Pay
+          </button>
+          <button class="payment-btn wechat-btn" id="wechatBtn" onclick="selectPayment('wechat')">
+            <span class="pay-logo">🟢</span> WeChat Pay Premium
+          </button>
+        </div>
+
+        <button class="bepro-cta" onclick="handleBeProPurchase()">Authenticate & Purchase Global Rights</button>
+        <p class="bepro-disclaimer">Transactions are completely real and handled via quantum vault routing pipelines. No refunds apply after purchasing restaurant grid keys.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="genericProjectModal" class="modal-overlay">
+    <div class="modal-content card-modal-content">
+      <button class="modal-close-btn" id="genericCloseBtn">&times;</button>
+      <div class="card-modal-media" id="modalMedia"></div>
+      <div class="card-modal-body">
+        <div class="modal-tags" id="modalTags"></div>
+        <h2 class="modal-header-title" id="modalTitle" style="font-size:2.5rem; margin-bottom:0.8rem;">Project Title</h2>
+        <p class="modal-body-text" id="modalDesc">Project description goes here text field backup.</p>
+        <a href="#" id="modalLink" class="btn btn-solid visit-btn" target="_blank" rel="noopener">Visit Live Site ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="voteToast" class="toast">
+    ⚡ Vote logged for <span id="toastProjectName" class="toast-accent">Project</span>! Thank you.
+  </div>
 
   <script>
-    // ── AUTO DATE ────────────────────────────────────────────────
+    // ── AUTO DATE STAMP GENERATION ───────────────────────────────
     const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     const now = new Date();
-    document.getElementById('sotdLabel').textContent =
-      `Menu of the Day — ${months[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+    const dateStr = now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
 
-    // ── SEARCH DATABASE ──────────────────────────────────────────
-    const searchData = [
-      { title: "Pan-Seared Scallops on Cauliflower Purée", meta: "20 mins · Medium", type: "recipe", badge: "Signature", icon: "🐚", url: "recipes.html#scallops", keywords: "scallop cauliflower purée sear butter capers" },
-      { title: "Roasted Salmon Steak with Carrot Ginger Juice", meta: "35 mins · Easy", type: "recipe", badge: "2 Michelin Stars", icon: "🐟", url: "recipes.html#salmon", keywords: "salmon steak carrot ginger roast fish" },
-      { title: "Wild Garlic & Broad Bean Risotto", meta: "40 mins · Hard", type: "recipe", badge: "Michelin Star", icon: "🌿", url: "recipes.html#risotto", keywords: "risotto garlic broad bean arborio rice vegetarian" },
-      { title: "Smoked Salmon, Dill & Caviar Crostini", meta: "15 mins · Easy", type: "recipe", badge: "Appetizer", icon: "🥖", url: "recipes.html#crostini", keywords: "salmon crostini caviar dill smoked appetizer starter" },
-      { title: "Mini Chocolate Tarts with Fresh Berries", meta: "50 mins · Medium", type: "recipe", badge: "Patisserie", icon: "🍫", url: "recipes.html#tarts", keywords: "chocolate tart berry dessert ganache pastry sweet" },
-      { title: "Bite Studio — Gastronomy", meta: "Restaurant · 3D Menu", type: "nominee", badge: "9.4", icon: "🍽️", url: "#", keywords: "bite studio restaurant 3d menu webgl gastronomy" },
-      { title: "Deepwater Ales — Digital", meta: "Brewery · Branding", type: "nominee", badge: "8.7", icon: "🍺", url: "#", keywords: "deepwater ales brewery branding react beer" },
-      { title: "Gilded — Bespoke Coffee", meta: "E-Commerce · Roastery", type: "nominee", badge: "9.0", icon: "☕", url: "#", keywords: "gilded coffee roastery shopify ecommerce bespoke" },
-      { title: "Mars + Vine — Tasting", meta: "Winery · Portfolio", type: "nominee", badge: "8.5", icon: "🍷", url: "#", keywords: "mars vine winery tasting portfolio wine" },
-      { title: "Cyan Cocktails Platform", meta: "App · Mixology", type: "winner", badge: "8.88 SOTD", icon: "🍸", url: "cyan.html", keywords: "cyan cocktails mixology app drinks bar" },
-      { title: "Ambar — Fire & Flavour", meta: "Grill · Experience", type: "winner", badge: "9.12 SOTD", icon: "🔥", url: "#", keywords: "ambar fire flavour grill bbq experience" },
-      { title: "Flowstate — Kombucha Lab", meta: "Beverage · Experimental", type: "winner", badge: "8.67 SOTD", icon: "🫧", url: "#", keywords: "flowstate kombucha fermented beverage lab experimental" },
-      { title: "Mossfield — Organic Farms", meta: "Agriculture · Non-profit", type: "winner", badge: "8.44 SOTD", icon: "🌱", url: "mossfield.html", keywords: "mossfield organic farm agriculture non-profit sustainable" },
-      { title: "Mastering E-Commerce for Roasteries in Shopify", meta: "Instructor: Chef Digital · 4.9/5", type: "course", badge: "Academy", icon: "📚", url: "academy.html", keywords: "ecommerce shopify roastery coffee course academy" },
-      { title: "3D WebGL: Rendering Photorealistic Food", meta: "Instructor: Luminary Studio · 5/5", type: "course", badge: "Academy", icon: "🎓", url: "academy.html", keywords: "3d webgl food rendering photorealistic visual academy" },
-      { title: "Typography & Branding for Modern Wineries", meta: "Instructor: Hmmm Creative · 4.8/5", type: "course", badge: "Academy", icon: "🖋️", url: "academy.html", keywords: "typography branding winery design academy" },
-      { title: "Figma from Scratch: Designing Restaurant Menus", meta: "Instructor: Plate UI · 5/5", type: "course", badge: "Academy", icon: "🎨", url: "academy.html", keywords: "figma design restaurant menu ui ux academy" },
-      { title: "Best Coffee Shop Web Interfaces", meta: "+142 curated sites", type: "collection", badge: "Inspiration", icon: "☕", url: "best-coffee-shops.html", keywords: "coffee shop web interface inspiration design collection" },
-      { title: "Interactive Wine Maps & Estates", meta: "+89 curated sites", type: "collection", badge: "Layouts", icon: "🗺️", url: "collections.html", keywords: "wine map estate interactive layout collection" },
-      { title: "Immersive Fine Dining Experiences", meta: "+104 curated sites", type: "collection", badge: "Interactions", icon: "🕯️", url: "collections.html", keywords: "fine dining immersive experience interaction collection" },
-      { title: "Dark Mode Culinary Portfolios", meta: "+67 curated sites", type: "collection", badge: "Photography", icon: "📸", url: "collections.html", keywords: "dark mode culinary portfolio photography collection" },
-    ];
-
-    const input    = document.getElementById('searchInput');
-    const dropdown = document.getElementById('searchDropdown');
-
-    function search(query) {
-      if (!query.trim()) { dropdown.classList.remove('open'); return; }
-      const q = query.toLowerCase();
-      const results = searchData.filter(item =>
-        item.title.toLowerCase().includes(q) || item.meta.toLowerCase().includes(q) ||
-        item.keywords.toLowerCase().includes(q) || item.type.toLowerCase().includes(q)
-      ).slice(0, 6);
-      if (results.length === 0) {
-        dropdown.innerHTML = `<div class="search-no-results">No results for "${query}"</div>`;
-      } else {
-        dropdown.innerHTML = results.map(r => `
-          <a class="search-result-item" href="${r.url}">
-            <div class="result-icon type-${r.type}">${r.icon}</div>
-            <div class="result-text">
-              <div class="result-title">${highlight(r.title, q)}</div>
-              <div class="result-meta">${r.meta}</div>
-            </div>
-            <span class="result-badge badge-${r.type}">${r.badge}</span>
-          </a>`).join('') +
-          `<div class="search-footer"><span>${results.length}</span> result${results.length!==1?'s':''} found<span>↵ to visit</span></div>`;
-      }
-      dropdown.classList.add('open');
-    }
-    function highlight(text, query) {
-      const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
-      return text.replace(regex, '<mark style="background:rgba(232,51,58,0.15);color:inherit;border-radius:2px;padding:0 1px;">$1</mark>');
-    }
-    input.addEventListener('input', e => search(e.target.value));
-    input.addEventListener('focus', e => { if (e.target.value) search(e.target.value); });
-    document.addEventListener('click', e => { if (!e.target.closest('.nav-search-container')) dropdown.classList.remove('open'); });
-    input.addEventListener('keydown', e => {
-      if (e.key === 'Escape') { dropdown.classList.remove('open'); input.blur(); }
-      if (e.key === 'Enter') { const first = dropdown.querySelector('.search-result-item'); if (first) window.location.href = first.href; }
-    });
-
-    // ── VOTE ─────────────────────────────────────────────────────
-    function handleVote(btn, name) {
-      if (btn.classList.contains('voted')) {
-        btn.classList.remove('voted');
-        btn.querySelector('.vote-count').textContent = parseInt(btn.querySelector('.vote-count').textContent) - 1;
-        showToast(`Vote removed for <span class="toast-accent">${name}</span>`);
-      } else {
-        btn.classList.add('voted');
-        btn.querySelector('.vote-count').textContent = parseInt(btn.querySelector('.vote-count').textContent) + 1;
-        showToast(`Voted for <span class="toast-accent">${name}</span> ▲`);
-      }
-    }
-
-    // ── TOAST ────────────────────────────────────────────────────
-    let toastTimer;
-    function showToast(msg) {
-      const t = document.getElementById('toast');
-      t.innerHTML = msg; t.classList.add('show');
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
-    }
-
-    // ── HAMBURGER ────────────────────────────────────────────────
-    const hamburger = document.getElementById('hamburger');
-    const mobileNav = document.getElementById('mobileNav');
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
-      mobileNav.classList.toggle('open');
-      document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
-    });
-
-    // ── CURSOR ───────────────────────────────────────────────────
+    // ── DYNAMIC INTERACTIVE CUSTOM MOUSE CURSOR TRACKING ─────────
     const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', e => { cursor.style.left = e.clientX+'px'; cursor.style.top = e.clientY+'px'; });
-    document.querySelectorAll('a, button, .card, .modal-site-item').forEach(el => {
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button, .card, .filter-chip, .payment-btn, .search-result-item').forEach(el => {
       el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
       el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
     });
 
-    // ── SCROLL REVEAL ────────────────────────────────────────────
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i*60); observer.unobserve(e.target); } });
-    }, { threshold: 0.1 });
-    reveals.forEach(r => observer.observe(r));
-
-    // ── VIDEOS ───────────────────────────────────────────────────
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.inline-media-loop').forEach(t => t.play().catch(()=>{}));
-    });
-
-    // ── FINE DINING MODAL ────────────────────────────────────────
-    const fineDiningModal = document.getElementById('fineDiningModal');
-    function openFineDining()  { fineDiningModal.classList.add('active'); document.body.style.overflow='hidden'; }
-    function closeFineDining() { fineDiningModal.classList.remove('active'); document.body.style.overflow=''; }
-    fineDiningModal.addEventListener('click', e => { if(e.target===fineDiningModal) closeFineDining(); });
-
-    document.getElementById('fineDiningCard').addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openFineDining();
+    // ── MOBILE RESPONSIVE NAV MENU TOGGLE INTERACTION ──────────
+    const hamburger = document.getElementById('hamburgerBtn');
+    const mobileNav = document.getElementById('mobileNavMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+      if(mobileNav.classList.contains('open')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
       }
     });
 
-    // ── OTHERS MODAL ─────────────────────────────────────────────
-    const othersModal   = document.getElementById('othersModal');
-    const othersNavLink = document.getElementById('othersNavLink');
-    const closeOthers   = document.getElementById('closeOthersBtn');
-    const mobileOthers  = document.getElementById('mobileOthersLink');
-
-    function openOthers(e) { e.preventDefault(); othersModal.classList.add('active'); document.body.style.overflow='hidden'; }
-    function shutOthers()  { othersModal.classList.remove('active'); document.body.style.overflow=''; }
-    othersNavLink.addEventListener('click', openOthers);
-    mobileOthers.addEventListener('click', openOthers);
-    closeOthers.addEventListener('click', shutOthers);
-    othersModal.addEventListener('click', e => { if(e.target===othersModal) shutOthers(); });
-
-    // ── BE PRO MODAL ──────────────────────────────────────────────
-    const beProModal    = document.getElementById('beProModal');
-    const beProBtn      = document.getElementById('beProBtn');
-    const closeBeProBtn = document.getElementById('closeBeProBtn');
-    let selectedPayment = null;
-
-    function openBePro(e) { e.preventDefault(); beProModal.classList.add('active'); document.body.style.overflow='hidden'; }
-    function closeBePro() { beProModal.classList.remove('active'); document.body.style.overflow=''; }
-    beProBtn.addEventListener('click', openBePro);
-    closeBeProBtn.addEventListener('click', closeBePro);
-    beProModal.addEventListener('click', e => { if(e.target===beProModal) closeBePro(); });
-
-    function selectPayment(method) {
-      selectedPayment = method;
-      document.getElementById('visaBtn').classList.toggle('selected', method==='visa');
-      document.getElementById('wechatBtn').classList.toggle('selected', method==='wechat');
-    }
-    function handleBeProPurchase() {
-      if (!selectedPayment) { alert('Please select a payment method — Visa or WeChat Pay.'); return; }
-      const method = selectedPayment==='visa' ? 'Visa' : 'WeChat Pay';
-      closeBePro();
-      setTimeout(() => alert(`✅ Welcome to Taste Pro!\n\nPayment of $100,000,000 via ${method} is being processed.\n\nEvery restaurant on Earth is now yours. Bon appétit. 🌍`), 300);
-    }
-
-    // ── DYNAMIC PROJECTS HUB MODAL DATABASE ───────────────────────
-    const projectsDatabase = {
-      'bite': {
-        eyebrow: 'Nominee · Interactive WebGL Menu',
-        title: 'Bite Studio — Gastronomy Development Showcase',
-        tagline: 'An engineering exploration into hyper-realistic 3D asset pipeline workflows rendering natively inside responsive modern browser interfaces.',
-        statVal1: '9.42', statLbl1: 'Design Score',
-        statVal2: '142', statLbl2: 'Global Votes',
-        statVal3: '60 FPS', statLbl3: 'Render Rate',
-        description: 'Bite Studio is a premier technical showcase leveraging advanced vanilla JavaScript integrated directly into three.js custom shader pipelines. This layout sets a benchmark standard for interactive premium dining web experiences by deploying pre-rendered geometry baking, dynamic real-time dynamic pathing, and responsive cursor acceleration mapping. All visual components are optimized seamlessly for fluid execution context across both modern luxury desktop configurations and strict mobile computing boundaries.',
-        mediaType: 'video',
-        mediaSrc: "World's Best Fried Chicken RECIPE - Nick Kratka (720p).mp4",
-        tech: 'three.js / WebGL / GSAP',
-        badge: 'Official Nominee',
-        score: '9.4 / 10.0',
-        author: 'bitecreative',
-        tracking: 'Interface Interaction Pipeline',
-        actionUrl: 'https://github.com'
-      },
-      'deepwater': {
-        eyebrow: 'Nominee · Craft Brewery Portfolio',
-        title: 'Deepwater Ales — Coastal Distillery Experience',
-        tagline: 'Deploying high-performance modern React rendering engines to map immersive coastal heritage brand systems digitally.',
-        statVal1: '8.71', statLbl1: 'UI Index',
-        statVal2: '98', statLbl2: 'Verified Votes',
-        statVal3: '240ms', statLbl3: 'Server TTFB',
-        description: 'The Deepwater Ales architecture demonstrates high-fidelity user interaction layers coupled with server-side rendered layouts for fast indexing and smooth performance. Utilizing reactive states alongside highly responsive micro-layouts, the digital environment showcases local processing methods to load assets seamlessly while scaling beautiful brand layouts for dynamic desktop systems.',
-        mediaType: 'image',
-        mediaSrc: 'deep.png',
-        tech: 'React / Next.js / Tailwind',
-        badge: 'Official Nominee',
-        score: '8.7 / 10.0',
-        author: 'deepwater studio',
-        tracking: 'Ecosystem Architecture Engine',
-        actionUrl: 'https://github.com'
-      },
-      'gilded': {
-        eyebrow: 'Nominee · E-Commerce Platform',
-        title: 'Gilded — Bespoke Roastery Commerce Ecosystem',
-        tagline: 'A seamless bridge connecting artisanal micro-batch bean cultivation tracking with high-volume premium conversion targets.',
-        statVal1: '9.04', statLbl1: 'UX Benchmark',
-        statVal2: '211', statLbl2: 'Live Community Votes',
-        statVal3: '4.9/5', statLbl3: 'User Rating',
-        description: 'Gilded transforms standard template e-commerce interaction mechanisms into a premium journey using structured customized head schemas on top of robust Shopify environments. Featuring lightning-fast global search components, modular inventory selection trees, micro-interaction state systems, and clean geometric asset grids, the architecture achieves beautiful premium visual presentation parameters without breaking cart accessibility expectations.',
-        mediaType: 'image',
-        mediaSrc: 'coffee.jpg',
-        tech: 'Shopify / Liquid / AlpineJS',
-        badge: 'Official Nominee',
-        score: '9.0 / 10.0',
-        author: 'gildedco digital',
-        tracking: 'Transactional Interaction Framework',
-        actionUrl: 'https://github.com'
-      },
-      'marsvine': {
-        eyebrow: 'Nominee · Luxury Estate Portfolio',
-        title: 'Mars + Vine — Interstellar Viticulture Hub',
-        tagline: 'Elegant dark layout aesthetics combined with dynamic typography systems to deliver interactive virtual tasting routes.',
-        statVal1: '8.55', statLbl1: 'Aesthetics',
-        statVal2: '76', statLbl2: 'Sommelier Votes',
-        statVal3: '0ms', statLbl3: 'Layout Shift',
-        description: 'Mars + Vine represents a specialized design research execution applying premium minimal typography variables alongside strict asynchronous dynamic script processing models. The layout system emphasizes visual weight allocation to imagery files, using layout optimizations to minimize loading delay parameters, giving digital audiences an instant experience.',
-        mediaType: 'image',
-        mediaSrc: 'wine.webp',
-        tech: 'Next.js / Styled Components',
-        badge: 'Official Nominee',
-        score: '8.5 / 10.0',
-        author: 'marsvine collective',
-        tracking: 'Brand Presentation Metrics',
-        actionUrl: 'https://github.com'
-      },
-      'ambar': {
-        eyebrow: 'Winner · Immersive Gastronomy Experience',
-        title: 'Ambar — Fire, Smoke & High-End Graphic Layouts',
-        tagline: 'An award-winning documentation layer tracking raw open-flame cooking processes via custom progressive video interfaces.',
-        statVal1: '9.12', statLbl1: 'SOTD Score',
-        statVal2: 'Winner', statLbl2: 'Site of the Day',
-        statVal3: '4K', statLbl3: 'Video Bitrate',
-        description: 'Ambar captures the primitive nature of flame-cooked luxury gastronomy. It won the prestigious Site of the Day award by implementing an advanced media engine that serves compressed loop files on demand. The architecture manages background asset loads dynamically to ensure interaction smoothness remains prioritized, allowing audiences to view multi-layered visual tracking without performance drops.',
-        mediaType: 'video',
-        mediaSrc: 'ambars.mp4',
-        tech: 'Vanilla ES6 / Webpack / Sass',
-        badge: 'Site of the Day Winner',
-        score: '9.12 / 10.0',
-        author: 'ambargroup interactive',
-        tracking: 'Media Server Acceleration Systems',
-        actionUrl: 'https://github.com'
-      },
-      'flowstate': {
-        eyebrow: 'Winner · Experimental Brewery Lab',
-        title: 'Flowstate — Probiotic Kombucha Micro-Environment',
-        tagline: 'Visualizing microscopic live bacterial fermentation cycles using fluid generative UI layout principles.',
-        statVal1: '8.67', statLbl1: 'SOTD Score',
-        statVal2: 'Winner', statLbl2: 'Honorable Mention',
-        statVal3: 'Pure CSS', statLbl3: 'Fluid Effects',
-        description: 'Flowstate is a specialized experimental design framework charting probiotic fermentation science. The user journey mimics a laboratory catalog layout system using high-contrast typography matrix variables, fluid scrolling states, and asynchronous server modules that surface active batch reports automatically without reloading active browser documents.',
-        mediaType: 'image',
-        mediaSrc: 'flow.jpeg',
-        tech: 'HTML5 / CSS Grid / Native DOM',
-        badge: 'Site of the Day Winner',
-        score: '8.67 / 10.0',
-        author: 'flowstate creative',
-        tracking: 'Generative Design Systems',
-        actionUrl: 'https://github.com'
-      },
-      'winemaps': {
-        eyebrow: 'Collection Highlight · Cartography Grid',
-        title: 'Interactive Wine Maps & Historical Estates',
-        tagline: 'Curated technical reference mapping indexing geographical vineyard topographies with data visualization layers.',
-        statVal1: '89+', statLbl1: 'Curated Sites',
-        statVal2: 'Global', statLbl2: 'Estate Reach',
-        statVal3: 'GIS', statLbl3: 'Mapping Type',
-        description: 'This layout standard aggregation catalogs vector-based digital cartography platforms deployed by ancient European winemaking institutions. It focuses on charting coordinate tracking, heat variance mapping layers, sub-soil composition tracking matrices, and historical estate records translated cleanly through modern canvas UI paradigms.',
-        mediaType: 'image',
-        mediaSrc: 'map.webp',
-        tech: 'SVG Map / Cartography / GIS Mapping',
-        link: 'collections.html'
-      },
-      'darkmode': {
-        category: 'Photography Collective · Layout Design',
-        title: 'Dark Mode Culinary Portfolios — Visual Analysis',
-        tagline: 'A research compilation examining low-key lighting image calibration across high-end catering systems.',
-        statVal1: '67+', statLbl1: 'Analyzed Folios',
-        statVal2: 'Low-Key', statLbl2: 'Lighting Ratio',
-        statVal3: 'Premium', statLbl3: 'Aesthetic Tier',
-        description: 'An expert architectural archive analyzing photography composition settings optimized for deep palette interface canvases. This study isolates color theory variables, dark layout background values, image sharpening workflows, and lighting setups that preserve delicious fidelity within dark web environments.',
-        mediaType: 'image',
-        mediaSrc: 'dark.jpg',
-        tech: 'Low-Key Mode / Moody / Chef Portfolio',
-        link: 'collections.html'
-      }
+    // ── DYNAMIC PROJECT MODAL DATABASE SOURCE ────────────────────
+    const projectDb = {
+      'bites': { category: 'Experimental · 2026', title: 'Micro-Bites: Edible UI Prototypes', desc: 'An exploration into tangible taste interactions. Micro-Bites bridges culinary geometry with functional frontend animations, creating a unified canvas where user actions alter physical taste formulas using advanced dynamic micro-nozzles.', media: '<img src="bites.jpeg">', tags: ['WebGL', '3D Geometry', 'Sensory UI', 'React Three Fiber'], link: '#' },
+      'deepbrew': { category: 'E-Commerce · Liquid', title: 'Deep Brew: Specialty Coffee Vault', desc: 'A rich visual marketplace serving direct-trade single origin beans. Implements customizable vertical brewing profile graphs, roast color filters, and dynamic macro photography. Features include a Brew Guide section and seamless subscription model.', media: '<img src="coffee.jpg">', tags: ['Shopify', 'Liquid', 'Luxury E-Com', 'Subscription Model'], link: '#' },
+      'marsvine': { category: 'Winery · Portfolio', title: 'Mars + Vine — Tasting', desc: 'An elegant portfolio site for an experimental winery blending terroir-driven techniques with futuristic presentation. Next.js for lightning-fast performance and seamless page transitions. Highlights include a virtual cellar tour and wine club integration.', media: '<img src="wine.webp">', tags: ['Next.js', 'Vercel', 'Portfolio', 'Winery'], link: '#' },
+      'ambar': { category: 'Grill · Experience', title: 'Ambar — Fire & Flavour', desc: 'A minimalist editorial interface charting culinary developments centered around high-temperature open charcoal hearths. Built with extreme typographic precision and massive full-bleed structural imagery.', media: '<img src="Amber.jpeg">', tags: ['Minimalism', 'Heirloom', 'Heft Architecture'], link: '#' },
+      'flowstate': { category: 'Beverage · Experimental', title: 'Flowstate Kombucha Lab', desc: 'Dynamic text tracking layout utilizing fluid physics variables. Implements organic container vectors that morph live based on screen scroll rates, matching the bubbly characteristics of cultured living bacterial profiles.', media: '<img src="flow.jpeg">', tags: ['Typography', 'Fluid Shaders', 'SVG Physics'], link: '#' },
+      'mossfield': { category: 'Agriculture · Non-profit', title: 'Mossfield Organic Farms', desc: 'Clean sustainability indexing database cataloging localized vertical greenhouse yields. Promotes hyper-transparent soil status readouts, carbon footprint audit trails, and automated nutrient delivery layouts.', media: '<img src="moss.gif">', tags: ['Sustainability', 'Dataspaces', 'Clean Code'], link: '#' },
+      'winemaps': { category: 'Layouts · Collections', title: 'Interactive Wine Maps & Estates', desc: 'A curated atlas mapping the world\'s most architecturally significant wine cellars, estates, and underground production structures. Features horizontal canvas scrolling and rich geographic filtering modules.', media: '<img src="map.webp">', tags: ['Collections', 'Cartography', 'Geospatial UI'], link: '#' }
     };
 
-    const genericModal = document.getElementById('genericProjectModal');
-    const genericClose = document.getElementById('closeGenericModalBtn');
+    // ── SEARCH LOGIC & INTERACTION ENGINE ───────────────────────
+    const searchData = [
+      { title: "Micro-Bites: Edible UI Prototypes", meta: "Experimental · 2026", type: "winner", badge: "9.92 SOTD", icon: "🍱", url: "#", id: "bites", keywords: "micro bites edible ui prototypes prototypes studio gastronome webgl 3d sensory" },
+      { title: "Deep Brew: Specialty Coffee Vault", meta: "E-Commerce · Liquid", type: "winner", badge: "9.64 SOTD", icon: "☕", url: "#", id: "deepbrew", keywords: "deep brew specialty coffee vault caffeine pixel shopify nextjs ecom subscription" },
+      { title: "Mars + Vine: Tasting Room Space", meta: "Winery · Portfolio", type: "winner", badge: "9.81 SOTD", icon: "🍇", url: "#", id: "marsvine", keywords: "mars vine tasting room space wine agency nextjs portfolio vineyard" },
+      { title: "Ambar — Fire & Flavour", meta: "Grill · Experience", type: "winner", badge: "9.12 SOTD", icon: "🔥", url: "#", id: "ambar", keywords: "ambar fire flavour grill bbq experience plate ui minimalism structural" },
+      { title: "Flowstate Kombucha Lab", meta: "Beverage · Experimental", type: "winner", badge: "8.67 SOTD", icon: "🫧", url: "#", id: "flowstate", keywords: "flowstate kombucha fermented beverage lab experimental kinetic fluid fluid shaders" },
+      { title: "Mossfield Organic Farms", meta: "Agriculture · Non-profit", type: "winner", badge: "8.44 SOTD", icon: "🌿", url: "#", id: "mossfield", keywords: "mossfield organic farms agriculture earthlings sustainability dataspaces greenhouse" },
+      { title: "Interactive Wine Maps & Estates", meta: "Layouts · Collections", type: "collection", badge: "+89 Sites", icon: "🗺️", url: "#", id: "winemaps", keywords: "interactive wine maps estates layouts atlas cartography premium" },
+      { title: "Immersive Fine Dining Experiences", meta: "Interactions · Collections", type: "collection", badge: "+104 Sites", icon: "✨", url: "#", trigger: "fineDining", keywords: "immersive fine dining experiences interactions collections premium projection projection alchemist ultraviolet sublimotion" },
+      { title: "Advanced WebGL Liquid Shaders", meta: "Academy Masterclass", type: "course", badge: "Score 4.95", icon: "🎓", url: "#", keywords: "advanced webgl liquid shaders luxury drinks masterclass pyro digital" },
+      { title: "Immersive Horizontal Layout Scroll", meta: "Academy Masterclass", type: "course", badge: "Score 4.80", icon: "🎓", url: "#", keywords: "immersive horizontal layout scroll timelines modern wineries wineries off grid" },
+      { title: "Figma from Scratch: Restaurant Menus", meta: "Academy Masterclass", type: "course", badge: "Score 5.00", icon: "🎓", url: "#", keywords: "figma from scratch designing restaurant menus menus plate ui" }
+    ];
 
-    function openProjectModal(projectId) {
-      const p = projectsDatabase[projectId];
-      if (!p) return;
+    const searchInput = document.getElementById('globalSearchInput');
+    const dropdown = document.getElementById('searchDropdown');
+    const resultsList = document.getElementById('searchResultsList');
 
-      document.getElementById('modalProjectEyebrow').textContent = p.eyebrow || p.category || 'Portfolio Insight';
-      document.getElementById('modalProjectTitle').textContent = p.title;
-      document.getElementById('modalProjectTagline').textContent = p.tagline;
-      document.getElementById('modalProjectDescription').textContent = p.description;
+    searchInput.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      if(!q) { dropdown.classList.remove('open'); return; }
       
-      document.getElementById('modalStatVal1').textContent = p.statVal1;
-      document.getElementById('modalStatLbl1').textContent = p.statLbl1;
-      document.getElementById('modalStatVal2').textContent = p.statVal2;
-      document.getElementById('modalStatLbl2').textContent = p.statLbl2;
-      document.getElementById('modalStatVal3').textContent = p.statVal3;
-      document.getElementById('modalStatLbl3').textContent = p.statLbl3;
+      const filtered = searchData.filter(item => item.keywords.includes(q) || item.title.toLowerCase().includes(q));
+      resultsList.innerHTML = '';
 
-      document.getElementById('modalMetaAuthor').textContent = p.author || 'Curated Directory';
-      document.getElementById('modalMetaTech').textContent = p.tech;
-      document.getElementById('modalMetaBadge').textContent = p.badge || 'Curated Review';
-      document.getElementById('modalMetaScore').textContent = p.score || 'Reference Standard';
-      
-      document.getElementById('modalFooterTracking').textContent = p.tracking || 'System Index Node';
-      const actionBtn = document.getElementById('modalFooterActionBtn');
-      actionBtn.href = p.actionUrl || p.link || '#';
-      actionBtn.textContent = p.actionUrl ? 'Launch Live Site →' : 'View Collection Hub →';
-
-      const mediaContainer = document.getElementById('modalProjectMediaContainer');
-      mediaContainer.innerHTML = '';
-
-      if (p.mediaType === 'video') {
-        const videoEl = document.createElement('video');
-        videoEl.className = 'inline-media-loop';
-        videoEl.autoplay = true;
-        videoEl.loop = true;
-        videoEl.muted = true;
-        videoEl.setAttribute('playsinline', '');
-        
-        const sourceEl = document.createElement('source');
-        sourceEl.src = p.mediaSrc;
-        sourceEl.type = 'video/mp4';
-        
-        videoEl.appendChild(sourceEl);
-        mediaContainer.appendChild(videoEl);
+      if(filtered.length === 0) {
+        resultsList.innerHTML = `<div class="search-no-results">No results matched "${e.target.value}"</div>`;
       } else {
-        const imgEl = document.createElement('img');
-        imgEl.src = p.mediaSrc;
-        imgEl.alt = p.title;
-        mediaContainer.appendChild(imgEl);
+        filtered.forEach(item => {
+          const itemEl = document.createElement('div');
+          itemEl.className = 'search-result-item';
+          itemEl.innerHTML = `
+            <div class="result-icon type-${item.type}">${item.icon}</div>
+            <div class="result-text">
+              <div class="result-title">${item.title}</div>
+              <div class="result-meta">${item.meta}</div>
+            </div>
+            <span class="result-badge badge-${item.type}">${item.badge}</span>
+          `;
+          itemEl.addEventListener('click', () => {
+            dropdown.classList.remove('open');
+            searchInput.value = '';
+            if(item.id) { openProjectModal(item.id); }
+            else if(item.trigger === 'fineDining') { openFineDining(); }
+            else if(item.url && item.url !== '#') { window.location.href = item.url; }
+          });
+          resultsList.appendChild(itemEl);
+        });
       }
+      dropdown.classList.add('open');
+    });
 
+    searchInput.addEventListener('focus', () => { if(searchInput.value.trim()) dropdown.classList.add('open'); });
+    document.addEventListener('click', (e) => { if(!e.target.closest('.nav-search-container')) dropdown.classList.remove('open'); });
+
+    // ── INTERACTIVE VOTING SYSTEM REAL-TIME HANDLER ─────────────
+    function handleVote(btn) {
+      const projectId = btn.getAttribute('data-id');
+      const countEl = btn.querySelector('.vote-count');
+      let currentVotes = parseInt(countEl.textContent, 10);
+      
+      if (btn.classList.contains('voted')) {
+        btn.classList.remove('voted');
+        countEl.textContent = currentVotes - 1;
+      } else {
+        btn.classList.add('voted');
+        countEl.textContent = currentVotes + 1;
+        const matchedItem = searchData.find(item => item.id === projectId);
+        const nameText = matchedItem ? matchedItem.title : "Project";
+        showToast(nameText);
+      }
+    }
+
+    function showToast(projName) {
+      const toast = document.getElementById('voteToast');
+      document.getElementById('toastProjectName').textContent = projName;
+      toast.classList.add('show');
+      setTimeout(() => { toast.classList.remove('show'); }, 3000);
+    }
+
+    // ── DYNAMIC CARDS TRIGGER ASSIGNMENTS ───────────────────────
+    const genericModal = document.getElementById('genericProjectModal');
+    const genericClose = document.getElementById('genericCloseBtn');
+
+    function openProjectModal(id) {
+      const data = projectDb[id];
+      if (!data) return;
+      shutOthers();
+
+      document.getElementById('modalTitle').textContent = data.title;
+      document.getElementById('modalDesc').textContent = data.desc;
+      document.getElementById('modalMedia').innerHTML = data.media;
+      document.getElementById('modalLink').href = data.link;
+      document.getElementById('modalTags').innerHTML = data.tags.map(t => `<span class="modal-tag">${t}</span>`).join('');
+      
       const video = genericModal.querySelector('video');
-      if(video) video.play().catch(()=>{});
+      if (video) video.play().catch(()=>{});
 
       genericModal.classList.add('active');
       document.body.style.overflow = 'hidden';
@@ -1184,25 +996,147 @@
 
     genericClose.addEventListener('click', closeGenericModal);
     genericModal.addEventListener('click', e => { if (e.target === genericModal) closeGenericModal(); });
-
     document.querySelectorAll('.generic-card-trigger').forEach(trigger => {
-      trigger.addEventListener('click', () => {
-        const id = trigger.getAttribute('data-project-id');
-        openProjectModal(id);
-      });
+      trigger.addEventListener('click', () => openProjectModal(trigger.getAttribute('data-project-id')));
     });
 
-    // ── ESCAPE KEY HANDLER ───────────────────────────────────────
+    // ── BE PRO ENTERPRISE SYSTEM TRIGGERS ───────────────────────
+    const beProModal = document.getElementById('beProModal');
+    const beProBtn = document.getElementById('beProBtn');
+    const closeBeProBtn = document.getElementById('closeBeProBtn');
+    let selectedPayment = null;
+
+    function openBePro(e) { e.preventDefault(); shutOthers(); beProModal.classList.add('active'); document.body.style.overflow='hidden'; }
+    function closeBePro() { beProModal.classList.remove('active'); document.body.style.overflow=''; }
+    beProBtn.addEventListener('click', openBePro);
+    closeBeProBtn.addEventListener('click', closeBePro);
+    beProModal.addEventListener('click', e => { if(e.target===beProModal) closeBePro(); });
+
+    function selectPayment(method) {
+      selectedPayment = method;
+      document.getElementById('visaBtn').classList.toggle('selected', method==='visa');
+      document.getElementById('wechatBtn').classList.toggle('selected', method==='wechat');
+    }
+
+    function handleBeProPurchase() {
+      if (!selectedPayment) { alert('Please select a payment method — Visa or WeChat Pay.'); return; }
+      const method = selectedPayment==='visa' ? 'Visa' : 'WeChat Pay';
+      closeBePro();
+      setTimeout(() => alert(`✅ Welcome to Taste Pro!\n\nPayment of $100,000,000 via ${method} is being processed.\n\nEvery restaurant on Earth is now yours. Bon appétit. 🌍`), 300);
+    }
+
+    // ── FINE DINING MODAL ────────────────────────────────────────
+    const fineDiningModal = document.getElementById('fineDiningModal');
+    function openFineDining() { shutOthers(); fineDiningModal.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function closeFineDining() { fineDiningModal.classList.remove('active'); document.body.style.overflow = ''; }
+    fineDiningModal.addEventListener('click', e => { if(e.target===fineDiningModal) closeFineDining(); });
+
+    // ── MAP TAB SWITCHING ─────────────────────────────────────────
+    const fdRestaurants = [
+      { name: "Sublimotion", rating: "★ 9.8 · Avant-Garde", stars: "3 Michelin Stars", address: "Ibiza, Spain — Sant Josep de sa Talaia", url: "#", lat: 38.8833, lng: 1.4025, desc: "A theatrical stage where high-tech sensors, scent devices, and climate simulators adapt instantly to passing plating formats." },
+      { name: "Ultraviolet", rating: "★ 9.7 · Conceptual", stars: "3 Michelin Stars", address: "Shanghai, China — Secret Warehouse Location", url: "#", lat: 31.2304, lng: 121.4737, desc: "A highly private space mixing bespoke 360-degree wall panels, tailored surround layouts, and synchronized scent columns." },
+      { name: "Alchemist", rating: "★ 9.6 · Dramatic Art", stars: "2 Michelin Stars", address: "Copenhagen, Denmark — Refshaleøen Vaults", url: "#", lat: 55.6942, lng: 12.6105, desc: "A planetarium dome running high-fidelity artistic illustrations designed to invoke societal discourse during classic menus." }
+    ];
+
+    let fdMap = null;
+    let fdMapReady = false;
+    let fdMarkers = [];
+
+    function switchFdTab(tab, btn) {
+      document.querySelectorAll('.fd-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const listPanel = document.getElementById('fdListPanel');
+      const mapPanel = document.getElementById('fdMapPanel');
+
+      if (tab === 'list') {
+        mapPanel.classList.remove('visible');
+        listPanel.classList.remove('hidden');
+      } else {
+        listPanel.classList.add('hidden');
+        mapPanel.classList.add('visible');
+        if (!fdMapReady) {
+          buildFdMap();
+        } else if (fdMap) {
+          setTimeout(() => { fdMap.invalidateSize(); }, 50);
+        }
+      }
+    }
+
+    function buildFdMap() {
+      fdMapReady = true;
+      fdMap = L.map('fdMapEl').setView([48, 10], 3);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
+        maxZoom: 18
+      }).addTo(fdMap);
+
+      // Build sidebar panels
+      const sidebar = document.getElementById('fdMapSidebar');
+      fdRestaurants.forEach((r, i) => {
+        // Sidebar entry card creation loop element
+        const card = document.createElement('div');
+        card.className = 'fd-map-card' + (i === 0 ? ' active' : '');
+        card.id = 'fdCard_' + i;
+        card.innerHTML = `
+          <div class="fd-map-card-rating">${r.rating}</div>
+          <div class="fd-map-card-name">${r.name}</div>
+          <div class="fd-map-card-stars">🏅 ${r.stars}</div>
+          <div class="fd-map-card-addr">${r.address}</div>
+          <a class="fd-map-card-link" href="${r.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Visit Homepage ↗</a>`;
+        
+        card.addEventListener('click', () => focusFdMarker(i));
+        sidebar.appendChild(card);
+
+        // Inject Leaflet map markers
+        const marker = L.marker([r.lat, r.lng]).addTo(fdMap);
+        marker.bindPopup(`
+          <div class="fd-popup">
+            <div class="fd-popup-name">${r.name}</div>
+            <div class="fd-popup-stars">${r.stars} · ${r.rating.split('·')[1]}</div>
+            <div class="fd-popup-desc">${r.desc}</div>
+          </div>
+        `, { maxWidth: 220 });
+        
+        marker.on('click', () => {
+          document.querySelectorAll('.fd-map-card').forEach(c => c.classList.remove('active'));
+          const targetCard = document.getElementById('fdCard_' + i);
+          if(targetCard) {
+            targetCard.classList.add('active');
+            targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        });
+
+        fdMarkers.push(marker);
+      });
+    }
+
+    function focusFdMarker(index) {
+      document.querySelectorAll('.fd-map-card').forEach(c => c.classList.remove('active'));
+      const card = document.getElementById('fdCard_' + index);
+      if(card) card.classList.add('active');
+
+      const target = fdRestaurants[index];
+      if (fdMap) {
+        fdMap.setView([target.lat, target.lng], 7, { animate: true, duration: 1 });
+        fdMarkers[index].openPopup();
+      }
+    }
+
+    function shutOthers() {
+      closeBePro();
+      closeGenericModal();
+      closeFineDining();
+    }
+
+    // ── ESCAPE KEY GLOBAL HANDLER ─────────────────────────────────
     document.addEventListener('keydown', e => {
-      if (e.key==='Escape') {
+      if (e.key === 'Escape') {
         shutOthers();
-        closeBePro();
-        closeFineDining();
-        closeGenericModal();
         mobileNav.classList.remove('open');
         hamburger.classList.remove('open');
         dropdown.classList.remove('open');
-        document.body.style.overflow='';
+        document.body.style.overflow = '';
       }
     });
   </script>
