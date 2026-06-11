@@ -291,7 +291,7 @@
     .bepro-perk-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
     .bepro-perk-label { font-weight: 500; }
     .bepro-perk-sub { font-size: 0.78rem; color: var(--color-muted, #888888); font-weight: 300; }
-    .bepro-payment-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-muted, #888888); margin-bottom: 0.8rem; }
+    .bepro-payment-perks { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-muted, #888888); margin-bottom: 0.8rem; }
     .bepro-payment-options { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; }
     .payment-btn {
       flex: 1; padding: 0.75rem 1rem; border: 1.5px solid var(--color-border, #dddddd);
@@ -347,28 +347,6 @@
     .project-footer-lbl { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted, #888888); }
     .project-footer-btn { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-ink, #111111); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; transition: color 0.15s; }
     .project-footer-btn:hover { color: #e8333a; }
-
-    /* ── FINE DINING MODAL STYLES (moved from body) ── */
-    .fd-item {
-      display: flex; align-items: flex-start; gap: 1rem;
-      padding: 1.2rem 0; border-bottom: 1px solid var(--color-border, #ddd);
-    }
-    .fd-rank {
-      font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
-      color: var(--color-muted-2, #aaa); line-height: 1; flex-shrink: 0; width: 24px;
-    }
-    .fd-thumb { width: 56px; height: 56px; border-radius: 3px; flex-shrink: 0; }
-    .fd-info { flex: 1; min-width: 0; }
-    .fd-name { font-weight: 500; font-size: 0.9rem; margin-bottom: 0.3rem; color: var(--color-ink, #111); }
-    .fd-desc { font-size: 0.78rem; color: var(--color-muted, #888); line-height: 1.6; margin-bottom: 0.5rem; }
-    .fd-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-    .fd-tag {
-      font-family: 'DM Mono', monospace; font-size: 0.58rem;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      border: 1px solid var(--color-border, #ddd); padding: 0.15rem 0.5rem;
-      color: var(--color-muted, #888); border-radius: 2px;
-    }
-    .fd-score { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: #e8333a; flex-shrink: 0; line-height: 1; }
   </style>
 </head>
 <body>
@@ -802,7 +780,38 @@
     </div>
   </div>
 
-
+  <style>
+    .fd-item {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1.2rem 0; border-bottom: 1px solid var(--color-border, #ddd);
+    }
+    .fd-rank {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+      color: var(--color-muted-2, #aaa); line-height: 1; flex-shrink: 0; width: 24px;
+    }
+    .fd-thumb {
+      width: 56px; height: 56px; border-radius: 3px; flex-shrink: 0;
+    }
+    .fd-info { flex: 1; min-width: 0; }
+    .fd-name {
+      font-weight: 500; font-size: 0.9rem; margin-bottom: 0.3rem; color: var(--color-ink, #111);
+    }
+    .fd-desc {
+      font-size: 0.78rem; color: var(--color-muted, #888);
+      line-height: 1.6; margin-bottom: 0.5rem;
+    }
+    .fd-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .fd-tag {
+      font-family: 'DM Mono', monospace; font-size: 0.58rem;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      border: 1px solid var(--color-border, #ddd); padding: 0.15rem 0.5rem;
+      color: var(--color-muted, #888); border-radius: 2px;
+    }
+    .fd-score {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+      color: #e8333a; flex-shrink: 0; line-height: 1;
+    }
+  </style>
 
   <script>
     // ── AUTO DATE ────────────────────────────────────────────────
