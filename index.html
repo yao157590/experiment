@@ -347,6 +347,13 @@
     .project-footer-lbl { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted, #888888); }
     .project-footer-btn { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-ink, #111111); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; transition: color 0.15s; }
     .project-footer-btn:hover { color: #e8333a; }
+
+    /* Hide Google Translate top bar and pop-up widgets */
+    body { top: 0px !important; }
+    .goog-te-banner-frame.skiptranslate, .goog-te-banner-frame { display: none !important; }
+    #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
+    .goog-text-highlight { background-color: transparent !important; box-shadow: none !important; }
+  
   </style>
 </head>
 <body>
@@ -443,8 +450,8 @@
     <a href="directory.html">Directory</a>
     <a href="#" id="mobileOthersLink">Others</a>
     <div class="mobile-nav-actions">
-      <a href="#" class="btn-outline">Log in</a>
-      <a href="#" class="btn-solid">Submit</a>
+      <a href="#" class="btn-outline" onclick="changeLanguage('zh-CN'); return false;">Chinese</a>
+      <a href="#" class="btn-solid" onclick="changeLanguage('en'); return false;">English</a>
     </div>
   </div>
 
@@ -464,8 +471,8 @@
       <div class="search-dropdown" id="searchDropdown"></div>
     </div>
     <div class="nav-right">
-      <a href="#" class="btn-outline">Chinese</a>
-      <a href="#" class="btn-solid">English</a>
+      <a href="#" class="btn-outline" onclick="changeLanguage('zh-CN'); return false;">Chinese</a>
+      <a href="#" class="btn-solid" onclick="changeLanguage('en'); return false;">English</a>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -811,6 +818,13 @@
       font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
       color: #e8333a; flex-shrink: 0; line-height: 1;
     }
+
+    /* Hide Google Translate top bar and pop-up widgets */
+    body { top: 0px !important; }
+    .goog-te-banner-frame.skiptranslate, .goog-te-banner-frame { display: none !important; }
+    #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
+    .goog-text-highlight { background-color: transparent !important; box-shadow: none !important; }
+  
   </style>
 
   <script>
@@ -1206,5 +1220,27 @@
       }
     });
   </script>
+
+  <!-- Hidden Google Translate Element Engine & Trigger Logic -->
+  <div id="google_translate_element" style="display:none;"></div>
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,zh-CN',
+        autoDisplay: false
+      }, 'google_translate_element');
+    }
+
+    function changeLanguage(langCode) {
+      var selectEl = document.querySelector('select.goog-te-combo');
+      if (selectEl) {
+        selectEl.value = langCode;
+        selectEl.dispatchEvent(new Event('change'));
+      }
+    }
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </body>
 </html>
