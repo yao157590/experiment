@@ -16,11 +16,7 @@
       --space-md: 1.5rem;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     html {
       scroll-behavior: smooth;
@@ -33,363 +29,259 @@
       background-color: #ffffff;
       line-height: 1.7;
       -webkit-font-smoothing: antialiased;
-    }
-
-    /* ── READING PROGRESS BAR (NEW) ── */
-    #read-progress {
-      position: fixed;
-      top: 0; left: 0;
-      height: 3px;
-      width: 0%;
-      background: var(--color-signal);
-      z-index: 9999;
-      transition: width 0.1s linear;
-      transform-origin: left;
+      padding-bottom: 80px;
     }
 
     /* ── NAVIGATION ── */
     nav {
-      position: sticky;
-      top: 0;
+      position: sticky; top: 0;
       background: #ffffff;
       border-bottom: 1px solid var(--color-border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      z-index: 1000;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 2rem; z-index: 1000;
     }
-
-    .nav-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.8rem;
-      letter-spacing: 0.05em;
-      text-decoration: none;
-      color: var(--color-ink);
-    }
-
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.05em; text-decoration: none; color: var(--color-ink); }
     .nav-logo span { color: var(--color-signal); }
-
-    .nav-links {
-      display: flex;
-      list-style: none;
-      gap: var(--space-md);
-    }
-
-    .nav-links a {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.15rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: var(--color-ink);
-      transition: color 0.2s;
-    }
-
+    .nav-links { display: flex; list-style: none; gap: var(--space-md); }
+    .nav-links a { font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: var(--color-ink); transition: color 0.2s; }
     .nav-links a:hover, .nav-links a.active { color: var(--color-signal); }
-
-    .btn-solid {
-      background: var(--color-ink);
-      color: #ffffff;
-      padding: 0.5rem 1.2rem;
-      border-radius: 3px;
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 500;
-      font-family: 'DM Sans', sans-serif;
-      transition: background 0.2s;
-    }
-
+    .btn-solid { background: var(--color-ink); color: #ffffff; padding: 0.5rem 1.2rem; border-radius: 3px; text-decoration: none; font-size: 0.85rem; font-weight: 500; font-family: 'DM Sans', sans-serif; transition: background 0.2s; }
     .btn-solid:hover { background: var(--color-signal); }
 
     /* ── LAYOUT ── */
-    .blog-container {
-      max-width: 1080px;
-      margin: 4rem auto;
-      padding: 0 1.5rem;
-    }
-
-    .blog-header {
-      border-bottom: 1px solid var(--color-border);
-      padding-bottom: 2.5rem;
-      margin-bottom: 3.5rem;
-    }
-
-    .blog-eyebrow {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--color-signal);
-      margin-bottom: 0.75rem;
-    }
-
-    .blog-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 3.5rem;
-      line-height: 1.05;
-      letter-spacing: 0.02em;
-      margin-bottom: 1rem;
-    }
-
-    .blog-meta {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
-      color: var(--color-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .blog-layout-grid {
-      display: flex;
-      gap: 4rem;
-      align-items: flex-start;
-    }
-
-    .blog-sidebar {
-      position: sticky;
-      top: 6.5rem;
-      width: 220px;
-      flex-shrink: 0;
-    }
-
-    .sidebar-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.2rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--color-ink);
-      margin-bottom: 1rem;
-      border-bottom: 1px solid var(--color-border);
-      padding-bottom: 0.5rem;
-    }
-
-    .sidebar-menu {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .sidebar-link {
-      display: block;
-      font-family: 'DM Mono', monospace;
-      font-size: 0.82rem;
-      color: var(--color-muted);
-      text-decoration: none;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-      padding: 0.3rem 0;
-      transition: all 0.2s ease;
-      border-left: 2px solid transparent;
-      padding-left: 0;
-    }
-
-    .sidebar-link:hover {
-      color: var(--color-signal);
-      padding-left: 0.5rem;
-      border-left-color: var(--color-signal);
-    }
-
-    /* Active sidebar state (set by JS) */
-    .sidebar-link.active-section {
-      color: var(--color-signal);
-      padding-left: 0.5rem;
-      border-left-color: var(--color-signal);
-    }
-
-    .blog-content-stream {
-      flex: 1;
-      min-width: 0;
-    }
+    .blog-container { max-width: 1080px; margin: 4rem auto; padding: 0 1.5rem; }
+    .blog-header { border-bottom: 1px solid var(--color-border); padding-bottom: 2.5rem; margin-bottom: 3.5rem; }
+    .blog-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-signal); margin-bottom: 0.75rem; }
+    .blog-title { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; line-height: 1.05; letter-spacing: 0.02em; margin-bottom: 1rem; }
+    .blog-meta { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--color-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .blog-layout-grid { display: flex; gap: 4rem; align-items: flex-start; }
+    .blog-sidebar { position: sticky; top: 6.5rem; width: 220px; flex-shrink: 0; }
+    .sidebar-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink); margin-bottom: 1rem; border-bottom: 1px solid var(--color-border); padding-bottom: 0.5rem; }
+    .sidebar-menu { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .sidebar-link { display: block; font-family: 'DM Mono', monospace; font-size: 0.82rem; color: var(--color-muted); text-decoration: none; text-transform: uppercase; letter-spacing: 0.02em; padding: 0.3rem 0; transition: all 0.2s ease; border-left: 2px solid transparent; padding-left: 0; }
+    .sidebar-link:hover, .sidebar-link.active-section { color: var(--color-signal); padding-left: 0.5rem; border-left-color: var(--color-signal); }
+    .blog-content-stream { flex: 1; min-width: 0; }
 
     /* ── TIMELINE ── */
-    .day-section {
-      position: relative;
-      padding-left: 2.5rem;
-      border-left: 2px solid var(--color-ink);
-      margin-bottom: 4.5rem;
-      /* Timeline draw animation — line starts at 0 height */
-      --line-height: 0%;
+    .day-section { position: relative; padding-left: 2.5rem; border-left: 2px solid var(--color-ink); margin-bottom: 4.5rem; }
+    .day-section::before { content: ''; position: absolute; left: -7px; top: 0px; width: 12px; height: 12px; border-radius: 50%; background: var(--color-signal); border: 2px solid var(--color-ink); transform: scale(0); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    .day-section.anim-visible::before { transform: scale(1); }
+    .day-title { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 0.04em; line-height: 1; margin-bottom: 1.5rem; color: var(--color-ink); display: flex; align-items: center; gap: 0.75rem; }
+    .day-title span { font-family: 'DM Mono', monospace; font-size: 0.75rem; letter-spacing: 0; background: var(--color-surface); padding: 0.2rem 0.6rem; border: 1px solid var(--color-border); border-radius: 2px; color: var(--color-muted); }
+    p { font-size: 1.05rem; color: #2b2b2b; margin-bottom: 1.5rem; text-align: justify; }
+    p:last-child { margin-bottom: 0; }
+    .insight-quote { background-color: var(--color-surface); border-left: 3px solid var(--color-signal); padding: 1.25rem 1.5rem; margin: 1.8rem 0; font-style: italic; }
+    .insight-quote p { font-size: 1rem; color: var(--color-ink); text-align: left; margin: 0; }
+    .summary-box { background-color: var(--color-surface); border-left: 3px solid var(--color-muted); padding: 1.25rem 1.5rem; margin-top: 1.8rem; }
+    .summary-box strong { font-family: 'DM Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-ink); display: block; margin-bottom: 0.4rem; }
+    .summary-box p { font-size: 0.95rem; color: #555555; text-align: left; margin: 0; line-height: 1.6; }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .day-section { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .day-section.anim-visible { opacity: 1; transform: translateY(0); }
+    .anim-para { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .anim-para.anim-visible { opacity: 1; transform: translateY(0); }
+    .insight-quote { opacity: 0; transform: translateX(-24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .insight-quote.anim-visible { opacity: 1; transform: translateX(0); }
+    .summary-box { opacity: 0; transform: translateX(-24px); transition: opacity 0.6s ease 0.15s, transform 0.6s ease 0.15s; }
+    .summary-box.anim-visible { opacity: 1; transform: translateX(0); }
+    .blog-header { opacity: 0; transform: translateY(24px); animation: headerIn 0.8s ease 0.1s forwards; }
+    @keyframes headerIn { to { opacity: 1; transform: translateY(0); } }
+    .blog-sidebar { opacity: 0; animation: headerIn 0.8s ease 0.35s forwards; }
+
+    /* ── TRAIN TRACK (fixed bottom bar) ── */
+    #train-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 60px;
+      background: #ffffff;
+      border-top: 1px solid var(--color-border);
+      z-index: 2000;
+      overflow: hidden;
     }
 
-    /* Animated timeline dot */
-    .day-section::before {
+    /* Track rails */
+    #train-bar::before {
       content: '';
       position: absolute;
-      left: -7px;
-      top: 0px;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--color-signal);
-      border: 2px solid var(--color-ink);
-      transform: scale(0);
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      bottom: 16px; left: 0; right: 0;
+      height: 2px;
+      background: var(--color-border);
     }
 
-    /* Dot pops in when section is visible */
-    .day-section.anim-visible::before {
-      transform: scale(1);
-    }
-
-    .day-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2.2rem;
-      letter-spacing: 0.04em;
-      line-height: 1;
-      margin-bottom: 1.5rem;
-      color: var(--color-ink);
+    /* Sleepers (cross ties) */
+    #train-sleepers {
+      position: absolute;
+      bottom: 10px; left: 0; right: 0;
+      height: 14px;
       display: flex;
-      align-items: center;
-      gap: 0.75rem;
+      gap: 0;
     }
 
-    .day-title span {
+    /* Progress fill on top rail */
+    #track-progress {
+      position: absolute;
+      bottom: 16px; left: 0;
+      height: 2px;
+      width: 0%;
+      background: var(--color-signal);
+      transition: width 0.15s linear;
+      z-index: 1;
+    }
+
+    /* Station dots */
+    .station-dot {
+      position: absolute;
+      bottom: 11px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2px solid var(--color-border);
+      transform: translateX(-50%);
+      z-index: 2;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .station-dot.passed {
+      border-color: var(--color-signal);
+      background: var(--color-signal);
+    }
+    .station-label {
+      position: absolute;
+      bottom: 26px;
       font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
-      letter-spacing: 0;
-      background: var(--color-surface);
-      padding: 0.2rem 0.6rem;
-      border: 1px solid var(--color-border);
-      border-radius: 2px;
-      color: var(--color-muted);
-    }
-
-    p {
-      font-size: 1.05rem;
-      color: #2b2b2b;
-      margin-bottom: 1.5rem;
-      text-align: justify;
-    }
-
-    p:last-child { margin-bottom: 0; }
-
-    .insight-quote {
-      background-color: var(--color-surface);
-      border-left: 3px solid var(--color-signal);
-      padding: 1.25rem 1.5rem;
-      margin: 1.8rem 0;
-      font-style: italic;
-    }
-
-    .insight-quote p {
-      font-size: 1rem;
-      color: var(--color-ink);
-      text-align: left;
-      margin: 0;
-    }
-
-    .summary-box {
-      background-color: var(--color-surface);
-      border-left: 3px solid var(--color-muted);
-      padding: 1.25rem 1.5rem;
-      margin-top: 1.8rem;
-    }
-
-    .summary-box strong {
-      font-family: 'DM Mono', monospace;
-      font-size: 0.75rem;
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--color-ink);
-      display: block;
-      margin-bottom: 0.4rem;
+      color: var(--color-muted);
+      transform: translateX(-50%);
+      white-space: nowrap;
+      transition: color 0.3s;
+    }
+    .station-label.passed { color: var(--color-signal); }
+
+    /* THE TRAIN */
+    #train {
+      position: absolute;
+      bottom: 13px;
+      left: 0%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      z-index: 10;
+      transition: left 0.15s linear;
     }
 
-    .summary-box p {
-      font-size: 0.95rem;
-      color: #555555;
-      text-align: left;
-      margin: 0;
-      line-height: 1.6;
+    /* Engine */
+    .train-engine {
+      position: relative;
+      width: 42px; height: 20px;
+      background: var(--color-ink);
+      border-radius: 3px 6px 0 0;
+    }
+    .train-engine::before {
+      content: '';
+      position: absolute;
+      top: -5px; right: 6px;
+      width: 10px; height: 6px;
+      background: var(--color-ink);
+      border-radius: 2px 2px 0 0;
+    }
+    /* Chimney smoke */
+    .train-engine::after {
+      content: '';
+      position: absolute;
+      top: -12px; right: 8px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #cccccc;
+      animation: puff 1.1s ease-in-out infinite;
+    }
+    @keyframes puff {
+      0%   { transform: scale(0.5) translateY(0); opacity: 0.9; }
+      100% { transform: scale(1.8) translateY(-8px); opacity: 0; }
+    }
+    .train-window {
+      position: absolute;
+      top: 4px; left: 6px;
+      width: 7px; height: 7px;
+      background: #e8f4ff;
+      border-radius: 1px;
+    }
+    .train-window.w2 { left: 17px; }
+    .train-engine-wheels {
+      position: absolute;
+      bottom: -5px; left: 0; right: 0;
+      display: flex; justify-content: space-around;
+    }
+    .wheel {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: #444;
+      border: 2px solid #222;
+      animation: spin 0.5s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Carriage */
+    .train-carriage {
+      position: relative;
+      width: 34px; height: 17px;
+      background: #333333;
+      border-radius: 2px 2px 0 0;
+    }
+    .train-carriage::after {
+      content: '';
+      position: absolute;
+      bottom: -5px; left: 4px; right: 4px;
+      display: flex;
+    }
+    .car-window {
+      position: absolute;
+      top: 3px; left: 5px;
+      width: 6px; height: 6px;
+      background: #e8f4ff;
+      border-radius: 1px;
+    }
+    .car-window.cw2 { left: 16px; }
+    .car-wheels {
+      position: absolute;
+      bottom: -5px; left: 0; right: 0;
+      display: flex; justify-content: space-around;
+    }
+    .car-wheel {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #444;
+      border: 2px solid #222;
+      animation: spin 0.5s linear infinite;
     }
 
-    /* ── SCROLL ANIMATION BASE STATES ── */
-
-    /* Section: fades up from below */
-    .day-section {
-      opacity: 0;
-      transform: translateY(40px);
-      transition:
-        opacity 0.7s ease,
-        transform 0.7s ease;
-    }
-    .day-section.anim-visible {
-      opacity: 1;
-      transform: translateY(0);
+    /* Connector between engine and carriage */
+    .train-connector {
+      width: 4px; height: 3px;
+      background: #555;
+      align-self: center;
+      margin-bottom: 5px;
     }
 
-    /* Paragraphs: cascade in with stagger (applied via JS) */
-    .anim-para {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.55s ease, transform 0.55s ease;
-    }
-    .anim-para.anim-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    /* Pause wheels when at 0% */
+    #train.parked .wheel,
+    #train.parked .car-wheel { animation-play-state: paused; }
 
-    /* Insight quote: slides in from left */
-    .insight-quote {
-      opacity: 0;
-      transform: translateX(-24px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .insight-quote.anim-visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    /* Summary box: slides in from left, slightly delayed */
-    .summary-box {
-      opacity: 0;
-      transform: translateX(-24px);
-      transition: opacity 0.6s ease 0.15s, transform 0.6s ease 0.15s;
-    }
-    .summary-box.anim-visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    /* Blog header: fades in on load */
-    .blog-header {
-      opacity: 0;
-      transform: translateY(24px);
-      animation: headerIn 0.8s ease 0.1s forwards;
-    }
-    @keyframes headerIn {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Sidebar: fades in slightly after header */
-    .blog-sidebar {
-      opacity: 0;
-      animation: headerIn 0.8s ease 0.35s forwards;
-    }
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--color-border); background: var(--color-surface); padding: 3rem 2rem; text-align: center; margin-top: 8rem; }
+    .footer-copy { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-muted); }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .blog-layout-grid { flex-direction: column; gap: 2rem; }
-      .blog-sidebar {
-        position: sticky; top: 4.5rem; width: 100%;
-        background: #ffffff; padding: 0.8rem 0;
-        border-bottom: 1px solid var(--color-border); z-index: 50;
-      }
+      .blog-sidebar { position: sticky; top: 4.5rem; width: 100%; background: #ffffff; padding: 0.8rem 0; border-bottom: 1px solid var(--color-border); z-index: 50; }
       .sidebar-title { display: none; }
-      .sidebar-menu {
-        flex-direction: row; justify-content: flex-start;
-        gap: 1rem; overflow-x: auto; white-space: nowrap; padding-bottom: 0.2rem;
-      }
-      .sidebar-link {
-        border-left: none; padding-left: 0;
-        background: var(--color-surface); padding: 0.4rem 1rem;
-        border-radius: 3px; font-size: 0.75rem;
-      }
+      .sidebar-menu { flex-direction: row; justify-content: flex-start; gap: 1rem; overflow-x: auto; white-space: nowrap; padding-bottom: 0.2rem; }
+      .sidebar-link { border-left: none; padding-left: 0; background: var(--color-surface); padding: 0.4rem 1rem; border-radius: 3px; font-size: 0.75rem; }
       .sidebar-link:hover { padding-left: 1rem; background: var(--color-ink); color: #fff; }
     }
-
     @media (max-width: 600px) {
       .blog-title { font-size: 2.6rem; }
       nav { padding: 1rem; }
@@ -399,9 +291,6 @@
   </style>
 </head>
 <body>
-
-  <!-- Reading progress bar -->
-  <div id="read-progress"></div>
 
   <nav>
     <a href="index.html" class="nav-logo">Taste<span>.</span></a>
@@ -417,7 +306,6 @@
   </nav>
 
   <main class="blog-container">
-    
     <header class="blog-header">
       <div class="blog-eyebrow">Development Logs</div>
       <h1 class="blog-title">Building Gastronomy with Code & Intelligence</h1>
@@ -425,7 +313,6 @@
     </header>
 
     <div class="blog-layout-grid">
-      
       <aside class="blog-sidebar">
         <h3 class="sidebar-title">Jump to Logs</h3>
         <ul class="sidebar-menu">
@@ -436,17 +323,14 @@
       </aside>
 
       <div class="blog-content-stream">
-        
+
         <section class="day-section" id="day1">
           <h2 class="day-title">Day 1 <span>Foundations & Prompts</span></h2>
           <p>On the first day, I was introduced to two platforms: Claude and GitHub. Claude is an AI assistant that is particularly strong at coding, while GitHub is a platform where developers use and share code to build websites and applications using HTML (HyperText Markup Language). Through these tools, I learned how to use code generated by Claude and Gemini to create a food-themed website. I also learned how to upload files to GitHub, convert YouTube videos into MP4 format, and link files to navigation bars and cards within a webpage.</p>
-          
           <p>What surprised me the most was how powerful AI has become. Every single line of code for my website was generated by AI. Bugs and errors that were quickly detected and fixed by AI. The entire document of HTML code was quickly provided by AI.</p>
-          
           <div class="insight-quote">
             <p>This experience taught me another important lesson: prompts matter. The quality of AI-generated output depends heavily on the level of detail and clarity provided in the prompt. A vague prompt often produces generic results, while a specific and well-structured prompt allows the AI to generate accurate and useful solutions.</p>
           </div>
-
           <div class="summary-box">
             <strong>Log Summary</strong>
             <p>Introduced to GitHub and Claude/Gemini to build a food website from entirely AI-generated lines. Key takeaway: The final quality of AI execution is directly proportional to how specific, clear, and well-structured your initial prompts are.</p>
@@ -456,11 +340,8 @@
         <section class="day-section" id="day2">
           <h2 class="day-title">Day 2 <span>Modals, Maps & Interactivity</span></h2>
           <p>On the second day, I learned how to create modals—small windows that appear when users click a navigation button or a card. Instead of opening an entirely new webpage every time users want additional information, modals allow content to appear instantly without disrupting the browsing experience. I found this feature especially useful because it makes websites feel smoother and more convenient to use.</p>
-          
           <p>Next, I created a map widget of Singapore that displayed the locations of top-rated Chinese restaurants along with links to their official websites. To ensure that the recommendations were reliable and to avoid plagiarism, I asked Gemini to conduct research on the restaurants it selected. I discovered that Gemini referenced the Michelin Guide, one of the world's most respected food-rating systems, when identifying highly rated restaurants.</p>
-          
           <p>Finally, I decided to add a search bar to my website. Compared to linking videos or creating simple pages, this task was significantly more challenging. It required the AI to analyse and understand the structure of the entire HTML document. Through this process, I gained a deeper understanding of how different AI models work. Much of the time, AI predicts the next word of the prompt. However, I found Claude particularly impressive because it appeared capable of analysing the broader context of both the prompt and the HTML code. As a result, it often provided more accurate diagnoses of coding issues and generated more effective fixes. Another thing to note is that the food pictures and recipes are generated by Gemini. It is good at generating cool images.</p>
-
           <div class="summary-box">
             <strong>Log Summary</strong>
             <p>Implemented inline information modals, built a Singapore dining map widget cross-referenced with the Michelin Guide, and successfully added a contextual search bar. Discovered that Claude excels remarkably at understanding broad, layout-wide contextual code fixes.</p>
@@ -470,11 +351,8 @@
         <section class="day-section" id="day3" style="margin-bottom: 0;">
           <h2 class="day-title">Day 3 <span>Critiques & Technical Autonomy</span></h2>
           <p>Once again, Claude's capabilities impressed me. I asked Claude to pretend to be a user and provided it with the URL of my website. Within moments, it gave me feedback from a user's perspective, commenting on the overall experience, highlighting what worked well, and suggesting areas for improvement. More impressively, Claude generated the HTML code for an improved version of my homepage, along with four additional webpages linked through the navigation bar.</p>
-          
           <p>After reaching Claude's usage limit, I turned to ChatGPT for further assistance with coding. I discovered something different about ChatGPT's approach. Instead of providing an entirely new version of the HTML code, it often taught me how to modify my existing code by identifying which sections to replace and where to insert new lines. This was not necessarily a disadvantage. Although ChatGPT was less convenient than Claude and Gemini in terms of generating complete solutions, it encouraged me to understand the structure of the code and strengthened my ability to locate, interpret, and edit specific sections independently.</p>
-          
           <p>However, I also encountered some limitations. ChatGPT struggled to help me create a map widget for my website, and its safety and privacy restrictions occasionally prevented it from carrying out certain requests. Despite these challenges, the experience showed me that different AI tools have different strengths: while some prioritise speed and convenience, others promote a deeper understanding of the coding process.</p>
-
           <div class="summary-box">
             <strong>Log Summary</strong>
             <p>Utilized Claude to perform user experience critiques and multi-page code upgrades. Pivoted to ChatGPT after hitting usage limits, observing that while ChatGPT was less convenient for instant templates, its modular approach forced a better manual understanding of script structure.</p>
@@ -483,27 +361,117 @@
 
       </div>
     </div>
-
   </main>
 
   <footer>
     <div class="footer-copy">© 2026 Taste & Beverages. Reflections on Ecosystem Engineering.</div>
   </footer>
 
-  <script>
-    // ── 1. READING PROGRESS BAR ───────────────────────────────────
-    const progressBar = document.getElementById('read-progress');
-    function updateProgress() {
-      const scrollTop    = window.scrollY;
-      const docHeight    = document.documentElement.scrollHeight - window.innerHeight;
-      const pct          = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      progressBar.style.width = pct + '%';
-    }
-    window.addEventListener('scroll', updateProgress, { passive: true });
+  <!-- ── TRAIN BAR ── -->
+  <div id="train-bar">
+    <!-- Sleeper ties drawn by JS -->
+    <div id="train-sleepers"></div>
+    <!-- Red progress fill on rail -->
+    <div id="track-progress"></div>
+    <!-- Station dots injected by JS -->
 
-    // ── 2. SCROLL REVEAL OBSERVER ─────────────────────────────────
-    // Targets: day sections, insight quotes, summary boxes
-    const revealObserver = new IntersectionObserver((entries) => {
+    <!-- The train -->
+    <div id="train" class="parked">
+      <!-- Carriage (behind engine, so rendered first) -->
+      <div class="train-carriage">
+        <div class="car-window"></div>
+        <div class="car-window cw2"></div>
+        <div class="car-wheels">
+          <div class="car-wheel"></div>
+          <div class="car-wheel"></div>
+        </div>
+      </div>
+      <div class="train-connector"></div>
+      <!-- Engine (front) -->
+      <div class="train-engine">
+        <div class="train-window"></div>
+        <div class="train-window w2"></div>
+        <div class="train-engine-wheels">
+          <div class="wheel"></div>
+          <div class="wheel"></div>
+          <div class="wheel"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── TRAIN PROGRESS ────────────────────────────────────────────
+    const trainEl     = document.getElementById('train');
+    const trackFill   = document.getElementById('track-progress');
+    const sleepersEl  = document.getElementById('train-sleepers');
+    const trainBar    = document.getElementById('train-bar');
+
+    // Draw sleeper ties across the bar
+    (function drawSleepers() {
+      const barW = window.innerWidth;
+      const count = Math.ceil(barW / 18);
+      sleepersEl.innerHTML = '';
+      for (let i = 0; i < count; i++) {
+        const s = document.createElement('div');
+        s.style.cssText = 'width:10px;height:14px;background:#e0e0e0;border-radius:1px;flex-shrink:0;margin-right:8px;';
+        sleepersEl.appendChild(s);
+      }
+    })();
+
+    // Station definitions — % position on track, label, section id
+    const stations = [
+      { pct: 5,   label: 'Start',  id: null    },
+      { pct: 35,  label: 'Day 1',  id: 'day1'  },
+      { pct: 62,  label: 'Day 2',  id: 'day2'  },
+      { pct: 88,  label: 'Day 3',  id: 'day3'  },
+      { pct: 97,  label: 'End',    id: null     },
+    ];
+
+    // Inject station dots and labels
+    stations.forEach(st => {
+      const dot = document.createElement('div');
+      dot.className = 'station-dot';
+      dot.style.left = st.pct + '%';
+      dot.dataset.pct = st.pct;
+      trainBar.appendChild(dot);
+
+      const lbl = document.createElement('div');
+      lbl.className = 'station-label';
+      lbl.style.left = st.pct + '%';
+      lbl.textContent = st.label;
+      trainBar.appendChild(lbl);
+    });
+
+    // Scroll → train position
+    function updateTrain() {
+      const scrollTop  = window.scrollY;
+      const docHeight  = document.documentElement.scrollHeight - window.innerHeight;
+      const pct        = docHeight > 0 ? Math.min((scrollTop / docHeight) * 100, 100) : 0;
+
+      // Move train (offset so the engine front leads)
+      trainEl.style.left = pct + '%';
+      trackFill.style.width = pct + '%';
+
+      // Spin or stop wheels
+      trainEl.classList.toggle('parked', pct < 1);
+
+      // Light up passed station dots
+      document.querySelectorAll('.station-dot').forEach(dot => {
+        const stPct = parseFloat(dot.dataset.pct);
+        dot.classList.toggle('passed', pct >= stPct - 1);
+      });
+      document.querySelectorAll('.station-label').forEach((lbl, i) => {
+        const stPct = parseFloat(stations[i].pct);
+        lbl.classList.toggle('passed', pct >= stPct - 1);
+      });
+    }
+
+    window.addEventListener('scroll', updateTrain, { passive: true });
+    updateTrain();
+
+    // ── SCROLL REVEAL ─────────────────────────────────────────────
+    const revealObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('anim-visible');
@@ -515,15 +483,13 @@
     document.querySelectorAll('.day-section, .insight-quote, .summary-box')
       .forEach(el => revealObserver.observe(el));
 
-    // ── 3. PARAGRAPH CASCADE ─────────────────────────────────────
-    // Tag each <p> inside day sections and stagger their delay
+    // ── PARAGRAPH CASCADE ─────────────────────────────────────────
     document.querySelectorAll('.day-section p').forEach((p, i) => {
       p.classList.add('anim-para');
-      // Stagger delay: first para 0.2s, then +0.12s each
       p.style.transitionDelay = (0.2 + (i % 4) * 0.12) + 's';
     });
 
-    const paraObserver = new IntersectionObserver((entries) => {
+    const paraObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('anim-visible');
@@ -534,12 +500,11 @@
 
     document.querySelectorAll('.anim-para').forEach(p => paraObserver.observe(p));
 
-    // ── 4. ACTIVE SIDEBAR HIGHLIGHT ──────────────────────────────
-    // Highlights the correct sidebar link as user scrolls through sections
-    const sections    = document.querySelectorAll('.day-section');
+    // ── ACTIVE SIDEBAR HIGHLIGHT ──────────────────────────────────
+    const sections     = document.querySelectorAll('.day-section');
     const sidebarLinks = document.querySelectorAll('.sidebar-link[data-target]');
 
-    const sectionObserver = new IntersectionObserver((entries) => {
+    const sectionObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const id = entry.target.id;
