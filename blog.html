@@ -1,82 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Blog — Taste & Beverages</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="style.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our AI Journey — Taste & Beverages Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
-    nav { position: relative; z-index: 1000; }
-    #cursor { position:fixed;width:20px;height:20px;border:2px solid #111;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none!important;z-index:99999;mix-blend-mode:difference;transition:width .2s,height .2s;background:transparent; }
-    #cursor.expand { width:40px;height:40px; }
-    .coming-soon-wrap {
-      min-height: calc(100vh - 56px);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center; padding: 4rem 2rem;
-      border-bottom: 1px solid var(--color-border, #ddd);
+    :root {
+      --color-ink: #111111;
+      --color-muted: #888888;
+      --color-muted-2: #aaaaaa;
+      --color-signal: #e8333a;
+      --color-surface: #f5f5f5;
+      --color-border: #dddddd;
+      --space-md: 1.5rem;
     }
-    .cs-eyebrow {
-      font-family: 'DM Mono', monospace; font-size: 0.68rem;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--color-muted, #888); margin-bottom: 1.5rem;
-      display: flex; align-items: center; gap: 0.6rem;
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-    .cs-eyebrow::before {
-      content:''; width:6px; height:6px;
-      background:var(--color-signal,#e8333a); border-radius:50%;
-      animation:pulse 1.8s infinite;
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--color-ink);
+      background-color: #ffffff;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
     }
-    .cs-title {
+
+    /* ── NAVIGATION (Matches index.html) ── */
+    nav {
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      z-index: 1000;
+    }
+
+    .nav-logo {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(4rem, 10vw, 9rem); line-height: 0.92;
-      letter-spacing: 0.02em; margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      color: var(--color-ink);
     }
-    .cs-sub {
-      font-size: 1rem; color: var(--color-muted, #888);
-      max-width: 440px; line-height: 1.7; margin-bottom: 2.5rem;
+
+    .nav-logo span {
+      color: var(--color-signal);
     }
-    .cs-back {
-      font-family: 'DM Mono', monospace; font-size: 0.72rem;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--color-ink, #111); text-decoration: none;
-      border-bottom: 1px solid var(--color-ink, #111);
-      padding-bottom: 2px; transition: color 0.2s, border-color 0.2s;
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: var(--space-md);
     }
-    .cs-back:hover { color: var(--color-signal,#e8333a); border-color: var(--color-signal,#e8333a); }
-    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+
+    .nav-links a {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--color-ink);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--color-signal);
+    }
+
+    .btn-solid {
+      background: var(--color-ink);
+      color: #ffffff;
+      padding: 0.5rem 1.2rem;
+      border-radius: 3px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      font-family: 'DM Sans', sans-serif;
+      transition: background 0.2s;
+    }
+
+    .btn-solid:hover {
+      background: var(--color-signal);
+    }
+
+    /* ── LAYOUT & HEADER ── */
+    .blog-container {
+      max-width: 760px;
+      margin: 4rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .blog-header {
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 2.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .blog-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-signal);
+      margin-bottom: 0.75rem;
+    }
+
+    .blog-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.5rem;
+      line-height: 1.05;
+      letter-spacing: 0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .blog-meta {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--color-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── TIMELINE LOGIC ── */
+    .day-section {
+      position: relative;
+      padding-left: 2.5rem;
+      border-left: 2px solid var(--color-ink);
+      margin-bottom: 4.5rem;
+    }
+
+    .day-section::before {
+      content: '';
+      position: absolute;
+      left: -7px;
+      top: 0px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--color-signal);
+      border: 2px solid var(--color-ink);
+    }
+
+    .day-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      color: var(--color-ink);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .day-title span {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0;
+      background: var(--color-surface);
+      padding: 0.2rem 0.6rem;
+      border: 1px solid var(--color-border);
+      border-radius: 2px;
+      color: var(--color-muted);
+    }
+
+    p {
+      font-size: 1.05rem;
+      color: #2b2b2b;
+      margin-bottom: 1.5rem;
+      text-align: justify;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Highlight box for key realizations */
+    .insight-quote {
+      background-color: var(--color-surface);
+      border-left: 3px solid var(--color-signal);
+      padding: 1.25rem 1.5rem;
+      margin: 1.8rem 0;
+      font-style: italic;
+    }
+
+    .insight-quote p {
+      font-size: 1rem;
+      color: var(--color-ink);
+      text-align: left;
+      margin: 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--color-border);
+      background: var(--color-surface);
+      padding: 3rem 2rem;
+      text-align: center;
+      margin-top: 8rem;
+    }
+
+    .footer-copy {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    @media (max-width: 600px) {
+      .blog-title { font-size: 2.6rem; }
+      nav { padding: 1rem; }
+      .nav-links { display: none; } /* Kept clean for simple navigation */
+      .day-section { padding-left: 1.5rem; }
+    }
   </style>
 </head>
 <body>
-  <div id="cursor"></div>
+
   <nav>
     <a href="index.html" class="nav-logo">Taste<span>.</span></a>
     <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
       <li><a href="explore.html">Explore</a></li>
       <li><a href="top-restaurants.html">Winners</a></li>
       <li><a href="academy.html">Academy</a></li>
-      <li><a href="blog.html" style="color:var(--color-ink,#111)">Blog</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
       <li><a href="directory.html">Directory</a></li>
     </ul>
-    <div class="nav-right">
-      <a href="#" class="btn-outline">Log in</a>
-      <a href="#" class="btn-solid">Submit</a>
-    </div>
+    <a href="index.html" class="btn-solid">Back to Project</a>
   </nav>
-  <div class="coming-soon-wrap">
-    <div class="cs-eyebrow">Coming Soon</div>
-    <h1 class="cs-title">Blog</h1>
-    <p class="cs-sub">Stories, interviews, and behind-the-scenes features from the world of culinary web design. Coming soon.</p>
-    <a href="index.html" class="cs-back">← Back to Home</a>
-  </div>
-  <script>
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', e => { cursor.style.left=e.clientX+'px'; cursor.style.top=e.clientY+'px'; });
-    document.querySelectorAll('a,button').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('expand'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('expand'));
-    });
-  </script>
+
+  <main class="blog-container">
+    
+    <header class="blog-header">
+      <div class="blog-eyebrow">Development Logs</div>
+      <h1 class="blog-title">Building Gastronomy with Code & Intelligence</h1>
+      <div class="blog-meta">Posted by Creator • 3 Days of Reflection</div>
+    </header>
+
+    <section class="day-section">
+      <h2 class="day-title">Day 1 <span>Foundations & Prompts</span></h2>
+      <p>On the first day, I was introduced to two platforms: Claude and GitHub. Claude is an AI assistant that is particularly strong at coding, while GitHub is a platform where developers use and share code to build websites and applications using HTML (HyperText Markup Language). Through these tools, I learned how to use code generated by Claude and Gemini to create a food-themed website. I also learned how to upload files to GitHub, convert YouTube videos into MP4 format, and link files to navigation bars and cards within a webpage.</p>
+      
+      <p>What surprised me the most was how powerful AI has become. Every single line of code for my website was generated by AI. Bugs and errors that were quickly detected and fixed by AI. The entire document of HTML code was quickly provided by AI.</p>
+      
+      <div class="insight-quote">
+        <p>This experience taught me another important lesson: prompts matter. The quality of AI-generated output depends heavily on the level of detail and clarity provided in the prompt. A vague prompt often produces generic results, while a specific and well-structured prompt allows the AI to generate accurate and useful solutions.</p>
+      </div>
+    </section>
+
+    <section class="day-section">
+      <h2 class="day-title">Day 2 <span>Modals, Maps & Interactivity</span></h2>
+      <p>On the second day, I learned how to create modals—small windows that appear when users click a navigation button or a card. Instead of opening an entirely new webpage every time users want additional information, modals allow content to appear instantly without disrupting the browsing experience. I found this feature especially useful because it makes websites feel smoother and more convenient to use.</p>
+      
+      <p>Next, I created a map widget of Singapore that displayed the locations of top-rated Chinese restaurants along with links to their official websites. To ensure that the recommendations were reliable and to avoid plagiarism, I asked Gemini to conduct research on the restaurants it selected. I discovered that Gemini referenced the Michelin Guide, one of the world's most respected food-rating systems, when identifying highly rated restaurants.</p>
+      
+      <p>Finally, I decided to add a search bar to my website. Compared to linking videos or creating simple pages, this task was significantly more challenging. It required the AI to analyse and understand the structure of the entire HTML document. Through this process, I gained a deeper understanding of how different AI models work. Much of the time, AI predicts the next word of the prompt. However, I found Claude particularly impressive because it appeared capable of analysing the broader context of both the prompt and the HTML code. As a result, it often provided more accurate diagnoses of coding issues and generated more effective fixes. Another thing to note is that the food pictures and recipes are generated by Gemini. It is good at generating cool images.</p>
+    </section>
+
+    <section class="day-section" style="margin-bottom: 0;">
+      <h2 class="day-title">Day 3 <span>Critiques & Technical Autonomy</span></h2>
+      <p>Once again, Claude's capabilities impressed me. I asked Claude to pretend to be a user and provided it with the URL of my website. Within moments, it gave me feedback from a user's perspective, commenting on the overall experience, highlighting what worked well, and suggesting areas for improvement. More impressively, Claude generated the HTML code for an improved version of my homepage, along with four additional webpages linked through the navigation bar.</p>
+      
+      <p>After reaching Claude's usage limit, I turned to ChatGPT for further assistance with coding. I discovered something different about ChatGPT's approach. Instead of providing an entirely new version of the HTML code, it often taught me how to modify my existing code by identifying which sections to replace and where to insert new lines. This was not necessarily a disadvantage. Although ChatGPT was less convenient than Claude and Gemini in terms of generating complete solutions, it encouraged me to understand the structure of the code and strengthened my ability to locate, interpret, and edit specific sections independently.</p>
+      
+      <p>However, I also encountered some limitations. ChatGPT struggled to help me create a map widget for my website, and its safety and privacy restrictions occasionally prevented it from carrying out certain requests. Despite these challenges, the experience showed me that different AI tools have different strengths: while some prioritise speed and convenience, others promote a deeper understanding of the coding process. Through using all three platforms, I realised that AI should not simply be viewed as a shortcut for producing results, but also as a learning tool that can help users develop problem-solving and technical skills.</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-copy">© 2026 Taste & Beverages. Reflections on Ecosystem Engineering.</div>
+  </footer>
+
 </body>
 </html>
