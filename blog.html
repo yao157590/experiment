@@ -45,8 +45,55 @@
     .nav-links { display: flex; list-style: none; gap: var(--space-md); }
     .nav-links a { font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; color: var(--color-ink); transition: color 0.2s; }
     .nav-links a:hover, .nav-links a.active { color: var(--color-signal); }
+    
+    /* ── LANGUAGE SWITCHER & ACTIONS ── */
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85rem;
+    }
+    .lang-btn {
+      background: none;
+      border: none;
+      color: var(--color-muted);
+      cursor: pointer;
+      padding: 2px 6px;
+      text-transform: uppercase;
+      transition: color 0.2s, font-weight 0.2s;
+      font-weight: 500;
+    }
+    .lang-btn:hover {
+      color: var(--color-ink);
+    }
+    .lang-btn.active {
+      color: var(--color-signal);
+      font-weight: 700;
+    }
+    .lang-divider {
+      color: var(--color-border);
+    }
+
     .btn-solid { background: var(--color-ink); color: #ffffff; padding: 0.5rem 1.2rem; border-radius: 3px; text-decoration: none; font-size: 0.85rem; font-weight: 500; font-family: 'DM Sans', sans-serif; transition: background 0.2s; }
     .btn-solid:hover { background: var(--color-signal); }
+
+    /* Hide Google Translate top bar and widgets cleanly */
+    .goog-te-banner-frame.skiptranslate, .goog-te-gadget {
+      display: none !important;
+    }
+    body {
+      top: 0px !important;
+    }
+    .goog-text-highlight {
+      background-color: transparent !important;
+      box-shadow: none !important;
+    }
 
     /* ── LAYOUT ── */
     .blog-container { max-width: 1080px; margin: 4rem auto; padding: 0 1.5rem; }
@@ -286,6 +333,9 @@
       .blog-title { font-size: 2.6rem; }
       nav { padding: 1rem; }
       .nav-links { display: none; }
+      .nav-actions { gap: 0.5rem; }
+      .lang-switcher { font-size: 0.75rem; }
+      .btn-solid { padding: 0.4rem 0.8rem; font-size: 0.75rem; }
       .day-section { padding-left: 1.5rem; }
     }
   </style>
@@ -302,7 +352,15 @@
       <li><a href="blog.html" class="active">Blog</a></li>
       <li><a href="directory.html">Directory</a></li>
     </ul>
-    <a href="index.html" class="btn-solid">Back to Project</a>
+    
+    <div class="nav-actions">
+      <div class="lang-switcher">
+        <button onclick="changeLanguage('en')" class="lang-btn active" id="lang-btn-en">EN</button>
+        <span class="lang-divider">/</span>
+        <button onclick="changeLanguage('zh-CN')" class="lang-btn" id="lang-btn-zh">中文</button>
+      </div>
+      <a href="index.html" class="btn-solid">Back to Project</a>
+    </div>
   </nav>
 
   <main class="blog-container">
@@ -367,17 +425,11 @@
     <div class="footer-copy">© 2026 Taste & Beverages. Reflections on Ecosystem Engineering.</div>
   </footer>
 
-  <!-- ── TRAIN BAR ── -->
   <div id="train-bar">
-    <!-- Sleeper ties drawn by JS -->
     <div id="train-sleepers"></div>
-    <!-- Red progress fill on rail -->
     <div id="track-progress"></div>
-    <!-- Station dots injected by JS -->
 
-    <!-- The train -->
     <div id="train" class="parked">
-      <!-- Carriage (behind engine, so rendered first) -->
       <div class="train-carriage">
         <div class="car-window"></div>
         <div class="car-window cw2"></div>
@@ -387,7 +439,6 @@
         </div>
       </div>
       <div class="train-connector"></div>
-      <!-- Engine (front) -->
       <div class="train-engine">
         <div class="train-window"></div>
         <div class="train-window w2"></div>
@@ -400,6 +451,37 @@
     </div>
   </div>
 
+  <div id="google_translate_element" style="display:none;"></div>
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,zh-CN',
+        autoDisplay: false
+      }, 'google_translate_element');
+    }
+
+    function changeLanguage(langCode) {
+      var selectEl = document.querySelector('select.goog-te-combo');
+      if (selectEl) {
+        selectEl.value = langCode;
+        selectEl.dispatchEvent(new Event('change'));
+        
+        // Toggle active visual states on UI buttons
+        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+        if (langCode === 'en') {
+          document.getElementById('lang-btn-en').classList.add('active');
+        } else if (langCode === 'zh-CN') {
+          document.getElementById('lang-btn-zh').classList.add('active');
+        }
+      } else {
+        // Retry shortly if the API widget has not finished rendering yet
+        setTimeout(() => changeLanguage(langCode), 300);
+      }
+    }
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
   <script>
     // ── TRAIN PROGRESS ────────────────────────────────────────────
     const trainEl     = document.getElementById('train');
@@ -407,7 +489,6 @@
     const sleepersEl  = document.getElementById('train-sleepers');
     const trainBar    = document.getElementById('train-bar');
 
-    // Draw sleeper ties across the bar
     (function drawSleepers() {
       const barW = window.innerWidth;
       const count = Math.ceil(barW / 18);
@@ -419,16 +500,14 @@
       }
     })();
 
-    // Station definitions — % position on track, label, section id
     const stations = [
-      { pct: 5,   label: 'Start',  id: null    },
-      { pct: 35,  label: 'Day 1',  id: 'day1'  },
-      { pct: 62,  label: 'Day 2',  id: 'day2'  },
-      { pct: 88,  label: 'Day 3',  id: 'day3'  },
-      { pct: 97,  label: 'End',    id: null     },
+      { pct: 5,   label: 'Start',   id: null    },
+      { pct: 35,  label: 'Day 1',   id: 'day1'  },
+      { pct: 62,  label: 'Day 2',   id: 'day2'  },
+      { pct: 88,  label: 'Day 3',   id: 'day3'  },
+      { pct: 97,  label: 'End',     id: null     },
     ];
 
-    // Inject station dots and labels
     stations.forEach(st => {
       const dot = document.createElement('div');
       dot.className = 'station-dot';
@@ -443,20 +522,16 @@
       trainBar.appendChild(lbl);
     });
 
-    // Scroll → train position
     function updateTrain() {
       const scrollTop  = window.scrollY;
       const docHeight  = document.documentElement.scrollHeight - window.innerHeight;
       const pct        = docHeight > 0 ? Math.min((scrollTop / docHeight) * 100, 100) : 0;
 
-      // Move train (offset so the engine front leads)
       trainEl.style.left = pct + '%';
       trackFill.style.width = pct + '%';
 
-      // Spin or stop wheels
       trainEl.classList.toggle('parked', pct < 1);
 
-      // Light up passed station dots
       document.querySelectorAll('.station-dot').forEach(dot => {
         const stPct = parseFloat(dot.dataset.pct);
         dot.classList.toggle('passed', pct >= stPct - 1);
