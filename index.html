@@ -353,7 +353,6 @@
     .goog-te-banner-frame.skiptranslate, .goog-te-banner-frame { display: none !important; }
     #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
     .goog-text-highlight { background-color: transparent !important; box-shadow: none !important; }
-  
   </style>
 </head>
 <body>
@@ -818,13 +817,6 @@
       font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
       color: #e8333a; flex-shrink: 0; line-height: 1;
     }
-
-    /* Hide Google Translate top bar and pop-up widgets */
-    body { top: 0px !important; }
-    .goog-te-banner-frame.skiptranslate, .goog-te-banner-frame { display: none !important; }
-    #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
-    .goog-text-highlight { background-color: transparent !important; box-shadow: none !important; }
-  
   </style>
 
   <script>
@@ -1220,7 +1212,6 @@
       }
     });
   </script>
-
   <!-- Hidden Google Translate Element Engine & Trigger Logic -->
   <div id="google_translate_element" style="display:none;"></div>
   <script type="text/javascript">
@@ -1237,6 +1228,9 @@
       if (selectEl) {
         selectEl.value = langCode;
         selectEl.dispatchEvent(new Event('change'));
+      } else {
+        // Translate widget hasn't finished loading yet — retry shortly
+        setTimeout(() => changeLanguage(langCode), 300);
       }
     }
   </script>
