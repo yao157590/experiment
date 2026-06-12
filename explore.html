@@ -183,6 +183,12 @@
     .restaurant-sidebar::-webkit-scrollbar { width: 4px; }
     .restaurant-sidebar::-webkit-scrollbar-track { background: #121212; }
     .restaurant-sidebar::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 2px; }
+
+    /* Hide Google Translate top bar and pop-up widgets */
+    body { top: 0px !important; }
+    .goog-te-banner-frame.skiptranslate, .goog-te-banner-frame { display: none !important; }
+    #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
+    .goog-text-highlight { background-color: transparent !important; box-shadow: none !important; }
   </style>
 </head>
 <body>
@@ -198,7 +204,8 @@
       <li><a href="#">Blog</a></li>
     </ul>
     <div class="nav-right">
-      <a href="#" class="btn-outline">Log in</a>
+      <a href="#" class="btn-outline" onclick="changeLanguage('zh-CN'); return false;">Chinese</a>
+      <a href="#" class="btn-solid" onclick="changeLanguage('en'); return false;">English</a>
     </div>
   </nav>
 
@@ -440,5 +447,29 @@
       }
     }, 400);
   </script>
+
+  <!-- Hidden Google Translate Element Engine & Trigger Logic -->
+  <div id="google_translate_element" style="display:none;"></div>
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,zh-CN',
+        autoDisplay: false
+      }, 'google_translate_element');
+    }
+
+    function changeLanguage(langCode) {
+      var selectEl = document.querySelector('select.goog-te-combo');
+      if (selectEl) {
+        selectEl.value = langCode;
+        selectEl.dispatchEvent(new Event('change'));
+      } else {
+        // Translate widget hasn't finished loading yet — retry shortly
+        setTimeout(() => changeLanguage(langCode), 300);
+      }
+    }
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
